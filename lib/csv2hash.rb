@@ -1,4 +1,5 @@
-require 'brawne/version.rb'
+require 'csv2hash/version'
+require 'csv2hash/definition'
 
-module Csv2hash  
+module Csv2hash
 end

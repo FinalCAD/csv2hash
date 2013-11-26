@@ -1,10 +1,7 @@
-lib = File.expand_path '../lib', __FILE__
-
-require 'csv2hash/version'
-
 Gem::Specification.new do |spec|
+
   spec.name        = 'csv2hash'
-  spec.version     = Csv2hash::VERSION
+  spec.version     = '0.0.1'
   spec.date        = '2013-11-26'
   spec.summary     = %q{Mapping CSV to Ruby Hash}
   spec.description = %q{DSL for CSV Ruby Hash mapping}
