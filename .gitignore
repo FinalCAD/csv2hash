@@ -1,0 +1,6 @@
+.ruby-gemset
+.ruby-version
+private.notes
+*.gem
+bundler/
+
