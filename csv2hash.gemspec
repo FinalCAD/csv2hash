@@ -1,0 +1,26 @@
+lib = File.expand_path '../lib', __FILE__
+
+require 'csv2hash/version'
+
+Gem::Specification.new do |spec|
+  spec.name        = 'csv2hash'
+  spec.version     = Csv2hash::VERSION
+  spec.date        = '2013-11-26'
+  spec.summary     = %q{Mapping CSV to Ruby Hash}
+  spec.description = %q{DSL for CSV Ruby Hash mapping}
+  spec.authors     = ['Joel AZEMAR']
+  spec.email       = 'joel.azemar@gmail.com'
+  spec.files       = ['lib/csv2hash.rb']
+  spec.homepage    = 'https://github.com/joel/csv2hash'
+  spec.license     = 'MIT'
+
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
+
+  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+
+end
