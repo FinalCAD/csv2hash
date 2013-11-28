@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/joel/csv2hash/badge.png)](https://coveralls.io/r/joel/csv2hash)
 
 
-It's DSL for valided ant mapped CSV to Ruby Hash
+It's DSL for valided and map CSV to Ruby Hash
 
 ## Installation
 
@@ -27,27 +27,28 @@ Or install it yourself as:
 
 ## Usage
 
-You should be declare on definition for you CSV, for each cells you should define what you expect.
+You should be declare an definition for you CSV, for each cells you should define what you expect.
 
 Example :
 
-You want first cell parsed should be string with values are yes or no you must fill follow rule :
+You want first cell parsed should be string with values are 'yes' or 'no' you must fill follow rule :
 
 	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
 
-Some key as default value, so you can just define this rule :
+All keys as default value, so you can just define this rule :
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
 
-You can define message, if you insert key on you message their sub
+You can define message, default is 'undefined :key on :position'
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
 
-if you insert key on you message their substitue by value
+if you insert key on you message they will be substituted
 
 	{ ..., message: 'value of :name is not supported, please you one of :values' }
 
-produce 'value of aswering is not supported, please you one of [yes, no]'
+produce ':
+	value of aswering is not supported, please you one of [yes, no]'
 
 #### Default values
 
