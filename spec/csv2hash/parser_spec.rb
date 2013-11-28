@@ -24,4 +24,16 @@ describe Parser do
     }
   end
 
+  context 'with nested' do
+    let(:data_source) { [ [ 'John Doe', 22 ] ] }
+    before do
+      definition.rules << { position: [0,1], key: 'age', nested: 'infos' }
+    end
+    it {
+      subject.tap { |c| c.parse }.data.should eql(
+        { data: [ { 'name' => 'John Doe', 'infos' => { 'age' => 22 } } ] }
+      )
+    }
+  end
+
 end

@@ -7,14 +7,16 @@ require 'csv2hash/parser'
 class Csv2hash
   include Validator
   include Parser
-  
+
   attr_accessor :definition, :data_source, :data
 
   def initialize definition, data_source
     @definition, @data_source = definition, data_source
   end
-  
+
   def parse
+    definition.validate!
+    definition.set_default!
     validate_data!
     fill!
   end
