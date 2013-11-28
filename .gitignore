@@ -4,3 +4,7 @@ private.notes
 *.gem
 bundler/
 
+
+coverage/.last_run.json
+
+coverage/.resultset.json
