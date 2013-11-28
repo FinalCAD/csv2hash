@@ -1,5 +1,14 @@
 # Csv2Hash
 
+[![Code Climate](https://codeclimate.com/github/joel/csv2hash.png)](https://codeclimate.com/github/joel/csv2hash)
+
+[![Dependency Status](https://gemnasium.com/joel/csv2hash.png)](https://gemnasium.com/joel/csv2hash)
+
+[![Build Status](https://travis-ci.org/joel/csv2hash.png?branch=master)](https://travis-ci.org/joel/csv2hash) (Travis CI)
+
+[![Coverage Status](https://coveralls.io/repos/joel/csv2hash/badge.png)](https://coveralls.io/r/joel/csv2hash)
+
+
 It's DSL for valided ant mapped CSV to Ruby Hash
 
 ## Installation
@@ -24,19 +33,19 @@ Example :
 
 You want first cell parsed should be string with values are yes or no you must fill follow rule :
 
-{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
+	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
 
 Some key as default value, so you can just define this rule :
 
-{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
+	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
 
 You can define message, if you insert key on you message their sub
 
-{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
+	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
 
 if you insert key on you message their substitue by value
 
-{ ..., message: 'value of :name is not supported, please you one of :values' }
+	{ ..., message: 'value of :name is not supported, please you one of :values' }
 
 produce 'value of aswering is not supported, please you one of [yes, no]'
 
