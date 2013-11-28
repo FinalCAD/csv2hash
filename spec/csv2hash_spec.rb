@@ -25,4 +25,14 @@ describe Csv2hash do
     it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
   end
 
+  describe '#message' do
+    let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }
+
+    subject { Csv2hash.new nil, nil }
+
+    it 'substitue value of key' do
+      subject.send(:message, rule).should eql 'bar are value of foo key'
+    end
+  end
+
 end

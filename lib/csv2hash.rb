@@ -37,7 +37,7 @@ class Csv2hash
 
   def message rule
     rule.fetch(:message).tap do |msg|
-      rule.each { |key, value| msg.gsub! key.to_s, value.to_s }
+      rule.each { |key, value| msg.gsub! ":#{key.to_s}", value.to_s }
     end
   end
 

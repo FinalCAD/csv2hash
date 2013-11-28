@@ -63,7 +63,7 @@ describe Definition do
     it 'missing key must be filled' do
       subject.rules.should eql([{ position: [0, 0],
         key: 'name',
-        message: 'undefined key on position',
+        message: 'undefined :key on :position',
         mappable: true,
         type: 'string',
         values: nil,

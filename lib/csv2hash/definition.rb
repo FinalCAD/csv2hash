@@ -13,23 +13,23 @@ class Definition
     end
     raise 'rules must be an Array of rules' unless rules.class == Array
   end
-  
+
   def set_default!
     rules.each do |rule|
       default_position rule
-      rule.merge! message:     'undefined key on position' unless rule.has_key? :message
-      rule.merge! mappable:    true                        unless rule.has_key? :mappable
-      rule.merge! type:       'string'                     unless rule.has_key? :type
-      rule.merge! values:      nil                         unless rule.has_key? :values
-      rule.merge! nested:      nil                         unless rule.has_key? :nested
-      rule.merge! allow_blank: false                       unless rule.has_key? :allow_blank
-      rule.merge! position:    nil                         unless rule.has_key? :position
-      rule.merge! maptype:     'cell'                      unless rule.has_key? :maptype
+      rule.merge! message:     'undefined :key on :position' unless rule.has_key? :message
+      rule.merge! mappable:    true                          unless rule.has_key? :mappable
+      rule.merge! type:       'string'                       unless rule.has_key? :type
+      rule.merge! values:      nil                           unless rule.has_key? :values
+      rule.merge! nested:      nil                           unless rule.has_key? :nested
+      rule.merge! allow_blank: false                         unless rule.has_key? :allow_blank
+      rule.merge! position:    nil                           unless rule.has_key? :position
+      rule.merge! maptype:     'cell'                        unless rule.has_key? :maptype
     end
   end
-  
-  private 
-  
+
+  private
+
   def default_position rule
     case type
     when Definition::MAPPING
@@ -40,5 +40,5 @@ class Definition
       rule.merge! key: "key_#{y}" unless rule.has_key? :key
     end
   end
-  
+
 end
