@@ -14,7 +14,7 @@ class Definition
     raise 'rules must be an Array of rules' unless rules.class == Array
   end
 
-  def set_default!
+  def default!
     rules.each do |rule|
       default_position rule
       rule.merge! message:     'undefined :key on :position' unless rule.has_key? :message

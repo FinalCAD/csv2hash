@@ -16,7 +16,7 @@ class Csv2hash
 
   def parse
     definition.validate!
-    definition.set_default!
+    definition.default!
     validate_data!
     fill!
   end

@@ -7,7 +7,7 @@ describe Validator do
       definition.type = Definition::MAPPING
       definition.rules = [ { position: [0,0], key: 'name' } ]
       definition.validate!
-      definition.set_default!
+      definition.default!
     end
   end
 

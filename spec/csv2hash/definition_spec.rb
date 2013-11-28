@@ -46,7 +46,7 @@ describe Definition do
     end
   end
 
-  describe '#set_default!' do
+  describe '#default!' do
     subject do
       Definition.new.tap do |definition|
         definition.type = Definition::MAPPING
@@ -58,7 +58,7 @@ describe Definition do
       end
     end
 
-    before { subject.set_default! }
+    before { subject.default! }
 
     it 'missing key must be filled' do
       subject.rules.should eql([{ position: [0, 0],
