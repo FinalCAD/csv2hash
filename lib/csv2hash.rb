@@ -1,13 +1,14 @@
 require 'csv2hash/version'
 require 'csv2hash/definition'
-require 'csv2hash/definition/mapping'
 require 'csv2hash/validator'
 require 'csv2hash/parser'
+require 'csv2hash/parser/mapping'
+require 'csv2hash/parser/collection'
 require 'csv'
 
 class Csv2hash
   include Validator
-  include Parser
+  include Parser::Mapping
 
   attr_accessor :definition, :file_path, :data, :data_source
 
