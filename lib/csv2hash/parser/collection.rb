@@ -3,8 +3,8 @@ module Parser::Collection extend Parser
   def fill!
     @data = {}.tap do |data_computed|
       data_computed[:data] ||= []
-      data_computed[:data] << {}.tap do |data_parsed|
-        @data_source.each do |line|
+      @data_source.each do |line|
+        data_computed[:data] << {}.tap do |data_parsed|
           fill_it data_parsed, line
         end
       end
