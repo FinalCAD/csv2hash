@@ -48,7 +48,6 @@ describe Csv2Hash::Definition do
       subject.rules.should eql([{ position: [0, 0],
         key: 'name',
         message: 'undefined :key on :position',
-        mappable: true,
         type: 'string',
         values: nil,
         nested: nil,
