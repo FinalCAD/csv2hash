@@ -25,4 +25,32 @@ describe Validator::Mapping do
     it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
   end
 
+  context 'wihtout exception' do
+    let(:data_source) { [ [ ] ]}
+    before { subject.exception = false }
+    it { subject.parse.should eql ",\"undefined name on [0, 0]\"\n" }
+
+    context 'errors should be filled' do
+      before { subject.parse }
+      its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]'}] }
+    end
+
+    context 'original csv + errors should returned' do
+      let(:rules) do
+        [
+          { position: [0,0], key: 'agree', values: ['yes', 'no'] },
+          { position: [1,1], key: 'agree', values: ['yes', 'no'] },
+          { position: [2,2], key: 'agree', values: ['yes', 'no'] }
+        ]
+      end
+      let(:definition) do
+        Definition.new(rules, Definition::MAPPING).tap do |d|
+          d.validate!; d.default!
+        end
+      end
+      let(:data_source) { [ [ 'what?' ], [ 'what?', 'yes' ], [ 'what?', 'yes', 'no' ] ] }
+      it { subject.parse.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+    end
+  end
+
 end

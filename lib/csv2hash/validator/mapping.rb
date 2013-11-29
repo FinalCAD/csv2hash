@@ -2,7 +2,7 @@ module Validator::Mapping
   include Validator
 
   def validate_data!
-    validate_line data_source
+    validate_rules data_source
   end
 
   protected

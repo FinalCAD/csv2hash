@@ -15,9 +15,9 @@ module Parser::Mapping extend Parser
         x, y = rule.fetch :position
         if (nested = rule.fetch :nested)
           parsed_data[nested] ||= {}
-          parsed_data[nested][rule.fetch(:key)] = source_data[x][y]
+          parsed_data[nested][rule.fetch(:key)] = source_data[y][x]
         else
-          parsed_data[rule.fetch(:key)] = source_data[x][y]
+          parsed_data[rule.fetch(:key)] = source_data[y][x]
         end
       end
     end

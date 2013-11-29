@@ -21,7 +21,13 @@ class Definition
   def default!
     rules.each do |rule|
       default_position rule
-      rule.merge! message:     'undefined :key on :position' unless rule.has_key? :message
+      unless rule.has_key? :message
+        if rule.has_key? :values
+          rule.merge! message: ':key not supported, please use one of :values'
+        else
+          rule.merge! message: 'undefined :key on :position'
+        end
+      end
       rule.merge! mappable:    true                          unless rule.has_key? :mappable
       rule.merge! type:       'string'                       unless rule.has_key? :type
       rule.merge! values:      nil                           unless rule.has_key? :values
