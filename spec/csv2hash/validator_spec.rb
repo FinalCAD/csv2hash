@@ -33,6 +33,14 @@ describe Validator do
         subject.send(:message, rule, nil, nil).should eql '["bar", "zone"] are values of foo key'
       end
     end
+
+    context 'with position' do
+      let(:rule) { { message: 'value not found on :position' } }
+
+      it 'substitue value of key' do
+        subject.send(:message, rule, 0, 2).should eql 'value not found on [0, 2]'
+      end
+    end
   end
 
 end
