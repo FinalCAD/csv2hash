@@ -1,5 +1,5 @@
-module Validator::Mapping
-  include Validator
+module Csv2Hash::Validator::Mapping
+  include Csv2Hash::Validator
 
   def validate_data!
     validate_line data_source

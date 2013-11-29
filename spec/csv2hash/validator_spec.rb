@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Validator do
+describe Csv2Hash::Validator do
 
   let(:definition) do
-    Definition.new([ { position: [0,0], key: 'name' } ], Definition::MAPPING).tap do |definition|
+    Csv2Hash::Definition.new([ { position: [0,0], key: 'name' } ], Csv2Hash::Definition::MAPPING).tap do |definition|
       definition.validate!
       definition.default!
     end
@@ -16,7 +16,7 @@ describe Validator do
   end
 
   describe '#message' do
-    subject { Csv2hash.new double('definition', type: Definition::COLLECTION), nil }
+    subject { Csv2hash.new double('definition', type: Csv2Hash::Definition::COLLECTION), nil }
 
     context 'string value' do
       let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }

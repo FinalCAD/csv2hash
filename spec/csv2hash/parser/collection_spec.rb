@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Parser::Collection do
+describe Csv2Hash::Parser::Collection do
 
   let(:definition) do
-    Definition.new [ { position: 0, key: 'name' } ], Definition::COLLECTION
+    Csv2Hash::Definition.new [ { position: 0, key: 'name' } ], Csv2Hash::Definition::COLLECTION
   end
 
   let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ] ] }

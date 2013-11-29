@@ -90,7 +90,7 @@ Precise position validation sample:
 		end
 
 		def definition
-			Definition.new(rules, type = Definition::MAPPING)
+			Csv2Hash::Definition.new(rules, type = Definition::MAPPING)
 		end
 
 		def data
@@ -129,7 +129,7 @@ Collection validation sample:
 		end
 
 		def definition
-			Definition.new(rules, type = Definition::COLLECTION)
+			Csv2Hash::Definition.new(rules, type = Definition::COLLECTION)
 		end
 
 		def data
