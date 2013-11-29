@@ -18,6 +18,22 @@ class Csv2hash
     dynamic_validator_loading
   end
 
+  def parse
+    definition.validate!
+    definition.default!
+    validate_data!
+    fill!
+    @data
+  end
+
+  protected
+
+  def data_source
+    @data_source ||= CSV.read @file_path
+  end
+
+  private
+
   def dynamic_validator_loading
     case definition.type
     when Definition::MAPPING
@@ -34,20 +50,6 @@ class Csv2hash
     when Definition::COLLECTION
       self.extend Parser::Collection
     end
-  end
-
-  def parse
-    definition.validate!
-    definition.default!
-    validate_data!
-    fill!
-    @data
-  end
-
-  protected
-
-  def data_source
-    @data_source ||= CSV.read @file_path
   end
 
 end

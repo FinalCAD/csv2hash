@@ -21,6 +21,13 @@ describe Parser::Collection do
         csv2hash.parse
       end.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
     }
+    context 'with header' do
+      before { subject.definition.header_size = 1 }
+      let(:data_source) { [ [ 'Name' ], [ 'John Doe' ], [ 'Jane Doe' ] ]}
+      it {
+        subject.tap { |c| c.parse }.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
+      }
+    end
   end
 
   context 'with nested' do

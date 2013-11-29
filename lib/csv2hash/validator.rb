@@ -1,5 +1,7 @@
 module Validator
 
+  attr_accessor :errors
+
   def validate_line line, y=nil
     definition.rules.each do |rule|
       x, _y = position rule.fetch(:position)

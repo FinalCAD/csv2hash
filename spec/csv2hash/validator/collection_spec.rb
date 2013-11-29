@@ -18,11 +18,21 @@ describe Validator::Collection do
   context 'with valid data' do
     let(:data_source) { [ [ 'John Doe' ] ]}
     it { expect { subject.validate_data! }.to_not raise_error }
+    context 'with header' do
+      before { subject.definition.header_size = 1 }
+      let(:data_source) { [ [ 'Name' ], [ 'John Doe' ] ]}
+      it { expect { subject.validate_data! }.to_not raise_error }
+    end
   end
 
   context 'with invalid data' do
     let(:data_source) { [ [ ] ]}
     it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
+    context 'with header' do
+      before { subject.definition.header_size = 1 }
+      let(:data_source) { [ [ 'Name' ], [ ] ]}
+      it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 1]') }
+    end
   end
 
 end

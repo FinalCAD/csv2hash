@@ -49,12 +49,14 @@ if you insert key on you message they will be substituted
 
 	{ ..., message: 'value of :name is not supported, please you one of :values' }
 
-produce ':
-	value of aswering is not supported, please you one of [yes, no]'
+produce :
+
+
+	value of aswering is not supported, please you one of [yes, no]
 
 #### Definition
 
-You should provide a definition, you have 2 types of definitions, mapping defintion for seach on x,y in your data or collection definition for rules apply for all lines in x, so you position rules should be one entry array or simply integer value
+You should provide a definition, you have 2 types of definitions, mapping definition for search on x,y in your data or collection definition for rules apply for all lines in x, so you position rules should be only x value
 
 ### Sample
 
@@ -98,6 +100,50 @@ Mapping sample definition
 
 	end
 
+#### Collection
+
+Consider csv data like that
+
+| Nickname | First Name | Last Name |
+|----------|------------|-----------|
+|   john   |    John    |    Doe    |
+|   jane   |    Jane    |    Doe    |
+
+Mapping sample definition
+
+	class MyParser
+
+		attr_accessor :file_path
+
+		def initialize file_path
+			@file_path = file_path
+		end
+
+		def rules
+			[].tap do |mapping|
+				mapping << { position: 0, key: 'nickname'   }
+				mapping << { position: 1, key: 'first_name' }
+				mapping << { position: 2, key: 'last_name'  }
+			end
+		end
+
+		def definition
+			Definition.new(rules, type = Definition::COLLECTION)
+		end
+
+		def data
+			Csv2hash.new(definition, file_path).tap do |csv2hash|
+				csv2hash.parse
+			end.data
+		end
+
+	end
+
+#### Headers
+
+You should be define header size
+
+	Definition.new(rules, type, header_size=0)
 
 #### Default values
 

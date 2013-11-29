@@ -5,10 +5,10 @@ class Definition
 
   TYPES = [Definition::MAPPING, Definition::COLLECTION]
 
-  attr_accessor :rules, :type
+  attr_accessor :rules, :type, :header_size
 
-  def initialize rules, type
-    @rules, @type = rules, type
+  def initialize rules, type, header_size=0
+    @rules, @type, @header_size = rules, type, header_size
   end
 
   def validate!
