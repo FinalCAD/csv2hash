@@ -26,7 +26,7 @@ describe Validator do
   end
 
   describe '#message' do
-    subject { Csv2hash.new nil, nil }
+    subject { Csv2hash.new double('definition', type: 'unknow'), nil }
 
     context 'string value' do
       let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }

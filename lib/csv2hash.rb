@@ -8,12 +8,21 @@ require 'csv'
 
 class Csv2hash
   include Validator
-  include Parser::Mapping
 
   attr_accessor :definition, :file_path, :data, :data_source
 
   def initialize definition, file_path
     @definition, @file_path = definition, file_path
+    dynamic_parser_loading
+  end
+
+  def dynamic_parser_loading
+    case definition.type
+    when Definition::MAPPING
+      self.extend Parser::Mapping
+    when Definition::COLLECTION
+      self.extend Parser::Collection
+    end
   end
 
   def parse
