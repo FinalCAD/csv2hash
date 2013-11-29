@@ -3,16 +3,16 @@ require 'spec_helper'
 describe Validator do
 
   let(:definition) do
-    Definition.new.tap do |definition|
-      definition.type = Definition::MAPPING
-      definition.rules = [ { position: [0,0], key: 'name' } ]
+    Definition.new([ { position: [0,0], key: 'name' } ], Definition::MAPPING).tap do |definition|
       definition.validate!
       definition.default!
     end
   end
 
   subject do
-    Csv2hash.new definition, data_source
+    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
+      csv2hash.data_source = data_source
+    end
   end
 
   context 'with valid data' do

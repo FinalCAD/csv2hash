@@ -27,6 +27,8 @@ Or install it yourself as:
 
 ## Usage
 
+#### Rules
+
 You should be declare an definition for you CSV, for each cells you should define what you expect.
 
 Example :
@@ -50,7 +52,60 @@ if you insert key on you message they will be substituted
 produce ':
 	value of aswering is not supported, please you one of [yes, no]'
 
+#### Definition
+
+You should provide a definition, you have 2 types of definitions, mapping defintion for seach on x,y in your data or collection definition for rules apply for all lines in x, so you position rules should be one entry array or simply integer value
+
+### Sample
+
+#### Mapping
+
+Consider csv data like that
+
+| Fields      | Person Informations  | Optional |
+|-------------|----------------------|----------|
+| Nickname    |        john          |    no    |
+| First Name  |        John          |    yes   |
+| Last Name   |        Doe           |    yes   |
+
+
+Mapping sample definition
+
+	class MyParser
+
+		attr_accessor :file_path
+
+		def initialize file_path
+			@file_path = file_path
+		end
+
+		def rules
+			[].tap do |mapping|
+				mapping << { position: [2,1], key: 'first_name' }
+				mapping << { position: [3,1], key: 'last_name' }
+			end
+		end
+
+		def definition
+			Definition.new(rules, type = Definition::MAPPING)
+		end
+
+		def data
+			Csv2hash.new(definition, file_path).tap do |csv2hash|
+				csv2hash.parse
+			end.data
+		end
+
+	end
+
+
 #### Default values
+
+only position is require
+
+* :position
+
+all remaind keys are optionals
 
 * message:     'undefined :key on :position'
 * mappable:    true
@@ -58,8 +113,6 @@ produce ':
 * values:      nil
 * nested:      nil
 * allow_blank: false
-* position:    nil
-* maptype:     'cell'
 
 ### Limitations
 

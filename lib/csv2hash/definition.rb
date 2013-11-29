@@ -5,7 +5,11 @@ class Definition
 
   TYPES = [Definition::MAPPING, Definition::COLLECTION]
 
-  attr_accessor :type, :rules
+  attr_accessor :rules, :type
+
+  def initialize rules, type
+    @rules, @type = rules, type
+  end
 
   def validate!
     unless TYPES.include?(type)
@@ -23,8 +27,6 @@ class Definition
       rule.merge! values:      nil                           unless rule.has_key? :values
       rule.merge! nested:      nil                           unless rule.has_key? :nested
       rule.merge! allow_blank: false                         unless rule.has_key? :allow_blank
-      rule.merge! position:    nil                           unless rule.has_key? :position
-      rule.merge! maptype:     'cell'                        unless rule.has_key? :maptype
     end
   end
 

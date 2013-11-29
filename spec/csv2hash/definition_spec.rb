@@ -4,14 +4,10 @@ describe Definition do
 
   context 'regular context' do
     subject do
-      Definition.new.tap do |definition|
-        definition.type = Definition::MAPPING
-        definition.rules = begin
-          [
-            { position: [0,0], key: 'name' }
-          ]
-        end
-      end
+      Definition.new(
+        [ { position: [0,0], key: 'name' } ],
+        Definition::MAPPING
+      )
     end
 
     it 'variable should be assigned' do
@@ -23,9 +19,7 @@ describe Definition do
   describe '#validate!' do
     context 'rules failling validation' do
       subject do
-        Definition.new.tap do |definition|
-          definition.type = 'unsuitable_type'
-        end
+        Definition.new nil, 'unsuitable_type'
       end
       it 'should throw exception' do
         expect {
@@ -35,10 +29,7 @@ describe Definition do
     end
     context 'rules failling validation' do
       subject do
-        Definition.new.tap do |definition|
-          definition.type = Definition::MAPPING
-          definition.rules = 'rules'
-        end
+        Definition.new 'rules',Definition::MAPPING
       end
       it 'should throw exception' do
         expect { subject.validate! }.to raise_error 'rules must be an Array of rules'
@@ -48,14 +39,7 @@ describe Definition do
 
   describe '#default!' do
     subject do
-      Definition.new.tap do |definition|
-        definition.type = Definition::MAPPING
-        definition.rules = begin
-          [
-            { position: [0,0], key: 'name' }
-          ]
-        end
-      end
+      Definition.new [ { position: [0,0], key: 'name' } ], Definition::MAPPING
     end
 
     before { subject.default! }
@@ -68,8 +52,7 @@ describe Definition do
         type: 'string',
         values: nil,
         nested: nil,
-        allow_blank: false,
-        maptype: 'cell' }])
+        allow_blank: false }])
     end
   end
 end

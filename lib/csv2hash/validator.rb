@@ -1,11 +1,9 @@
 module Validator
-  
+
   def validate_data!
     definition.rules.each do |rule|
-      if (rule.fetch(:maptype) == 'cell')
-        x, y = rule.fetch :position
-        validate_rule x, y, rule
-      end
+      x, y = rule.fetch :position
+      validate_rule x, y, rule
     end
   end
 
@@ -30,5 +28,5 @@ module Validator
       rule.each { |key, value| msg.gsub! ":#{key.to_s}", value.to_s }
     end
   end
-  
+
 end

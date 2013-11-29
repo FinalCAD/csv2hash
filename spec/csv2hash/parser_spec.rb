@@ -3,17 +3,16 @@ require 'spec_helper'
 describe Parser do
 
   let(:definition) do
-    Definition.new.tap do |definition|
-      definition.type = Definition::MAPPING
-      definition.rules = [ { position: [0,0], key: 'name' } ]
-      definition.validate!
-      definition.default!
-    end
+    Definition.new [ { position: [0,0], key: 'name' } ], Definition::MAPPING
   end
 
   let(:data_source) { [ [ 'John Doe' ] ] }
 
-  subject { Csv2hash.new definition, data_source }
+  subject do
+    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
+      csv2hash.data_source = data_source
+    end
+  end
 
   context 'regular way' do
     it { expect { subject.parse }.to_not raise_error }
