@@ -37,13 +37,17 @@ You want first cell parsed should be string with values are 'yes' or 'no' you mu
 
 	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
 
-All keys as default value, so you can just define this rule :
+All keys as default values, so you can just define this rule :
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
 
 You can define message, default is 'undefined :key on :position'
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
+
+You can also define Range
+
+	{ name: 'score', values: 0..5, position: [0,0] }
 
 if you insert key on you message they will be substituted
 
