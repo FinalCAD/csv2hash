@@ -4,11 +4,11 @@ module Validator
 
   def validate_rules y=nil
     definition.rules.each do |rule|
-      x, _y = position rule.fetch(:position)
+      _y, x = position rule.fetch(:position)
       begin
-        validate_cell x, (_y||y), rule
+        validate_cell (_y||y), x, rule
       rescue => e
-        errors << { x: x, y: (_y||y), message: e.message }
+        errors << { y: (_y||y), x: x, message: e.message, key: rule.fetch(:key) }
         raise if exception
       end
     end
@@ -18,24 +18,25 @@ module Validator
 
   protected
 
-  def validate_cell x, y, rule
+  def validate_cell y, x, rule
+
+    value = data_source[y][x] rescue nil
+
     begin
-      unless rule.fetch :allow_blank
-        raise unless data_source[y][x]
-      end
-      if (values = rule.fetch :values)
-        raise unless values.include?(data_source[y][x])
+      raise unless value unless rule.fetch :allow_blank
+      if value && (values = rule.fetch :values)
+        raise unless values.include?(value)
       end
     rescue => e
-      raise message(rule, x, y)
+      raise message(rule, y, x)
     end
   end
 
-  def message rule, x, y
+  def message rule, y, x
     msg = rule.fetch(:message).tap do |msg|
       rule.each { |key, value| msg.gsub!(":#{key.to_s}", value.to_s) unless key == :position }
     end
-    msg.gsub ':position', "[#{x}, #{y}]"
+    msg.gsub ':position', "[#{y}, #{x}]"
   end
 
 end

@@ -12,7 +12,7 @@ module Parser::Mapping extend Parser
   def fill_it parsed_data, source_data
     definition.rules.each do |rule|
       if rule.fetch :mappable
-        x, y = rule.fetch :position
+        y, x = rule.fetch :position
         if (nested = rule.fetch :nested)
           parsed_data[nested] ||= {}
           parsed_data[nested][rule.fetch(:key)] = source_data[y][x]

@@ -32,25 +32,37 @@ describe Validator::Mapping do
 
     context 'errors should be filled' do
       before { subject.parse }
-      its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]'}] }
+      its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]', key: 'name'}] }
     end
 
-    context 'original csv + errors should returned' do
-      let(:rules) do
-        [
-          { position: [0,0], key: 'agree', values: ['yes', 'no'] },
-          { position: [1,1], key: 'agree', values: ['yes', 'no'] },
-          { position: [2,2], key: 'agree', values: ['yes', 'no'] }
-        ]
-      end
+    context 'original csv + errors should be returned' do
       let(:definition) do
         Definition.new(rules, Definition::MAPPING).tap do |d|
           d.validate!; d.default!
         end
       end
-      let(:data_source) { [ [ 'what?' ], [ 'what?', 'yes' ], [ 'what?', 'yes', 'no' ] ] }
-      it { subject.parse.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+      context 'string values' do
+        let(:rules) do
+          [
+            { position: [0,0], key: 'agree', values: ['yes', 'no'] },
+            { position: [1,0], key: 'agree', values: ['yes', 'no'] },
+            { position: [2,0], key: 'agree', values: ['yes', 'no'] }
+          ]
+        end
+        let(:data_source) { [ [ 'what?' ], [ 'yes', 'what?' ], [ 'yes', 'what?', 'no' ] ] }
+        it { subject.parse.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+      end
+      context 'range values' do
+        let(:rules) do
+          [
+            { position: [0,0], key: 'score', values: 1..10 },
+            { position: [1,0], key: 'score', values: 1..10 },
+            { position: [2,0], key: 'score', values: 1..10 }
+          ]
+        end
+        let(:data_source) { [ [ 12 ], [ 2, 12 ], [ 3, 12, 1 ] ] }
+        it { subject.parse.should eql "12,\"score not supported, please use one of 1..10\"\n" }
+      end
     end
   end
-
 end

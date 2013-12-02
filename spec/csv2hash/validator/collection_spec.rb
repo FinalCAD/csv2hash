@@ -31,7 +31,7 @@ describe Validator::Collection do
     context 'with header' do
       before { subject.definition.header_size = 1 }
       let(:data_source) { [ [ 'Name' ], [ ] ]}
-      it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 1]') }
+      it { expect { subject.validate_data! }.to raise_error('undefined name on [1, 0]') }
     end
   end
 
@@ -42,7 +42,7 @@ describe Validator::Collection do
 
     context 'errors should be filled' do
       before { subject.parse }
-      its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]'}] }
+      its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]', key: 'name'}] }
     end
 
     context 'original csv + errors should returned' do

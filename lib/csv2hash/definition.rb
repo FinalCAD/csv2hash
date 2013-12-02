@@ -41,11 +41,11 @@ class Definition
   def default_position rule
     case type
     when Definition::MAPPING
-      x, y = rule.fetch(:position, ['undefined', 'undefined'])
-      rule.merge! key: "key_#{x}_#{y}" unless rule.has_key? :key
+      y, x = rule.fetch(:position, ['undefined', 'undefined'])
+      rule.merge! key: "key_#{y}_#{x}" unless rule.has_key? :key
     when Definition::COLLECTION
-      y = rule.fetch :position
-      rule.merge! key: "key_#{y}" unless rule.has_key? :key
+      x = rule.fetch :position
+      rule.merge! key: "key_undefined_#{x}" unless rule.has_key? :key
     end
   end
 

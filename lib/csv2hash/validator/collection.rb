@@ -11,7 +11,7 @@ module Validator::Collection
   protected
 
   def position _position
-    [_position, nil]
+    [nil, _position]
   end
 
 end
