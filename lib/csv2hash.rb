@@ -21,6 +21,7 @@ class Csv2hash
   end
 
   def parse
+    load_data_source
     definition.validate!
     definition.default!
     validate_data!
@@ -33,18 +34,21 @@ class Csv2hash
   end
 
   def csv_with_errors
-    CsvArray.new.tap do |rows|
-      errors.each do |error|
-        rows << (([data_source[error[:x]][error[:y]]]||[nil]) + [error[:message]])
-      end
-    end.to_csv
+    @csv_with_errors ||= begin
+      CsvArray.new.tap do |rows|
+        errors.each do |error|
+          rows << (([data_source[error[:x]][error[:y]]]||[nil]) + [error[:message]])
+        end
+      end.to_csv
+    end
   end
 
-  protected
+  # protected
 
   def data_source
     @data_source ||= CSV.read @file_path
   end
+  alias_method :load_data_source, :data_source
 
   private
 
