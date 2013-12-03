@@ -1,4 +1,4 @@
-module Parser::Collection extend Parser
+module Csv2Hash::Parser::Collection extend Csv2Hash::Parser
 
   def fill!
     @data = {}.tap do |data_computed|

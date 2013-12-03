@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/joel/csv2hash/badge.png)](https://coveralls.io/r/joel/csv2hash)
 
 
-It's DSL for valided and map CSV to Ruby Hash
+It is a DSL to validate and map a CSV to a Ruby Hash.
 
 ## Installation
 
@@ -29,57 +29,50 @@ Or install it yourself as:
 
 #### Rules
 
-You should be declare an definition for you CSV, for each cells you should define what you expect.
+You should declare a definition for you CSV, and then define for each cell what you would expect.
 
 Example :
 
-You want first cell parsed should be string with values are 'yes' or 'no' you must fill follow rule :
+You want the cell located on first line, first column to be a string with its values to be 'yes' or 'no'. Then you can right the following validation rule :
 
 	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
 
-All keys as default values, so you can just define this rule :
+The type is 'string' by default, so can just write:
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
 
-You can define message, default is 'undefined :key on :position'
+You can define a message, default is 'undefined :key on :position'
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
 
-You can also define Range
-
-	{ name: 'score', values: 0..5, position: [0,0] }
-
-if you insert key on you message they will be substituted
+the message is parsed:
 
 	{ ..., message: 'value of :name is not supported, please you one of :values' }
 
-produce :
-
+It produces :
 
 	value of aswering is not supported, please you one of [yes, no]
 
-##### Position
+#### Define where your data is expected
 
-Position mean [Y, X], where Y is rows, X columns
+A definition should be provided. There are 2 types of definitions:
+* search for data at a precise position in the table: `x,y`
+* or search for data in a column of row, where all the rows are the same: `x` (column number)
 
-#### Definition
+### Samples
 
-You should provide a definition, you have 2 types of definitions, mapping definition for search on x,y in your data or collection definition for rules apply for all lines in x, so you position rules should be only x value
+#### Validation of a cell at a precise position
 
-### Sample
-
-#### Mapping
-
-Consider csv data like that
+Consider the following CSV:
 
 | Fields      | Person Informations  | Optional |
 |-------------|----------------------|----------|
-| Nickname    |        john          |    no    |
+| Nickname    |        Jo            |    no    |
 | First Name  |        John          |    yes   |
 | Last Name   |        Doe           |    yes   |
 
 
-Mapping sample definition
+Precise position validation sample:
 
 	class MyParser
 
@@ -97,7 +90,7 @@ Mapping sample definition
 		end
 
 		def definition
-			Definition.new(rules, type = Definition::MAPPING)
+			Csv2Hash::Definition.new(rules, type = Definition::MAPPING)
 		end
 
 		def data
@@ -108,16 +101,16 @@ Mapping sample definition
 
 	end
 
-#### Collection
+#### Validation of a collection
 
-Consider csv data like that
+Consider the following CSV:
 
 | Nickname | First Name | Last Name |
 |----------|------------|-----------|
-|   john   |    John    |    Doe    |
-|   jane   |    Jane    |    Doe    |
+|   jo     |    John    |    Doe    |
+|   ja     |    Jane    |    Doe    |
 
-Mapping sample definition
+Collection validation sample:
 
 	class MyParser
 
@@ -136,7 +129,7 @@ Mapping sample definition
 		end
 
 		def definition
-			Definition.new(rules, type = Definition::COLLECTION)
+			Csv2Hash::Definition.new(rules, type = Definition::COLLECTION)
 		end
 
 		def data
@@ -149,37 +142,17 @@ Mapping sample definition
 
 #### Headers
 
-You should be define header size
+You can define the number of rows to skip in the header of the CSV.
 
 	Definition.new(rules, type, header_size=0)
 
-#### Exception or CSV mode
-
-You can choice 2 mode of parsing, either exception mode for raise exception in first breaking rules or csv mode for get csv original data + errors throwing into added columns.
-
-
-parse return data or csv_with_errors if parse is invalid, you can plug this like that :
-
-	csv2hash = Csv2hash.new(definition, 'file_path').new
-	result = csv2hash.parse
-	return result if csv2hash.valid?
-
-	filename = 'issues_errors.csv'
-	tempfile = Tempfile.new [filename, File.extname(filename)]
-	File.open(tempfile.path, 'wb') { |file| file.write result }
-
-	# Send mail with csv file + errors and free resource
-
-	tempfile.unlink
-
-
 #### Default values
 
-only position is require
+Only position is required:
 
 * :position
 
-all remaind keys are optionals
+All remaining keys are optionals:
 
 * message:     'undefined :key on :position'
 * mappable:    true

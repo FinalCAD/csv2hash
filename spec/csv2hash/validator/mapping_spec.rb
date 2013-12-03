@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Validator::Mapping do
+describe Csv2Hash::Validator::Mapping do
 
   let(:definition) do
-    Definition.new([ { position: [0,0], key: 'name' } ], Definition::MAPPING).tap do |definition|
+    Csv2Hash::Definition.new([ { position: [0,0], key: 'name' } ], Csv2Hash::Definition::MAPPING).tap do |definition|
       definition.validate!
       definition.default!
     end

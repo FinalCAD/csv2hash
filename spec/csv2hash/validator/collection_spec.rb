@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Validator::Collection do
+describe Csv2Hash::Validator::Collection do
 
   let(:definition) do
-    Definition.new([ { position: 0, key: 'name' } ], Definition::COLLECTION).tap do |definition|
+    Csv2Hash::Definition.new([ { position: 0, key: 'name' } ], Csv2Hash::Definition::COLLECTION).tap do |definition|
       definition.validate!
       definition.default!
     end

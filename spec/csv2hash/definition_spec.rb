@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe Definition do
+describe Csv2Hash::Definition do
 
   context 'regular context' do
     subject do
-      Definition.new(
+      Csv2Hash::Definition.new(
         [ { position: [0,0], key: 'name' } ],
-        Definition::MAPPING
+        Csv2Hash::Definition::MAPPING
       )
     end
 
     it 'variable should be assigned' do
-      subject.type.should eql Definition::MAPPING
+      subject.type.should eql Csv2Hash::Definition::MAPPING
       subject.rules.should eql [ { position: [0,0], key: 'name' } ]
     end
   end
@@ -19,17 +19,17 @@ describe Definition do
   describe '#validate!' do
     context 'rules failling validation' do
       subject do
-        Definition.new nil, 'unsuitable_type'
+        Csv2Hash::Definition.new nil, 'unsuitable_type'
       end
       it 'should throw exception' do
         expect {
           subject.validate!
-        }.to raise_error "not suitable type, please use '#{Definition::MAPPING}' or '#{Definition::COLLECTION}'"
+        }.to raise_error "not suitable type, please use '#{Csv2Hash::Definition::MAPPING}' or '#{Csv2Hash::Definition::COLLECTION}'"
       end
     end
     context 'rules failling validation' do
       subject do
-        Definition.new 'rules',Definition::MAPPING
+        Csv2Hash::Definition.new 'rules',Csv2Hash::Definition::MAPPING
       end
       it 'should throw exception' do
         expect { subject.validate! }.to raise_error 'rules must be an Array of rules'
@@ -39,7 +39,7 @@ describe Definition do
 
   describe '#default!' do
     subject do
-      Definition.new [ { position: [0,0], key: 'name' } ], Definition::MAPPING
+      Csv2Hash::Definition.new [ { position: [0,0], key: 'name' } ], Csv2Hash::Definition::MAPPING
     end
 
     before { subject.default! }

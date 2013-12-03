@@ -54,19 +54,19 @@ class Csv2hash
 
   def dynamic_validator_loading
     case definition.type
-    when Definition::MAPPING
-      self.extend Validator::Mapping
-    when Definition::COLLECTION
-      self.extend Validator::Collection
+    when Csv2Hash::Definition::MAPPING
+      self.extend Csv2Hash::Validator::Mapping
+    when Csv2Hash::Definition::COLLECTION
+      self.extend Csv2Hash::Validator::Collection
     end
   end
 
   def dynamic_parser_loading
     case definition.type
-    when Definition::MAPPING
-      self.extend Parser::Mapping
-    when Definition::COLLECTION
-      self.extend Parser::Collection
+    when Csv2Hash::Definition::MAPPING
+      self.extend Csv2Hash::Parser::Mapping
+    when Csv2Hash::Definition::COLLECTION
+      self.extend Csv2Hash::Parser::Collection
     end
   end
 

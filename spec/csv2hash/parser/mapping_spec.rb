@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Parser::Mapping do
+describe Csv2Hash::Parser::Mapping do
 
   let(:definition) do
-    Definition.new [ { position: [0,0], key: 'name' } ], Definition::MAPPING
+    Csv2Hash::Definition.new [ { position: [0,0], key: 'name' } ], Csv2Hash::Definition::MAPPING
   end
 
   let(:data_source) { [ [ 'John Doe' ] ] }
