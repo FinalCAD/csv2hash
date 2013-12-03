@@ -37,7 +37,7 @@ describe Csv2Hash::Validator::Mapping do
 
     context 'original csv + errors should be returned' do
       let(:definition) do
-        Definition.new(rules, Definition::MAPPING).tap do |d|
+        Csv2Hash::Definition.new(rules, Csv2Hash::Definition::MAPPING).tap do |d|
           d.validate!; d.default!
         end
       end

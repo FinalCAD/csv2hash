@@ -24,7 +24,8 @@ describe Csv2Hash::Definition do
       it 'should throw exception' do
         expect {
           subject.validate!
-        }.to raise_error "not suitable type, please use '#{Csv2Hash::Definition::MAPPING}' or '#{Csv2Hash::Definition::COLLECTION}'"
+        }.to raise_error("not suitable type, please use '#{Csv2Hash::Definition::MAPPING}' " \
+          "or '#{Csv2Hash::Definition::COLLECTION}'")
       end
     end
     context 'rules failling validation' do

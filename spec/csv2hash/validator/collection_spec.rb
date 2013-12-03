@@ -47,7 +47,7 @@ describe Csv2Hash::Validator::Collection do
 
     context 'original csv + errors should returned' do
       let(:definition) do
-        Definition.new([ { position: 0, key: 'agree', values: ['yes', 'no'] } ], Definition::COLLECTION).tap do |d|
+        Csv2Hash::Definition.new([ { position: 0, key: 'agree', values: ['yes', 'no'] } ], Csv2Hash::Definition::COLLECTION).tap do |d|
           d.validate!; d.default!
         end
       end
