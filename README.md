@@ -46,6 +46,10 @@ You can define a message, default is 'undefined :key on :position'
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
 
 the message is parsed:
+You can also define Range
+
+	{ name: 'score', values: 0..5, position: [0,0] }
+
 
 	{ ..., message: 'value of :name is not supported, please you one of :values' }
 
@@ -54,6 +58,7 @@ It produces :
 	value of aswering is not supported, please you one of [yes, no]
 
 #### Define where your data is expected
+Position mean [Y, X], where Y is rows, X columns
 
 A definition should be provided. There are 2 types of definitions:
 * search for data at a precise position in the table: `x,y`
@@ -145,6 +150,26 @@ Collection validation sample:
 You can define the number of rows to skip in the header of the CSV.
 
 	Definition.new(rules, type, header_size=0)
+
+#### Exception or CSV mode
+
+You can choice 2 mode of parsing, either exception mode for raise exception in first breaking rules or csv mode for get csv original data + errors throwing into added columns.
+
+
+parse return data or csv_with_errors if parse is invalid, you can plug this like that :
+
+	csv2hash = Csv2hash.new(definition, 'file_path').new
+	result = csv2hash.parse
+	return result if csv2hash.valid?
+
+	filename = 'issues_errors.csv'
+	tempfile = Tempfile.new [filename, File.extname(filename)]
+	File.open(tempfile.path, 'wb') { |file| file.write result }
+
+	# Send mail with csv file + errors and free resource
+
+	tempfile.unlink
+
 
 #### Default values
 
