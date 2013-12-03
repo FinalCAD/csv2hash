@@ -15,11 +15,9 @@ class Csv2hash
 
   def initialize definition, file_path, exception=true
     @definition, @file_path = definition, file_path
-    # dynamic_lib_loading Parser
-    dynamic_parser_loading
+    dynamic_lib_loading 'Parser'
     @exception, @errors = exception, []
-    dynamic_validator_loading
-    # dynamic_lib_loading Validator
+    dynamic_lib_loading 'Validator'
   end
 
   def parse
@@ -54,32 +52,12 @@ class Csv2hash
 
   private
 
-  # "Kaa::#{'Foo'}".constantize.new.bar
-
-  # def dynamic_lib_loading type
-  #   case definition.type
-  #   when Csv2hash::Definition::MAPPING
-  #     self.extend module_eval("Csv2hash::#{type}::Mapping")
-  #   when Csv2hash::Definition::COLLECTION
-  #     self.extend module_eval("Csv2hash::#{type}::Collection")
-  #   end
-  # end
-
-  def dynamic_validator_loading
+  def dynamic_lib_loading type
     case definition.type
     when Csv2hash::Definition::MAPPING
-      self.extend Csv2hash::Validator::Mapping
+      self.extend Module.module_eval("Csv2hash::#{type}::Mapping")
     when Csv2hash::Definition::COLLECTION
-      self.extend Csv2hash::Validator::Collection
-    end
-  end
-
-  def dynamic_parser_loading
-    case definition.type
-    when Csv2hash::Definition::MAPPING
-      self.extend Csv2hash::Parser::Mapping
-    when Csv2hash::Definition::COLLECTION
-      self.extend Csv2hash::Parser::Collection
+      self.extend Module.module_eval("Csv2hash::#{type}::Collection")
     end
   end
 
