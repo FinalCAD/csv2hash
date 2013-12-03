@@ -11,12 +11,14 @@ module Csv2Hash::Parser::Mapping extend Csv2Hash::Parser
 
   def fill_it parsed_data, source_data
     definition.rules.each do |rule|
-      x, y = rule.fetch :position
-      if (nested = rule.fetch :nested)
-        parsed_data[nested] ||= {}
-        parsed_data[nested][rule.fetch(:key)] = source_data[x][y]
-      else
-        parsed_data[rule.fetch(:key)] = source_data[x][y]
+      if rule.fetch :mappable
+        x, y = rule.fetch :position
+        if (nested = rule.fetch :nested)
+          parsed_data[nested] ||= {}
+          parsed_data[nested][rule.fetch(:key)] = source_data[x][y]
+        else
+          parsed_data[rule.fetch(:key)] = source_data[x][y]
+        end
       end
     end
   end

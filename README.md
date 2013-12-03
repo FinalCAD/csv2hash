@@ -155,6 +155,7 @@ Only position is required:
 All remaining keys are optionals:
 
 * message:     'undefined :key on :position'
+* mappable:    true
 * type:        'string'
 * values:      nil
 * nested:      nil

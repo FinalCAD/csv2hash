@@ -23,6 +23,7 @@ class Csv2Hash
       rules.each do |rule|
         default_position rule
         rule.merge! message:     'undefined :key on :position' unless rule.has_key? :message
+        rule.merge! mappable:    true                          unless rule.has_key? :mappable
         rule.merge! type:        'string'                      unless rule.has_key? :type
         rule.merge! values:      nil                           unless rule.has_key? :values
         rule.merge! nested:      nil                           unless rule.has_key? :nested
