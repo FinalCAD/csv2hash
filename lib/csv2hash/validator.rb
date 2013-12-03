@@ -1,4 +1,4 @@
-class Csv2Hash
+class Csv2hash
   module Validator
 
     attr_accessor :errors, :exception

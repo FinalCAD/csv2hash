@@ -1,4 +1,4 @@
-# Csv2Hash
+# Csv2hash
 
 [![Code Climate](https://codeclimate.com/github/joel/csv2hash.png)](https://codeclimate.com/github/joel/csv2hash)
 
@@ -96,7 +96,7 @@ Precise position validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING)
+			Csv2hash::Definition.new(rules, type = Csv2hash::Definition::MAPPING)
 		end
 
 		def data
@@ -135,7 +135,7 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION)
+			Csv2hash::Definition.new(rules, type = Csv2hash::Definition::COLLECTION)
 		end
 
 		def data

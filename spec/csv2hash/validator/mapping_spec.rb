@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Csv2Hash::Validator::Mapping do
+describe Csv2hash::Validator::Mapping do
 
   let(:definition) do
-    Csv2Hash::Definition.new([ { position: [0,0], key: 'name' } ], Csv2Hash::Definition::MAPPING).tap do |definition|
+    Csv2hash::Definition.new([ { position: [0,0], key: 'name' } ], Csv2hash::Definition::MAPPING).tap do |definition|
       definition.validate!
       definition.default!
     end
@@ -37,7 +37,7 @@ describe Csv2Hash::Validator::Mapping do
 
     context 'original csv + errors should be returned' do
       let(:definition) do
-        Csv2Hash::Definition.new(rules, Csv2Hash::Definition::MAPPING).tap do |d|
+        Csv2hash::Definition.new(rules, Csv2hash::Definition::MAPPING).tap do |d|
           d.validate!; d.default!
         end
       end

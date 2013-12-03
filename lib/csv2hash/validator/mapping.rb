@@ -1,5 +1,5 @@
-module Csv2Hash::Validator::Mapping
-  include Csv2Hash::Validator
+module Csv2hash::Validator::Mapping
+  include Csv2hash::Validator
 
   def validate_data!
     validate_rules data_source

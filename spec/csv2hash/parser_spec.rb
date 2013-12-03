@@ -1,3 +1,3 @@
 require 'spec_helper'
 
-describe Csv2Hash::Parser
+describe Csv2hash::Parser

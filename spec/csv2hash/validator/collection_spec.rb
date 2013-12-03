@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Csv2Hash::Validator::Collection do
+describe Csv2hash::Validator::Collection do
 
   let(:definition) do
-    Csv2Hash::Definition.new([ { position: 0, key: 'name' } ], Csv2Hash::Definition::COLLECTION).tap do |definition|
+    Csv2hash::Definition.new([ { position: 0, key: 'name' } ], Csv2hash::Definition::COLLECTION).tap do |definition|
       definition.validate!
       definition.default!
     end
@@ -47,7 +47,7 @@ describe Csv2Hash::Validator::Collection do
 
     context 'original csv + errors should returned' do
       let(:definition) do
-        Csv2Hash::Definition.new([ { position: 0, key: 'agree', values: ['yes', 'no'] } ], Csv2Hash::Definition::COLLECTION).tap do |d|
+        Csv2hash::Definition.new([ { position: 0, key: 'agree', values: ['yes', 'no'] } ], Csv2hash::Definition::COLLECTION).tap do |d|
           d.validate!; d.default!
         end
       end

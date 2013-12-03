@@ -1,4 +1,4 @@
-class Csv2Hash
+class Csv2hash
   class Definition
 
     MAPPING = 'mapping'

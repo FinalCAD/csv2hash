@@ -1,5 +1,5 @@
-module Csv2Hash::Validator::Collection
-  include Csv2Hash::Validator
+module Csv2hash::Validator::Collection
+  include Csv2hash::Validator
 
   def validate_data!
     @data_source.each_with_index do |line, y|
