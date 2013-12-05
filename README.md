@@ -62,7 +62,7 @@ It produces :
 **IMPORTANT!** Position mean [Y, X], where Y is rows, X columns
 
 A definition should be provided. There are 2 types of definitions:
-* search for data at a precise position in the table: `x,y`
+* search for data at a precise position in the table: `y,x`
 * or search for data in a column of rows, where all the rows are the same: `x` (column index)
 
 ### Samples
@@ -88,6 +88,12 @@ Precise position validation sample:
 			@file_path = file_path
 		end
 
+		def data
+			@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+		end
+
+		private
+
 		def rules
 			[].tap do |mapping|
 				mapping << { position: [2,1], key: 'first_name' }
@@ -97,16 +103,6 @@ Precise position validation sample:
 
 		def definition
 			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
-		end
-
-		def data
-			parser = Csv2hash.new(definition, file_path)
-			response = parser.parse
-			if response.valid?
-				response.data
-			else
-				response.errors.to_csv
-			end
 		end
 
 	end
@@ -130,6 +126,12 @@ Collection validation sample:
 			@file_path = file_path
 		end
 
+		def data
+			@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+		end
+
+		private
+
 		def rules
 			[].tap do |mapping|
 				mapping << { position: 0, key: 'nickname'   }
@@ -139,20 +141,11 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION)
-		end
-
-		def data
-			parser = Csv2hash.new(definition, file_path)
-			response = parser.parse
-			if response.valid?
-				response.data
-			else
-				response.errors.to_csv
-			end
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
 		end
 
 	end
+
 
 #### Headers
 
@@ -177,23 +170,64 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 
 #### Exception or CSV mode
 
-You can choice 2 mode of parsing, either exception mode for raise exception in first breaking rules or csv mode for get csv original data + errors throwing into added columns.
+You can choice 2 mode of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
 
+##### On **CSV MODE** you can choose different way for manage errors
 
-parse return data or csv_with_errors if parse is invalid, you can plug this like that :
+`.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior like that :
 
-	csv2hash = Csv2hash.new(definition, 'file_path').new
-	result = csv2hash.parse
-	return result if csv2hash.valid?
+in your code
 
-	filename = 'issues_errors.csv'
-	tempfile = Tempfile.new [filename, File.extname(filename)]
-	File.open(tempfile.path, 'wb') { |file| file.write result }
+	parser = Csv2hash.new(definition, 'file_path').new
+	response = parser.parse
+	return response if response.valid?
+	# Whatever
 
-	# Send mail with csv file + errors and free resource
+In same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier like that
 
-	tempfile.unlink
+	module Csv2hash
+		module Plugins
+			class Notifier
+				def initialize csv2hash
+					csv2hash.notifier.extend NotifierWithEmail
+				end
 
+				module NotifierWithEmail
+					def notify response
+						filename = 'issues_errors.csv'
+						tempfile = Tempfile.new [filename, File.extname(filename)]
+						File.open(tempfile.path, 'wb') { |file| file.write response.errors.to_csv }
+						# Send mail with csv file + errors and free resource
+						tempfile.unlink
+					end
+				end
+			end
+		end
+	end
+
+Or other implementation
+
+### Errors Format
+
+errors is a Array of Hash
+
+	{ y: 1, x: 0, message: 'message', key: 'key', value: '' }
+
+Sample
+
+Csv data
+
+| Fields      | Person Informations  |
+|-------------|----------------------|
+| Nickname    |        nil           |
+
+Rule
+
+	{ position: [1,1], key: 'nickname', allow_blank: false }
+
+Error
+
+	{ y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
 
 #### Default values
 

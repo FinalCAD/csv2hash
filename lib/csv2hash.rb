@@ -8,17 +8,30 @@ require 'csv2hash/parser/mapping'
 require 'csv2hash/parser/collection'
 require 'csv2hash/csv_array'
 require 'csv2hash/data_wrapper'
+require 'csv2hash/notifier'
+
 require 'csv'
 
 class Csv2hash
 
-  attr_accessor :definition, :file_path, :data, :data_source
+  attr_accessor :definition, :file_path, :data, :data_source, :notifier
 
   def initialize definition, file_path, exception=true
     @definition, @file_path = definition, file_path
     dynamic_lib_loading 'Parser'
     @exception, @errors = exception, []
     dynamic_lib_loading 'Validator'
+    self.notifier = Notifier.new
+    init_plugins
+  end
+
+  def init_plugins
+    begin
+      @plugins = []
+      ::Csv2hash::Plugins.constants.each do |name|
+        @plugins << ::Csv2hash::Plugins.const_get(name).new(self)
+      end
+    rescue; end
   end
 
   def parse
@@ -35,6 +48,7 @@ class Csv2hash
     else
       response.valid = false
       response.errors = csv_with_errors
+      notifier.notify response
     end
 
     response
