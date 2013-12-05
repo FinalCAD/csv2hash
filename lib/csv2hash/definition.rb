@@ -9,7 +9,7 @@ class Csv2hash
     attr_accessor :rules, :type, :header_size
 
     def initialize rules, type, header_size=0
-      @rules, @type, @header_size = rules, type, header_size
+      self.rules, self.type, self.header_size = rules, type, header_size
     end
 
     def validate!

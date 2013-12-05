@@ -14,12 +14,12 @@ require 'csv'
 
 class Csv2hash
 
-  attr_accessor :definition, :file_path, :data, :data_source, :notifier
+  attr_accessor :definition, :file_path, :data, :data_source, :notifier, :exception_mode, :errors
 
-  def initialize definition, file_path, exception=true
-    @definition, @file_path = definition, file_path
+  def initialize definition, file_path, exception_mode=true
+    self.definition, self.file_path = definition, file_path
     dynamic_lib_loading 'Parser'
-    @exception, @errors = exception, []
+    self.exception_mode, self.errors = exception_mode, []
     dynamic_lib_loading 'Validator'
     self.notifier = Notifier.new
     init_plugins

@@ -37,7 +37,7 @@ describe Csv2hash::Validator::Collection do
 
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ]}
-    before { subject.exception = false }
+    before { subject.exception_mode = false }
     it { subject.parse.errors.to_csv.should eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do

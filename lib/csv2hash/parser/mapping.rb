@@ -2,7 +2,7 @@ module Csv2hash::Parser::Mapping
   include Csv2hash::Parser
 
   def fill!
-    @data = {}.tap do |data_computed|
+    self.data = {}.tap do |data_computed|
       data_computed[:data] ||= []
       data_computed[:data] << {}.tap do |data_parsed|
         fill_it data_parsed, data_source

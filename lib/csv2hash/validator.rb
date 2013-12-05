@@ -1,21 +1,19 @@
 class Csv2hash
   module Validator
 
-    attr_accessor :errors, :exception
-
     def validate_rules y=nil
       definition.rules.each do |rule|
         _y, x = position rule.fetch(:position)
         begin
           validate_cell (_y||y), x, rule
         rescue => e
-          errors << { y: (_y||y), x: x, message: e.message, key: rule.fetch(:key) }
-          raise if exception
+          self.errors << { y: (_y||y), x: x, message: e.message, key: rule.fetch(:key) }
+          raise if exception_mode
         end
       end
     end
 
-    def valid?() errors.empty?; end
+    def valid?() self.errors.empty?; end
 
     protected
 
