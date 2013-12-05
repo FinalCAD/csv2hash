@@ -9,6 +9,7 @@ require 'csv2hash/parser/collection'
 require 'csv2hash/csv_array'
 require 'csv2hash/data_wrapper'
 require 'csv2hash/notifier'
+require 'csv2hash/extra_validator'
 
 require 'csv'
 

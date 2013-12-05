@@ -213,21 +213,42 @@ errors is a Array of Hash
 
 	{ y: 1, x: 0, message: 'message', key: 'key', value: '' }
 
-Sample
+##### Sample
 
-Csv data
+##### Csv data
 
 | Fields      | Person Informations  |
 |-------------|----------------------|
 | Nickname    |        nil           |
 
-Rule
+##### Rule
 
 	{ position: [1,1], key: 'nickname', allow_blank: false }
 
-Error
+##### Error
 
 	{ y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
+#### Personal Validator Rule
+
+You can define your own Validator
+
+For downcase validation
+
+	class DowncaseValidator < Csv2hash::ExtraValidator
+		def valid? value
+			!!(value.match /^[a-z]+$/)
+		end
+	end
+
+in your rule
+
+	{ position: [0,0], key: 'name', extra_validator: DowncaseValidator.new,
+		message: 'your data should be writting in downcase only' }
+
+Csv data
+
+	[ [ 'Foo' ] ]
+
 
 #### Default values
 

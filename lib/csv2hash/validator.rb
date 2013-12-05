@@ -21,8 +21,12 @@ class Csv2hash
       value = data_source[y][x] rescue nil
       begin
         raise unless value unless rule.fetch :allow_blank
-        if value && (values = rule.fetch :values)
-          raise unless values.include?(value)
+        if (extra_validator = rule.fetch :extra_validator) && extra_validator.kind_of?(Csv2hash::ExtraValidator)
+          raise unless extra_validator.valid? rule, value
+        else
+          if value && (values = rule.fetch :values)
+            raise unless values.include?(value)
+          end
         end
       rescue => e
         raise message(rule, y, x)

@@ -29,11 +29,12 @@ class Csv2hash
             rule.merge! message: 'undefined :key on :position'
           end
         end
-        rule.merge! mappable:    true                          unless rule.has_key? :mappable
-        rule.merge! type:       'string'                       unless rule.has_key? :type
-        rule.merge! values:      nil                           unless rule.has_key? :values
-        rule.merge! nested:      nil                           unless rule.has_key? :nested
-        rule.merge! allow_blank: false                         unless rule.has_key? :allow_blank
+        rule.merge! mappable:    true    unless rule.has_key? :mappable
+        rule.merge! type:       'string' unless rule.has_key? :type
+        rule.merge! values:      nil     unless rule.has_key? :values
+        rule.merge! nested:      nil     unless rule.has_key? :nested
+        rule.merge! allow_blank: false   unless rule.has_key? :allow_blank
+        rule.merge! extra_validator: nil unless rule.has_key? :extra_validator
       end
     end
 

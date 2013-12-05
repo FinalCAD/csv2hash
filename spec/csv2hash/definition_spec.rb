@@ -53,7 +53,8 @@ describe Csv2hash::Definition do
         type: 'string',
         values: nil,
         nested: nil,
-        allow_blank: false }])
+        allow_blank: false,
+        extra_validator: nil }])
     end
   end
 end
