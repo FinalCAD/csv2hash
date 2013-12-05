@@ -28,7 +28,7 @@ describe Csv2hash::Validator::Mapping do
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ]}
     before { subject.exception = false }
-    it { subject.parse.should eql ",\"undefined name on [0, 0]\"\n" }
+    it { subject.parse.errors.to_csv.should eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do
       before { subject.parse }
@@ -50,7 +50,8 @@ describe Csv2hash::Validator::Mapping do
           ]
         end
         let(:data_source) { [ [ 'what?' ], [ 'yes', 'what?' ], [ 'yes', 'what?', 'no' ] ] }
-        it { subject.parse.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+        it { subject.parse.errors.to_csv.should eql(
+          "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n") }
       end
       context 'range values' do
         let(:rules) do
@@ -61,7 +62,7 @@ describe Csv2hash::Validator::Mapping do
           ]
         end
         let(:data_source) { [ [ 12 ], [ 2, 12 ], [ 3, 12, 1 ] ] }
-        it { subject.parse.should eql "12,\"score not supported, please use one of 1..10\"\n" }
+        it { subject.parse.errors.to_csv.should eql("12,\"score not supported, please use one of 1..10\"\n") }
       end
     end
   end

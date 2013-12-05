@@ -20,9 +20,7 @@ class Csv2hash
     protected
 
     def validate_cell y, x, rule
-
       value = data_source[y][x] rescue nil
-
       begin
         raise unless value unless rule.fetch :allow_blank
         if value && (values = rule.fetch :values)

@@ -1,4 +1,4 @@
-# Csv2hash
+# Csv2Hash
 
 [![Code Climate](https://codeclimate.com/github/joel/csv2hash.png)](https://codeclimate.com/github/joel/csv2hash)
 
@@ -96,13 +96,17 @@ Precise position validation sample:
 		end
 
 		def definition
-			Csv2hash::Definition.new(rules, type = Csv2hash::Definition::MAPPING)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
 		end
 
 		def data
-			Csv2hash.new(definition, file_path).tap do |csv2hash|
-				csv2hash.parse
-			end.data
+			parser = Csv2hash.new(definition, file_path)
+			response = parser.parse
+			if response.valid?
+				response.data
+			else
+				response.errors.to_csv
+			end
 		end
 
 	end
@@ -135,13 +139,17 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2hash::Definition.new(rules, type = Csv2hash::Definition::COLLECTION)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION)
 		end
 
 		def data
-			Csv2hash.new(definition, file_path).tap do |csv2hash|
-				csv2hash.parse
-			end.data
+			parser = Csv2hash.new(definition, file_path)
+			response = parser.parse
+			if response.valid?
+				response.data
+			else
+				response.errors.to_csv
+			end
 		end
 
 	end
@@ -151,6 +159,21 @@ Collection validation sample:
 You can define the number of rows to skip in the header of the CSV.
 
 	Definition.new(rules, type, header_size=0)
+
+#### Response
+
+The parser return values wrapper into DataWrapper Object, you can call .valid? method on this Object and grab either data or errors like that :
+
+    response = parser.parse
+    if response.valid?
+	    response.data
+    else
+	    response.errors
+    end
+
+data or errors are Array, but errors can be formatted on csv format with .to_csv call
+
+	response.errors.to_csv
 
 #### Exception or CSV mode
 

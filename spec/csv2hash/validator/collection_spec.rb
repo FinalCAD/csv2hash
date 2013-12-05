@@ -38,7 +38,7 @@ describe Csv2hash::Validator::Collection do
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ]}
     before { subject.exception = false }
-    it { subject.parse.should eql ",\"undefined name on [0, 0]\"\n" }
+    it { subject.parse.errors.to_csv.should eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do
       before { subject.parse }
@@ -47,12 +47,13 @@ describe Csv2hash::Validator::Collection do
 
     context 'original csv + errors should returned' do
       let(:definition) do
-        Csv2hash::Definition.new([ { position: 0, key: 'agree', values: ['yes', 'no'] } ], Csv2hash::Definition::COLLECTION).tap do |d|
+        Csv2hash::Definition.new(
+          [{ position: 0, key: 'agree', values: ['yes', 'no'] }], Csv2hash::Definition::COLLECTION).tap do |d|
           d.validate!; d.default!
         end
       end
       let(:data_source) { [ [ 'what?' ], [ 'yes' ], [ 'no' ] ] }
-      it { subject.parse.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+      it { subject.parse.errors.to_csv.should eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
     end
   end
 

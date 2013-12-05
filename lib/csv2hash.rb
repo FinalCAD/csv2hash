@@ -7,6 +7,7 @@ require 'csv2hash/parser'
 require 'csv2hash/parser/mapping'
 require 'csv2hash/parser/collection'
 require 'csv2hash/csv_array'
+require 'csv2hash/data_wrapper'
 require 'csv'
 
 class Csv2hash
@@ -25,21 +26,27 @@ class Csv2hash
     definition.validate!
     definition.default!
     validate_data!
+
+    response = Csv2hash::DataWrapper.new
+
     if valid?
       fill!
-      data
+      response.data = data[:data]
     else
-      csv_with_errors
+      response.valid = false
+      response.errors = csv_with_errors
     end
+
+    response
   end
 
   def csv_with_errors
     @csv_with_errors ||= begin
       CsvArray.new.tap do |rows|
         errors.each do |error|
-          rows << (([data_source[error[:x]][error[:y]]]||[nil]) + [error[:message]])
+          rows << error.merge({ value: (data_source[error[:y]][error[:x]] rescue nil) })
         end
-      end.to_csv
+      end #.to_csv
     end
   end
 
