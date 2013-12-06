@@ -27,7 +27,9 @@ Or install it yourself as:
 
 ## Usage
 
-#### Rules
+Parsing is based on rules, you must defined rules of parsing
+
+### Rules
 
 You should declare a definition for you CSV, and then define for each cell what you would expect.
 
@@ -57,7 +59,23 @@ It produces :
 
 	value of aswering is not supported, please you one of [yes, no]
 
-#### Define where your data is expected
+### Default values
+
+Only position is required:
+
+* :position
+
+All remaining keys are optionals:
+
+* message:     'undefined :key on :position'
+* mappable:    true
+* type:        'string'
+* values:      nil
+* nested:      nil
+* allow_blank: false
+* extra_validator: nil
+
+## Define where your data is expected
 
 **IMPORTANT!** Position mean [Y, X], where Y is rows, X columns
 
@@ -65,9 +83,9 @@ A definition should be provided. There are 2 types of definitions:
 * search for data at a precise position in the table: `y,x`
 * or search for data in a column of rows, where all the rows are the same: `x` (column index)
 
-### Samples
+## Samples
 
-#### Validation of a cell at a precise position
+### Validation of a cell at a precise position
 
 Consider the following CSV:
 
@@ -107,7 +125,7 @@ Precise position validation sample:
 
 	end
 
-#### Validation of a collection
+### Validation of a collection
 
 Consider the following CSV:
 
@@ -146,22 +164,21 @@ Collection validation sample:
 
 	end
 
-
-#### Headers
+### CSV Headers
 
 You can define the number of rows to skip in the header of the CSV.
 
 	Definition.new(rules, type, header_size=0)
 
-### Parser
+### Parser and configuration
 
-Pasrer take severale parameter like that :
+Pasrer take severale parameters like that :
 
 	initialize definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
 
-you can pass directly Array of data (Array at 2 dimensions) really usefull for testing, if you don't care about line blank in your CSV you can ignore them.
+you can pass directly Array of data (Array at 2 dimensions) really useful for testing, if you don't care about line blank in your CSV you can ignore them.
 
-#### Response
+### Response
 
 The parser return values wrapper into DataWrapper Object, you can call .valid? method on this Object and grab either data or errors like that :
 
@@ -176,11 +193,11 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 
 	response.errors.to_csv
 
-#### Exception or CSV mode
+## Exception or Not !
 
-You can choice 2 mode of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
+You can choice 2 modes of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
 
-##### On **CSV MODE** you can choose different way for manage errors
+### On **CSV MODE** you can choose different way for manage errors
 
 `.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior like that :
 
@@ -191,7 +208,7 @@ in your code
 	return response if response.valid?
 	# Whatever
 
-In same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier like that
+In the same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier like that
 
 	module Csv2hash
 		module Plugins
@@ -221,22 +238,22 @@ errors is a Array of Hash
 
 	{ y: 1, x: 0, message: 'message', key: 'key', value: '' }
 
-##### Sample
+## Sample
 
-##### Csv data
+### Csv data
 
 | Fields      | Person Informations  |
 |-------------|----------------------|
 | Nickname    |        nil           |
 
-##### Rule
+### Rule
 
 	{ position: [1,1], key: 'nickname', allow_blank: false }
 
-##### Error
+### Error
 
 	{ y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
-#### Personal Validator Rule
+## Personal Validator Rule
 
 You can define your own Validator
 
@@ -258,23 +275,9 @@ Csv data
 	[ [ 'Foo' ] ]
 
 
-#### Default values
-
-Only position is required:
-
-* :position
-
-All remaining keys are optionals:
-
-* message:     'undefined :key on :position'
-* mappable:    true
-* type:        'string'
-* values:      nil
-* nested:      nil
-* allow_blank: false
-
 ### Limitations
 
+* Don't manage number of column you expected on collection mode
 
 ## Contributing
 
