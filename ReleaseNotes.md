@@ -5,6 +5,7 @@ VERSION 0.1
 * Add Notifier Plugin
 * Add Data Wrapper Response
 * Add possibility to pass directly data in constructor, for more testing
+* You can ignore blank line
 
 VERSION 0.0.2
 

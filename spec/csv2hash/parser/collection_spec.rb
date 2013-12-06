@@ -15,8 +15,8 @@ describe Csv2hash::Parser::Collection do
   context 'regular way' do
     it { expect { subject.parse }.to_not raise_error }
     it {
-      subject.tap do |csv2hash|
-        csv2hash.parse
+      subject.tap do |parser|
+        parser.parse
       end.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
     }
     context 'with header' do
@@ -44,4 +44,13 @@ describe Csv2hash::Parser::Collection do
     }
   end
 
+  context '#ignore_blank_line' do
+    let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ], [ nil ] ] }
+    it {
+      subject.tap do |parser|
+        parser.ignore_blank_line = true
+        parser.parse
+      end.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
+    }
+  end
 end

@@ -15,15 +15,16 @@ require 'csv'
 
 class Csv2hash
 
-  attr_accessor :definition, :file_path, :data, :notifier, :exception_mode, :errors
+  attr_accessor :definition, :file_path, :data, :notifier, :exception_mode, :errors, :ignore_blank_line
 
-  def initialize definition, file_path, exception_mode=true, data_source=nil
+  def initialize definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
     @data_source = data_source
     self.definition, self.file_path = definition, file_path
     dynamic_lib_loading 'Parser'
     self.exception_mode, self.errors = exception_mode, []
     dynamic_lib_loading 'Validator'
     self.notifier = Notifier.new
+    self.ignore_blank_line = ignore_blank_line
     init_plugins
   end
 

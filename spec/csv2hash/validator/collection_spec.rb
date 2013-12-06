@@ -23,8 +23,18 @@ describe Csv2hash::Validator::Collection do
     end
   end
 
+  context '#ignore_blank_line' do
+    let(:data_source) { [ [ ] ] }
+    before { subject.ignore_blank_line = true }
+    it { expect { subject.validate_data! }.to_not raise_error }
+    context 'csv mode' do
+      before { subject.exception_mode = false }
+      its(:errors) { should be_empty }
+    end
+  end
+
   context 'with invalid data' do
-    let(:data_source) { [ [ ] ]}
+    let(:data_source) { [ [ ] ] }
     it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
     context 'with header' do
       before { subject.definition.header_size = 1 }
