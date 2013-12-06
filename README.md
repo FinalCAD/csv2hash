@@ -153,6 +153,14 @@ You can define the number of rows to skip in the header of the CSV.
 
 	Definition.new(rules, type, header_size=0)
 
+### Parser
+
+Pasrer take severale parameter like that :
+
+	initialize definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
+
+you can pass directly Array of data (Array at 2 dimensions) really usefull for testing, if you don't care about line blank in your CSV you can ignore them.
+
 #### Response
 
 The parser return values wrapper into DataWrapper Object, you can call .valid? method on this Object and grab either data or errors like that :
