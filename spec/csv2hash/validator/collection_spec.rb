@@ -10,9 +10,7 @@ describe Csv2hash::Validator::Collection do
   end
 
   subject do
-    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
-      csv2hash.data_source = data_source
-    end
+    Csv2hash.new(definition, 'file_path', true, data_source)
   end
 
   context 'with valid data' do

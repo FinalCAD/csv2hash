@@ -10,8 +10,8 @@ describe Csv2hash::Validator do
   end
 
   subject do
-    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
-      csv2hash.data_source = data_source
+    Csv2hash.new(definition, 'file_path').tap do |parser|
+      parser.instance_variable_set :@data_source, data_source
     end
   end
 

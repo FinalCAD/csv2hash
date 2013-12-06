@@ -9,9 +9,7 @@ describe Csv2hash::Parser::Collection do
   let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ] ] }
 
   subject do
-    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
-      csv2hash.data_source = data_source
-    end
+    Csv2hash.new(definition, 'file_path', false, data_source)
   end
 
   context 'regular way' do
@@ -23,7 +21,7 @@ describe Csv2hash::Parser::Collection do
     }
     context 'with header' do
       before { subject.definition.header_size = 1 }
-      let(:data_source) { [ [ 'Name' ], [ 'John Doe' ], [ 'Jane Doe' ] ]}
+      let(:data_source) { [ [ 'Name' ], [ 'John Doe' ], [ 'Jane Doe' ] ] }
       it {
         subject.tap { |c| c.parse }.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
       }

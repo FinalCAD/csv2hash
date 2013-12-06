@@ -9,9 +9,7 @@ describe Csv2hash::Parser::Mapping do
   let(:data_source) { [ [ 'John Doe' ] ] }
 
   subject do
-    Csv2hash.new(definition, 'file_path').tap do |csv2hash|
-      csv2hash.data_source = data_source
-    end
+    Csv2hash.new(definition, 'file_path', false, data_source)
   end
 
   context 'regular way' do

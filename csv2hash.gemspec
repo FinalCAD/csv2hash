@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
 
   spec.name        = 'csv2hash'
-  spec.version     = '0.0.2'
+  spec.version     = '0.1'
   spec.date        = '2013-11-26'
   spec.summary     = %q{Mapping a CSV to a Ruby Hash}
   spec.description = %q{DSL to map a CSV to a Ruby Hash}

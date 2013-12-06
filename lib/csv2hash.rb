@@ -15,9 +15,10 @@ require 'csv'
 
 class Csv2hash
 
-  attr_accessor :definition, :file_path, :data, :data_source, :notifier, :exception_mode, :errors
+  attr_accessor :definition, :file_path, :data, :notifier, :exception_mode, :errors
 
-  def initialize definition, file_path, exception_mode=true
+  def initialize definition, file_path, exception_mode=true, data_source=nil
+    @data_source = data_source
     self.definition, self.file_path = definition, file_path
     dynamic_lib_loading 'Parser'
     self.exception_mode, self.errors = exception_mode, []
@@ -37,22 +38,21 @@ class Csv2hash
 
   def parse
     load_data_source
+
     definition.validate!
     definition.default!
     validate_data!
 
-    response = Csv2hash::DataWrapper.new
-
-    if valid?
-      fill!
-      response.data = data[:data]
-    else
-      response.valid = false
-      response.errors = csv_with_errors
-      notifier.notify response
+    Csv2hash::DataWrapper.new.tap do |response|
+      if valid?
+        fill!
+        response.data = data[:data]
+      else
+        response.valid = false
+        response.errors = csv_with_errors
+        notifier.notify response
+      end
     end
-
-    response
   end
 
   def csv_with_errors
@@ -68,7 +68,7 @@ class Csv2hash
   # protected
 
   def data_source
-    @data_source ||= CSV.read @file_path
+    @data_source ||= CSV.read self.file_path
   end
   alias_method :load_data_source, :data_source
 

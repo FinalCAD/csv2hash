@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    csv2hash (0.0.2)
+    csv2hash (0.1)
 
 GEM
   remote: http://rubygems.org/
