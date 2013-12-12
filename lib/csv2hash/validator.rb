@@ -25,7 +25,11 @@ class Csv2hash
           raise unless extra_validator.valid? rule, value
         else
           if value && (values = rule.fetch :values)
-            raise unless values.include?(value)
+            if values.class == Range
+              raise unless values.include?(value.to_f)
+            else
+              raise unless values.include?(value)
+            end
           end
         end
       rescue => e
