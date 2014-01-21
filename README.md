@@ -159,7 +159,7 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, 1)
 		end
 
 	end
