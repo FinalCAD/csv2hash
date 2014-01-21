@@ -164,6 +164,19 @@ Collection validation sample:
 
 	end
 
+
+#### Per-line validation rules
+
+You may want to validate some line based structure, like min or max number of columns, COLLECTION accepts validation rules without position nor key specified.
+Current validations are: min_column, max_column
+
+def rules
+	[].tap do |mapping|
+		mapping << { position: 0, key: 'nickname'   }
+		mapping << { position: 1, key: 'first_name' }
+    mapping << { min_column: 2, max_column: 3 }
+  end
+
 ### CSV Headers
 
 You can define the number of rows to skip in the header of the CSV.
