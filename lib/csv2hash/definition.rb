@@ -6,10 +6,11 @@ class Csv2hash
 
     TYPES = [MAPPING, COLLECTION]
 
-    attr_accessor :rules, :type, :header_size
+    attr_accessor :rules, :type, :header_size, :structure_rules
 
-    def initialize rules, type, header_size=0
-      self.rules, self.type, self.header_size = rules, type, header_size
+    def initialize rules, type, options = {}
+      self.rules, self.type = rules, type
+      self.header_size, self.structure_rules = options.fetch(:header_size) { 0 }, options.fetch(:structure_rules) { {} }
     end
 
     def validate!
@@ -17,6 +18,7 @@ class Csv2hash
         raise "not suitable type, please use '#{MAPPING}' or '#{COLLECTION}'"
       end
       raise 'rules must be an Array of rules' unless rules.class == Array
+      raise 'structure rules must be a Hash of rules' unless structure_rules.class == Hash
     end
 
     def default!

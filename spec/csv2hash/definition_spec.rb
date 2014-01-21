@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe Csv2hash::Definition do
 
+  let(:valid_rules) { [ { position: [0,0], key: 'name' } ] }
   context 'regular context' do
     subject do
       Csv2hash::Definition.new(
-        [ { position: [0,0], key: 'name' } ],
+        valid_rules,
         Csv2hash::Definition::MAPPING
       )
     end
@@ -34,6 +35,15 @@ describe Csv2hash::Definition do
       end
       it 'should throw exception' do
         expect { subject.validate! }.to raise_error 'rules must be an Array of rules'
+      end
+    end
+
+    context 'structure rules failling validation' do
+      subject do
+        Csv2hash::Definition.new valid_rules, Csv2hash::Definition::MAPPING, { structure_rules: 'invalid structure rule' }
+      end
+      it 'should throw exception' do
+        expect { subject.validate! }.to raise_error 'structure rules must be a Hash of rules'
       end
     end
   end
