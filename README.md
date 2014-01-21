@@ -120,7 +120,7 @@ Precise position validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, header_size: 1)
 		end
 
 	end
@@ -159,23 +159,44 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, 1)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
 		end
 
 	end
 
 
-#### Per-line validation rules
+### Structure validation rules
 
-You may want to validate some line based structure, like min or max number of columns, COLLECTION accepts validation rules without position nor key specified.
-Current validations are: min_column, max_column
+You may want to validate some structure, like min or max number of columns, definition accepts structure_rules as a key for the third parameter.
+Current validations are: MinColumn, MaxColumn
 
-def rules
-	[].tap do |mapping|
-		mapping << { position: 0, key: 'nickname'   }
-		mapping << { position: 1, key: 'first_name' }
-    mapping << { min_column: 2, max_column: 3 }
+class MyParser
+
+	attr_accessor :file_path
+
+	def initialize file_path
+		@file_path = file_path
+	end
+
+	def data
+		@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+	end
+
+	private
+
+	def rules
+		[].tap do |mapping|
+			mapping << { position: 0, key: 'nickname'   }
+			mapping << { position: 1, key: 'first_name' }
+			mapping << { position: 2, key: 'last_name'  }
+		end
+	end
+
+  def definition
+	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, structure_rules: {'MinColumn' => 2, 'MaxColumn' => 3})
   end
+end
+
 
 ### CSV Headers
 
@@ -286,11 +307,6 @@ in your rule
 Csv data
 
 	[ [ 'Foo' ] ]
-
-
-### Limitations
-
-* Don't manage number of column you expected on collection mode
 
 ## Contributing
 
