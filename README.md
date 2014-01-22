@@ -308,6 +308,24 @@ Csv data
 
 	[ [ 'Foo' ] ]
 
+
+### Upgrading from 0.1 to 0.2
+
+The signature of Definition#initialize changed, as last parameter is a configuration hash, while in versions prior to 0.2 it was an integer (header_size) consider upgrading your code :
+
+Prior to 0.2 :
+
+```
+  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, 1)
+```
+
+Starting from 0.2 :
+```
+  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
+```
+
+If no configuration is passed, header_size defaults remains to 0
+
 ## Contributing
 
 1. Fork it
