@@ -120,7 +120,7 @@ Precise position validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, header_size: 1)
 		end
 
 	end
@@ -159,10 +159,44 @@ Collection validation sample:
 		end
 
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, 1)
+			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
 		end
 
 	end
+
+
+### Structure validation rules
+
+You may want to validate some structure, like min or max number of columns, definition accepts structure_rules as a key for the third parameter.
+Current validations are: MinColumn, MaxColumn
+
+class MyParser
+
+	attr_accessor :file_path
+
+	def initialize file_path
+		@file_path = file_path
+	end
+
+	def data
+		@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+	end
+
+	private
+
+	def rules
+		[].tap do |mapping|
+			mapping << { position: 0, key: 'nickname'   }
+			mapping << { position: 1, key: 'first_name' }
+			mapping << { position: 2, key: 'last_name'  }
+		end
+	end
+
+  def definition
+	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, structure_rules: {'MinColumn' => 2, 'MaxColumn' => 3})
+  end
+end
+
 
 ### CSV Headers
 
@@ -275,9 +309,22 @@ Csv data
 	[ [ 'Foo' ] ]
 
 
-### Limitations
+### Upgrading from 0.1 to 0.2
 
-* Don't manage number of column you expected on collection mode
+The signature of Definition#initialize changed, as last parameter is a configuration hash, while in versions prior to 0.2 it was an integer (header_size) consider upgrading your code :
+
+Prior to 0.2 :
+
+```
+  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, 1)
+```
+
+Starting from 0.2 :
+```
+  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
+```
+
+If no configuration is passed, header_size defaults remains to 0
 
 ## Contributing
 

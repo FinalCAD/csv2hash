@@ -3,6 +3,9 @@ require 'csv2hash/definition'
 require 'csv2hash/validator'
 require 'csv2hash/validator/mapping'
 require 'csv2hash/validator/collection'
+require 'csv2hash/structure_validator'
+require 'csv2hash/structure_validator/max_columns'
+require 'csv2hash/structure_validator/min_columns'
 require 'csv2hash/parser'
 require 'csv2hash/parser/mapping'
 require 'csv2hash/parser/collection'
@@ -15,6 +18,8 @@ require 'csv'
 
 class Csv2hash
 
+  include Csv2hash::StructureValidator
+
   attr_accessor :definition, :file_path, :data, :notifier, :exception_mode, :errors, :ignore_blank_line
 
   def initialize definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
@@ -26,6 +31,7 @@ class Csv2hash
     self.notifier = Notifier.new
     self.ignore_blank_line = ignore_blank_line
     init_plugins
+
   end
 
   def init_plugins
@@ -42,6 +48,7 @@ class Csv2hash
 
     definition.validate!
     definition.default!
+    validate_structure!
     validate_data!
 
     Csv2hash::DataWrapper.new.tap do |response|

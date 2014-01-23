@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Csv2hash::Validator::Collection do
-
+  let(:options) { {} }
   let(:definition) do
-    Csv2hash::Definition.new([ { position: 0, key: 'name' } ], Csv2hash::Definition::COLLECTION).tap do |definition|
+    Csv2hash::Definition.new([ { position: 0, key: 'name' } ], Csv2hash::Definition::COLLECTION, options).tap do |definition|
       definition.validate!
       definition.default!
     end
@@ -17,7 +17,7 @@ describe Csv2hash::Validator::Collection do
     let(:data_source) { [ [ 'John Doe' ] ]}
     it { expect { subject.validate_data! }.to_not raise_error }
     context 'with header' do
-      before { subject.definition.header_size = 1 }
+      let(:options) { { header_size: 1 } }
       let(:data_source) { [ [ 'Name' ], [ 'John Doe' ] ]}
       it { expect { subject.validate_data! }.to_not raise_error }
     end
@@ -37,7 +37,7 @@ describe Csv2hash::Validator::Collection do
     let(:data_source) { [ [ ] ] }
     it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
     context 'with header' do
-      before { subject.definition.header_size = 1 }
+      let(:options) { { header_size: 1 } }
       let(:data_source) { [ [ 'Name' ], [ ] ]}
       it { expect { subject.validate_data! }.to raise_error('undefined name on [1, 0]') }
     end
