@@ -35,19 +35,19 @@ You should declare a definition for you CSV, and then define for each cell what 
 
 Example :
 
-You want the cell located on first line, first column to be a string with its values to be 'yes' or 'no'. Then you can right the following validation rule :
+If you want the very first cell, located on the first line and on the first column to be a string with values are either 'yes' either 'no', you can write the following validation rule:
 
 	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
 
-The type is 'string' by default, so can just write:
+:type attribute has 'string' for default value, therefore you can just write this:
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
 
-You can define a message, default is 'undefined :key on :position'
+You can define you own message but default message is 'undefined :key on :position'
 
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
 
-You can also define Range
+You can also define Range of values
 
 	{ name: 'score', values: 0..5, position: [0,0] }
 
@@ -57,7 +57,7 @@ The message is parsed:
 
 It produces :
 
-	value of aswering is not supported, please you one of [yes, no]
+	value of answering is not supported, please use one of [yes, no]
 
 ### Default values
 
@@ -85,7 +85,7 @@ A definition should be provided. There are 2 types of definitions:
 
 ## Samples
 
-### Validation of a cell at a precise position
+### Validation of cells with defined precision
 
 Consider the following CSV:
 
@@ -125,7 +125,7 @@ Precise position validation sample:
 
 	end
 
-### Validation of a collection
+### Validation of a collection (Regular CSV)
 
 Consider the following CSV:
 
@@ -164,7 +164,6 @@ Collection validation sample:
 
 	end
 
-
 ### Structure validation rules
 
 You may want to validate some structure, like min or max number of columns, definition accepts structure_rules as a key for the third parameter.
@@ -193,7 +192,7 @@ class MyParser
 	end
 
   def definition
-	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, structure_rules: {'MinColumn' => 2, 'MaxColumn' => 3})
+	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, structure_rules: { 'MinColumns' => 2, 'MaxColumns' => 3 })
   end
 end
 
@@ -202,19 +201,19 @@ end
 
 You can define the number of rows to skip in the header of the CSV.
 
-	Definition.new(rules, type, header_size=0)
+	Definition.new(rules, type, header_size: 0)
 
 ### Parser and configuration
 
-Pasrer take severale parameters like that :
+Pasrer can take several parameters like that:
 
-	initialize definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
+	definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
 
-you can pass directly Array of data (Array at 2 dimensions) really useful for testing, if you don't care about line blank in your CSV you can ignore them.
+you can pass directly Array of data (Array at 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
 
 ### Response
 
-The parser return values wrapper into DataWrapper Object, you can call .valid? method on this Object and grab either data or errors like that :
+The parser return values wrapper into DataWrapper Object, you can call ```.valid?``` method on this Object and grab either data or errors like that :
 
     response = parser.parse
     if response.valid?
@@ -229,11 +228,11 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 
 ## Exception or Not !
 
-You can choice 2 modes of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
+You can choose into 2 different modes of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
 
 ### On **CSV MODE** you can choose different way for manage errors
 
-`.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior like that :
+`.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior:
 
 in your code
 
@@ -242,7 +241,7 @@ in your code
 	return response if response.valid?
 	# Whatever
 
-In the same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier like that
+In the same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier:
 
 	module Csv2hash
 		module Plugins
@@ -287,6 +286,7 @@ errors is a Array of Hash
 ### Error
 
 	{ y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
+
 ## Personal Validator Rule
 
 You can define your own Validator
@@ -302,16 +302,15 @@ For downcase validation
 in your rule
 
 	{ position: [0,0], key: 'name', extra_validator: DowncaseValidator.new,
-		message: 'your data should be writting in downcase only' }
+		message: 'your data should be written in lowercase only.' }
 
 Csv data
 
 	[ [ 'Foo' ] ]
 
+# Upgrading from 0.1 to 0.2
 
-### Upgrading from 0.1 to 0.2
-
-The signature of Definition#initialize changed, as last parameter is a configuration hash, while in versions prior to 0.2 it was an integer (header_size) consider upgrading your code :
+The signature of Definition#new has changed, the last parameter is a configuration hash, while in versions prior to 0.2 it was an integer (header_size) consider upgrading your code :
 
 Prior to 0.2 :
 
