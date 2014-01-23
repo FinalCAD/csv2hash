@@ -1,3 +1,8 @@
+VERSION 0.2
+
+* The signature of Definition#new
+* Add checking of number of columns
+
 VERSION 0.1
 
 * Add csv errors mode
