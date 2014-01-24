@@ -10,10 +10,10 @@ module Csv2hash::StructureValidator
         raise if exception_mode
       end
     end
+  end
 
-    def rule_instance rule, options
-      Csv2hash::StructureValidator.const_get(rule).new(options)
-    end
+  def rule_instance rule, options
+    Csv2hash::StructureValidator.const_get(rule).new(options)
   end
 
   module Validator
