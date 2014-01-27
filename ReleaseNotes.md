@@ -1,3 +1,7 @@
+VERSION 0.2.1
+
+* Correct little bug on error mode.
+
 VERSION 0.2
 
 * The signature of Definition#new
