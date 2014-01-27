@@ -6,14 +6,14 @@ module Csv2hash::StructureValidator
       begin
         rule_instance(rule, options).validate! data_source
       rescue => e
-        self.errors << e.message
+        self.errors << { y: nil, x: nil, message: e.message, key: nil }
         raise if exception_mode
       end
     end
+  end
 
-    def rule_instance rule, options
-      Csv2hash::StructureValidator.const_get(rule).new(options)
-    end
+  def rule_instance rule, options
+    Csv2hash::StructureValidator.const_get(rule).new(options)
   end
 
   module Validator

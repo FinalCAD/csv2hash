@@ -9,12 +9,6 @@ describe Csv2hash::Validator do
     end
   end
 
-  subject do
-    Csv2hash.new(definition, 'file_path').tap do |parser|
-      parser.instance_variable_set :@data_source, data_source
-    end
-  end
-
   describe '#message' do
     subject { Csv2hash.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
 
