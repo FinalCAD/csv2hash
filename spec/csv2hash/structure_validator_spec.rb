@@ -29,7 +29,7 @@ describe Csv2hash::StructureValidator do
 
     its(:csv_with_errors) { should be_kind_of CsvArray }
     it "adds structure error in first cell" do
-      subject.csv_with_errors.first[:message].should eq 'Too many columns (max. 2) on line 1'
+      expect(subject.csv_with_errors.first[:message]).to eq 'Too many columns (max. 2) on line 1'
     end
   end
 
