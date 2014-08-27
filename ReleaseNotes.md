@@ -1,25 +1,33 @@
-VERSION 0.2.1
+### VERSION 0.2.1
 
-* Correct little bug on error mode.
+* bug fix
+  * Correct little bug on error mode.
 
-VERSION 0.2
+### VERSION 0.2
 
-* The signature of Definition#new
-* Add checking of number of columns
+* backwards incompatible changes
+  * The signature of Definition#new
 
-VERSION 0.1
+* enhancements
+  * Add checking of number of columns
 
-* Add csv errors mode
-* Add Extra Validator
-* Add Notifier Plugin
-* Add Data Wrapper Response
-* Add possibility to pass directly data in constructor, for more testing
-* You can ignore blank line
+* deprecations
 
-VERSION 0.0.2
+### VERSION 0.1
 
-* Liitle enhancement
+* enhancements
+  * Add csv errors mode
+  * Add Extra Validator
+  * Add Notifier Plugin
+  * Add Data Wrapper Response
+  * Add possibility to pass directly data in constructor, for more testing
+  * You can ignore blank line
 
-VERSION 0.0.1
+### VERSION 0.0.2
+
+* enhancements
+  * Liitle enhancement
+
+### VERSION 0.0.1
 
 * Skeleton and first parsing

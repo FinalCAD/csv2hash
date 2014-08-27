@@ -1,12 +1,12 @@
 # Csv2Hash
 
-[![Code Climate](https://codeclimate.com/github/joel/csv2hash.png)](https://codeclimate.com/github/joel/csv2hash)
+[![Code Climate](https://codeclimate.com/github/FinalCAD/csv2hash.png)](https://codeclimate.com/github/FinalCAD/csv2hash)
 
-[![Dependency Status](https://gemnasium.com/joel/csv2hash.png)](https://gemnasium.com/joel/csv2hash)
+[![Dependency Status](https://gemnasium.com/FinalCAD/csv2hash.png)](https://gemnasium.com/FinalCAD/csv2hash)
 
-[![Build Status](https://travis-ci.org/joel/csv2hash.png?branch=master)](https://travis-ci.org/joel/csv2hash) (Travis CI)
+[![Build Status](https://travis-ci.org/FinalCAD/csv2hash.png?branch=master)](https://travis-ci.org/FinalCAD/csv2hash) (Travis CI)
 
-[![Coverage Status](https://coveralls.io/repos/joel/csv2hash/badge.png)](https://coveralls.io/r/joel/csv2hash)
+[![Coverage Status](https://coveralls.io/repos/FinalCAD/csv2hash/badge.png)](https://coveralls.io/r/FinalCAD/csv2hash)
 
 
 It is a DSL to validate and map a CSV to a Ruby Hash.
