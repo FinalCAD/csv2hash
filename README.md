@@ -227,7 +227,7 @@ You can define the number of rows to skip in the header of the CSV.
 Pasrer can take several parameters like that:
 
 ```
-	definition, file_path_or_data, exception_mode=true, ignore_blank_line=false
+	definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false
 ```
 
 in file_path_or_data attribubte you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
@@ -262,7 +262,7 @@ You can choose into 2 different modes of parsing, either **exception mode** for 
 in your code
 
 ```
-	parser = Csv2hash::Main.new(definition, file_path_or_data, exception_mode=true, ignore_blank_line=false).new
+	parser = Csv2hash::Main.new(definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false).new
 	response = parser.parse
 	return response if response.valid?
 	# Whatever
@@ -357,13 +357,13 @@ Signature of ```Csv2hash::Main#new``` has changed too
 Prior to 0.3 :
 
 ```
-  Csv2Hash.new(definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false)
+  Csv2Hash.new(definition, file_path, break_on_failure=true, data_source=nil, ignore_blank_line=false)
 ```
 
 Starting from 0.3 :
 
 ```
-  Csv2Hash::Main.new(definition, file_path_or_data, exception_mode=true, ignore_blank_line=false)
+  Csv2Hash::Main.new(definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false)
 ```
 
 # Upgrading from 0.1 to 0.2

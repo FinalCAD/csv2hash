@@ -10,7 +10,7 @@ describe Csv2hash::Validator::Mapping do
   end
 
   subject do
-    Csv2hash::Main.new(definition, data_source, exception_mode=true, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, break_on_failure=true, ignore_blank_line=false)
   end
 
   context 'with valid data' do
@@ -25,7 +25,7 @@ describe Csv2hash::Validator::Mapping do
 
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ] }
-    before { subject.exception_mode = false }
+    before { subject.break_on_failure = false }
     it { expect(subject.parse.errors.to_csv).to eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do
