@@ -17,7 +17,6 @@ require 'csv2hash/extra_validator'
 require 'csv'
 
 class Csv2hash
-
   include Csv2hash::StructureValidator
 
   attr_accessor :definition, :file_path, :data, :notifier, :exception_mode, :errors, :ignore_blank_line
@@ -31,7 +30,6 @@ class Csv2hash
     self.notifier = Notifier.new
     self.ignore_blank_line = ignore_blank_line
     init_plugins
-
   end
 
   def init_plugins
