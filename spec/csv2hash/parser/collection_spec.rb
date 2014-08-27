@@ -9,7 +9,7 @@ describe Csv2hash::Parser::Collection do
   let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ] ] }
 
   subject do
-    Csv2hash.new(definition, 'file_path', false, data_source)
+    Csv2hash::Main.new(definition, data_source, exception_mode=false, ignore_blank_line=false)
   end
 
   context 'regular way' do

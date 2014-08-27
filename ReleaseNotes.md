@@ -1,3 +1,12 @@
+### VERSION 0.3.0
+
+* backwards incompatible changes
+  * Csv2hash is module now, call Csv2hash::Main.new
+  * The signature of Csv2hash::Main#new has changed.
+
+* refactoring
+  * Use adapter to select source of data, either file.csv or Array of data, is more transparently, not impact signature of Csv2Hash constructor
+
 ### VERSION 0.2.1
 
 * bug fix

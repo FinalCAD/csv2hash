@@ -10,7 +10,7 @@ describe Csv2hash::Validator::Collection do
   end
 
   subject do
-    Csv2hash.new(definition, 'file_path', true, data_source)
+    Csv2hash::Main.new(definition, data_source, exception_mode=true, ignore_blank_line=false)
   end
 
   context 'with valid data' do

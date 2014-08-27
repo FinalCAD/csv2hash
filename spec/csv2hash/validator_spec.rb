@@ -10,7 +10,7 @@ describe Csv2hash::Validator do
   end
 
   describe '#message' do
-    subject { Csv2hash.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
+    subject { Csv2hash::Main.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
 
     context 'string value' do
       let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }

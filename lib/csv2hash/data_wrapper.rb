@@ -1,4 +1,4 @@
-class Csv2hash
+module Csv2hash
   class DataWrapper
 
     attr_accessor :data, :errors, :valid

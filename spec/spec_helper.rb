@@ -3,6 +3,11 @@ require 'bundler/setup'
 require 'coveralls'
 require 'its'
 
+begin
+  require 'pry'
+rescue LoadError
+end
+
 Coveralls.wear!
 
 RSpec.configure do |c|
