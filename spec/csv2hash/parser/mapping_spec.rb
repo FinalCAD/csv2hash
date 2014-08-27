@@ -9,15 +9,15 @@ describe Csv2hash::Parser::Mapping do
   let(:data_source) { [ [ 'John Doe' ] ] }
 
   subject do
-    Csv2hash.new(definition, 'file_path', false, data_source)
+    Csv2hash::Main.new(definition, data_source, exception_mode=false, ignore_blank_line=false)
   end
 
   context 'regular way' do
     it { expect { subject.parse }.to_not raise_error }
     it {
-      subject.tap do |csv2hash|
+      expect(subject.tap do |csv2hash|
         csv2hash.parse
-      end.data.should eql({ data: [ { 'name' => 'John Doe' } ] })
+      end.data).to eql({ data: [ { 'name' => 'John Doe' } ] })
     }
   end
 
@@ -27,7 +27,7 @@ describe Csv2hash::Parser::Mapping do
       definition.rules << { position: [0,1], key: 'age', nested: 'infos' }
     end
     it {
-      subject.tap { |c| c.parse }.data.should eql(
+      expect(subject.tap { |c| c.parse }.data).to eql(
         { data: [ { 'name' => 'John Doe', 'infos' => { 'age' => 22 } } ] }
       )
     }

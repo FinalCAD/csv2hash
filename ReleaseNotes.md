@@ -1,25 +1,42 @@
-VERSION 0.2.1
+### VERSION 0.3.0
 
-* Correct little bug on error mode.
+* backwards incompatible changes
+  * Csv2hash is module now, call Csv2hash::Main.new
+  * The signature of Csv2hash::Main#new has changed.
 
-VERSION 0.2
+* refactoring
+  * Use adapter to select source of data, either file.csv or Array of data, is more transparently, not impact signature of Csv2Hash constructor
 
-* The signature of Definition#new
-* Add checking of number of columns
+### VERSION 0.2.1
 
-VERSION 0.1
+* bug fix
+  * Correct little bug on error mode.
 
-* Add csv errors mode
-* Add Extra Validator
-* Add Notifier Plugin
-* Add Data Wrapper Response
-* Add possibility to pass directly data in constructor, for more testing
-* You can ignore blank line
+### VERSION 0.2
 
-VERSION 0.0.2
+* backwards incompatible changes
+  * The signature of Definition#new
 
-* Liitle enhancement
+* enhancements
+  * Add checking of number of columns
 
-VERSION 0.0.1
+* deprecations
+
+### VERSION 0.1
+
+* enhancements
+  * Add csv errors mode
+  * Add Extra Validator
+  * Add Notifier Plugin
+  * Add Data Wrapper Response
+  * Add possibility to pass directly data in constructor, for more testing
+  * You can ignore blank line
+
+### VERSION 0.0.2
+
+* enhancements
+  * Liitle enhancement
+
+### VERSION 0.0.1
 
 * Skeleton and first parsing

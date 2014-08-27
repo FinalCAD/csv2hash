@@ -1,13 +1,12 @@
 # Csv2Hash
 
-[![Code Climate](https://codeclimate.com/github/joel/csv2hash.png)](https://codeclimate.com/github/joel/csv2hash)
+[![Code Climate](https://codeclimate.com/github/FinalCAD/csv2hash.png)](https://codeclimate.com/github/FinalCAD/csv2hash)
 
-[![Dependency Status](https://gemnasium.com/joel/csv2hash.png)](https://gemnasium.com/joel/csv2hash)
+[![Dependency Status](https://gemnasium.com/FinalCAD/csv2hash.png)](https://gemnasium.com/FinalCAD/csv2hash)
 
-[![Build Status](https://travis-ci.org/joel/csv2hash.png?branch=master)](https://travis-ci.org/joel/csv2hash) (Travis CI)
+[![Build Status](https://travis-ci.org/FinalCAD/csv2hash.png?branch=master)](https://travis-ci.org/FinalCAD/csv2hash) (Travis CI)
 
-[![Coverage Status](https://coveralls.io/repos/joel/csv2hash/badge.png)](https://coveralls.io/r/joel/csv2hash)
-
+[![Coverage Status](https://coveralls.io/repos/FinalCAD/csv2hash/badge.png)](https://coveralls.io/r/FinalCAD/csv2hash)
 
 It is a DSL to validate and map a CSV to a Ruby Hash.
 
@@ -31,33 +30,45 @@ Parsing is based on rules, you must defined rules of parsing
 
 ### Rules
 
-You should declare a definition for you CSV, and then define for each cell what you would expect.
+You should declared a definition for you CSV, and then define for each cell what you would expect.
 
 Example :
 
 If you want the very first cell, located on the first line and on the first column to be a string with values are either 'yes' either 'no', you can write the following validation rule:
 
+```
 	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
+```
 
 :type attribute has 'string' for default value, therefore you can just write this:
 
+```
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
+```
 
 You can define you own message but default message is 'undefined :key on :position'
 
+```
 	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
+```
 
 You can also define Range of values
 
+```
 	{ name: 'score', values: 0..5, position: [0,0] }
+```
 
 The message is parsed:
 
+```
 	{ ..., message: 'value of :name is not supported, please you one of :values' }
+```
 
 It produces :
 
+```
 	value of answering is not supported, please use one of [yes, no]
+```
 
 ### Default values
 
@@ -77,7 +88,7 @@ All remaining keys are optionals:
 
 ## Define where your data is expected
 
-**IMPORTANT!** Position mean [Y, X], where Y is rows, X columns
+**IMPORTANT!** Position means [Y, X], where Y is rows, X columns
 
 A definition should be provided. There are 2 types of definitions:
 * search for data at a precise position in the table: `y,x`
@@ -98,16 +109,17 @@ Consider the following CSV:
 
 Precise position validation sample:
 
+```
 	class MyParser
 
-		attr_accessor :file_path
+		attr_accessor :file_path_or_data
 
-		def initialize file_path
-			@file_path = file_path
+		def initialize file_path_or_data
+			@file_path_or_data = file_path_or_data
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+			@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
 		end
 
 		private
@@ -124,6 +136,7 @@ Precise position validation sample:
 		end
 
 	end
+```
 
 ### Validation of a collection (Regular CSV)
 
@@ -136,16 +149,17 @@ Consider the following CSV:
 
 Collection validation sample:
 
+```
 	class MyParser
 
-		attr_accessor :file_path
+		attr_accessor :file_path_or_data
 
-		def initialize file_path
-			@file_path = file_path
+		def initialize file_path_or_data
+			@file_path_or_data = file_path_or_data
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash.new(definition, file_path).parse
+			@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
 		end
 
 		private
@@ -163,68 +177,79 @@ Collection validation sample:
 		end
 
 	end
+```
 
 ### Structure validation rules
 
 You may want to validate some structure, like min or max number of columns, definition accepts structure_rules as a key for the third parameter.
 Current validations are: MinColumn, MaxColumn
 
-class MyParser
+```
+  class MyParser
 
-	attr_accessor :file_path
+  	attr_accessor :file_path_or_data
 
-	def initialize file_path
-		@file_path = file_path
-	end
+  	def initialize file_path_or_data
+  		@file_path_or_data = file_path_or_data
+  	end
 
-	def data
-		@data_wrapper ||= Csv2hash.new(definition, file_path).parse
-	end
+  	def data
+  		@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
+  	end
 
-	private
+  	private
 
-	def rules
-		[].tap do |mapping|
-			mapping << { position: 0, key: 'nickname'   }
-			mapping << { position: 1, key: 'first_name' }
-			mapping << { position: 2, key: 'last_name'  }
-		end
-	end
+  	def rules
+  		[].tap do |mapping|
+  			mapping << { position: 0, key: 'nickname'   }
+  			mapping << { position: 1, key: 'first_name' }
+  			mapping << { position: 2, key: 'last_name'  }
+  		end
+  	end
 
-  def definition
-	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, structure_rules: { 'MinColumns' => 2, 'MaxColumns' => 3 })
+    def definition
+  	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION,
+        structure_rules: { 'MinColumns' => 2, 'MaxColumns' => 3 })
+    end
   end
-end
-
+```
 
 ### CSV Headers
 
 You can define the number of rows to skip in the header of the CSV.
 
+```
 	Definition.new(rules, type, header_size: 0)
+```
 
 ### Parser and configuration
 
 Pasrer can take several parameters like that:
 
-	definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false
+```
+	definition, file_path_or_data, exception_mode=true, ignore_blank_line=false
+```
 
-you can pass directly Array of data (Array at 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
+in file_path_or_data attribubte you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
 
 ### Response
 
 The parser return values wrapper into DataWrapper Object, you can call ```.valid?``` method on this Object and grab either data or errors like that :
 
+```
     response = parser.parse
     if response.valid?
 	    response.data
     else
 	    response.errors
     end
+```
 
 data or errors are Array, but errors can be formatted on csv format with .to_csv call
 
+```
 	response.errors.to_csv
+```
 
 ## Exception or Not !
 
@@ -236,13 +261,16 @@ You can choose into 2 different modes of parsing, either **exception mode** for 
 
 in your code
 
-	parser = Csv2hash.new(definition, 'file_path').new
+```
+	parser = Csv2hash::Main.new(definition, file_path_or_data, exception_mode=true, ignore_blank_line=false).new
 	response = parser.parse
 	return response if response.valid?
 	# Whatever
+```
 
 In the same time Csv2hash call **notify(response)** method when CSV parsing fail, you can add your own Notifier:
 
+```
 	module Csv2hash
 		module Plugins
 			class Notifier
@@ -262,6 +290,7 @@ In the same time Csv2hash call **notify(response)** method when CSV parsing fail
 			end
 		end
 	end
+```
 
 Or other implementation
 
@@ -269,7 +298,9 @@ Or other implementation
 
 errors is a Array of Hash
 
+```
 	{ y: 1, x: 0, message: 'message', key: 'key', value: '' }
+```
 
 ## Sample
 
@@ -281,11 +312,15 @@ errors is a Array of Hash
 
 ### Rule
 
+```
 	{ position: [1,1], key: 'nickname', allow_blank: false }
+```
 
 ### Error
 
+```
 	{ y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
+```
 
 ## Personal Validator Rule
 
@@ -293,20 +328,43 @@ You can define your own Validator
 
 For downcase validation
 
+```
 	class DowncaseValidator < Csv2hash::ExtraValidator
 		def valid? value
 			!!(value.match /^[a-z]+$/)
 		end
 	end
+```
 
 in your rule
 
+```
 	{ position: [0,0], key: 'name', extra_validator: DowncaseValidator.new,
 		message: 'your data should be written in lowercase only.' }
+```
 
 Csv data
 
+```
 	[ [ 'Foo' ] ]
+```
+
+# Upgrading from 0.2 to 0.3
+
+```Csv2hash``` become an ```Module```,  ```Csv2hash.new``` no longer works, please use ```Csv2hash::Main.new``` instead.
+Signature of ```Csv2hash::Main#new``` has changed too
+
+Prior to 0.3 :
+
+```
+  Csv2Hash.new(definition, file_path, exception_mode=true, data_source=nil, ignore_blank_line=false)
+```
+
+Starting from 0.3 :
+
+```
+  Csv2Hash::Main.new(definition, file_path_or_data, exception_mode=true, ignore_blank_line=false)
+```
 
 # Upgrading from 0.1 to 0.2
 
@@ -319,6 +377,7 @@ Prior to 0.2 :
 ```
 
 Starting from 0.2 :
+
 ```
   Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
 ```

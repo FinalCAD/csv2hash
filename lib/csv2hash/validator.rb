@@ -1,4 +1,4 @@
-class Csv2hash
+module Csv2hash
   module Validator
 
     def validate_rules y=nil

@@ -12,8 +12,8 @@ describe Csv2hash::Definition do
     end
 
     it 'variable should be assigned' do
-      subject.type.should eql Csv2hash::Definition::MAPPING
-      subject.rules.should eql [ { position: [0,0], key: 'name' } ]
+      expect(subject.type).to eql Csv2hash::Definition::MAPPING
+      expect(subject.rules).to eql [ { position: [0,0], key: 'name' } ]
     end
   end
 
@@ -56,7 +56,7 @@ describe Csv2hash::Definition do
     before { subject.default! }
 
     it 'missing key must be filled' do
-      subject.rules.should eql([{ position: [0, 0],
+      expect(subject.rules).to eql([{ position: [0, 0],
         key: 'name',
         message: 'undefined :key on :position',
         mappable: true,
@@ -68,7 +68,3 @@ describe Csv2hash::Definition do
     end
   end
 end
-
-
-
-

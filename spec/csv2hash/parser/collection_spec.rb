@@ -9,21 +9,22 @@ describe Csv2hash::Parser::Collection do
   let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ] ] }
 
   subject do
-    Csv2hash.new(definition, 'file_path', false, data_source)
+    Csv2hash::Main.new(definition, data_source, exception_mode=false, ignore_blank_line=false)
   end
 
   context 'regular way' do
     it { expect { subject.parse }.to_not raise_error }
     it {
-      subject.tap do |parser|
+      expect(subject.tap do |parser|
         parser.parse
-      end.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
+      end.data).to eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
     }
     context 'with header' do
       before { subject.definition.header_size = 1 }
       let(:data_source) { [ [ 'Name' ], [ 'John Doe' ], [ 'Jane Doe' ] ] }
       it {
-        subject.tap { |c| c.parse }.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
+        expect(subject.tap { |c| c.parse }.data).to eql(
+          { data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
       }
     end
   end
@@ -34,7 +35,7 @@ describe Csv2hash::Parser::Collection do
       definition.rules << { position: 1, key: 'age', nested: 'infos' }
     end
     it {
-      subject.tap { |c| c.parse }.data.should eql(
+      expect(subject.tap { |c| c.parse }.data).to eql(
         { data: [
           { 'name' => 'John Doe', 'infos' => { 'age' => 22 } },
           { 'name' => 'Jane Doe', 'infos' => { 'age' => 19 } }
@@ -47,10 +48,10 @@ describe Csv2hash::Parser::Collection do
   context '#ignore_blank_line' do
     let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ], [ nil ] ] }
     it {
-      subject.tap do |parser|
+      expect(subject.tap do |parser|
         parser.ignore_blank_line = true
         parser.parse
-      end.data.should eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
+      end.data).to eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
     }
   end
 end

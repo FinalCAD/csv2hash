@@ -1,8 +1,8 @@
-class Csv2hash
+module Csv2hash
   class Definition
 
-    MAPPING = 'mapping'
-    COLLECTION = 'collection'
+    MAPPING = 'mapping'.freeze
+    COLLECTION = 'collection'.freeze
 
     TYPES = [MAPPING, COLLECTION]
 

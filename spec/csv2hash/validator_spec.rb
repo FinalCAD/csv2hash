@@ -10,13 +10,13 @@ describe Csv2hash::Validator do
   end
 
   describe '#message' do
-    subject { Csv2hash.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
+    subject { Csv2hash::Main.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
 
     context 'string value' do
       let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }
 
       it 'substitue value of key' do
-        subject.send(:message, rule, nil, nil).should eql 'bar are value of foo key'
+        expect(subject.send(:message, rule, nil, nil)).to eql 'bar are value of foo key'
       end
     end
 
@@ -24,7 +24,7 @@ describe Csv2hash::Validator do
       let(:rule) { { foo: ['bar', 'zone'], message: ':foo are values of foo key' } }
 
       it 'substitue value of key' do
-        subject.send(:message, rule, nil, nil).should eql '["bar", "zone"] are values of foo key'
+        expect(subject.send(:message, rule, nil, nil)).to eql '["bar", "zone"] are values of foo key'
       end
     end
 
@@ -32,7 +32,7 @@ describe Csv2hash::Validator do
       let(:rule) { { message: 'value not found on :position' } }
 
       it 'substitue value of key' do
-        subject.send(:message, rule, 0, 2).should eql 'value not found on [0, 2]'
+        expect(subject.send(:message, rule, 0, 2)).to eql 'value not found on [0, 2]'
       end
     end
   end

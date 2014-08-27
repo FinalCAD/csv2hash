@@ -1,3 +1,5 @@
+# require 'active_support/core_ext'
+
 module Csv2hash::StructureValidator
   class ValidationError < StandardError ; end
 
@@ -14,6 +16,7 @@ module Csv2hash::StructureValidator
 
   def rule_instance rule, options
     Csv2hash::StructureValidator.const_get(rule).new(options)
+    # 'min_columns'.camelize.constantize.new
   end
 
   module Validator

@@ -10,7 +10,7 @@ describe Csv2hash::Validator::Mapping do
   end
 
   subject do
-    Csv2hash.new(definition, 'file_path', true, data_source)
+    Csv2hash::Main.new(definition, data_source, exception_mode=true, ignore_blank_line=false)
   end
 
   context 'with valid data' do
@@ -26,7 +26,7 @@ describe Csv2hash::Validator::Mapping do
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ] }
     before { subject.exception_mode = false }
-    it { subject.parse.errors.to_csv.should eql ",\"undefined name on [0, 0]\"\n" }
+    it { expect(subject.parse.errors.to_csv).to eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do
       before { subject.parse }
@@ -48,7 +48,7 @@ describe Csv2hash::Validator::Mapping do
           ]
         end
         let(:data_source) { [ [ 'what?' ], [ 'yes', 'what?' ], [ 'yes', 'what?', 'no' ] ] }
-        it { subject.parse.errors.to_csv.should eql(
+        it { expect(subject.parse.errors.to_csv).to eql(
           "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n") }
       end
       context 'range values' do
@@ -60,7 +60,7 @@ describe Csv2hash::Validator::Mapping do
           ]
         end
         let(:data_source) { [ [ 12 ], [ 2, 12 ], [ 3, 12, 1 ] ] }
-        it { subject.parse.errors.to_csv.should eql("12,\"score not supported, please use one of 1..10\"\n") }
+        it { expect(subject.parse.errors.to_csv).to eql("12,\"score not supported, please use one of 1..10\"\n") }
       end
     end
 
@@ -93,4 +93,3 @@ class DowncaseValidator < Csv2hash::ExtraValidator
     !!(value.match /^[a-z]+$/)
   end
 end
-
