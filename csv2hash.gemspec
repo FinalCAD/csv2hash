@@ -1,7 +1,8 @@
-Gem::Specification.new do |spec|
+require_relative 'lib/csv2hash/version'
 
+Gem::Specification.new do |spec|
   spec.name        = 'csv2hash'
-  spec.version     = '0.2.1'
+  spec.version     = Csv2hash::VERSION
   spec.date        = '2013-11-26'
   spec.summary     = %q{Mapping a CSV to a Ruby Hash}
   spec.description = %q{DSL to map a CSV to a Ruby Hash}
