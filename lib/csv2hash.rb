@@ -1,4 +1,6 @@
 require_relative 'csv2hash/version'
+require_relative 'csv2hash/registry'
+require_relative 'csv2hash/cell'
 require_relative 'csv2hash/definition'
 require_relative 'csv2hash/validator'
 require_relative 'csv2hash/validator/mapping'
@@ -25,6 +27,24 @@ end
 module Csv2hash
   class Main
     include Csv2hash::StructureValidator
+
+    class << self
+
+      def generate_definition name, &block
+        definition = Definition.new name, &block
+        Main[name] = definition
+      end
+
+      def [] definition_name
+        @@registry[definition_name]
+      end
+
+      def []= definition_name, role
+        @@registry[definition_name] = role
+      end
+    end
+
+    @@registry = Registry.new
 
     attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :options
 

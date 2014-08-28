@@ -1,40 +1,41 @@
 require 'spec_helper'
 
-describe Csv2hash::Validator do
+module Csv2hash
+  describe 'Validator' do
 
-  let(:definition) do
-    Csv2hash::Definition.new([ { position: [0,0], key: 'name' } ], Csv2hash::Definition::MAPPING).tap do |definition|
-      definition.validate!
-      definition.default!
+    describe '#message' do
+      let(:cell) { double(:cell, rules: rules) }
+
+      subject do
+        Class.new do
+          include Validator
+        end.new
+      end
+
+      context 'string value' do
+        let(:rules) {{ foo: 'bar', message: ':foo are value of foo key' }}
+
+        it 'substitue value of key' do
+          expect(subject.send(:message, cell, nil, nil)).to eql 'bar are value of foo key'
+        end
+      end
+
+      context 'array value' do
+        let(:rules) { { foo: ['bar', 'zone'], message: ':foo are values of foo key' } }
+
+        it 'substitue value of key' do
+          expect(subject.send(:message, cell, nil, nil)).to eql '["bar", "zone"] are values of foo key'
+        end
+      end
+
+      context 'with position' do
+        let(:rules) { { message: 'value not found on :position' } }
+
+        it 'substitue value of key' do
+          expect(subject.send(:message, cell, 0, 2)).to eql 'value not found on [0, 2]'
+        end
+      end
     end
+
   end
-
-  describe '#message' do
-    subject { Csv2hash::Main.new double('definition', type: Csv2hash::Definition::COLLECTION), nil }
-
-    context 'string value' do
-      let(:rule) { { foo: 'bar', message: ':foo are value of foo key' } }
-
-      it 'substitue value of key' do
-        expect(subject.send(:message, rule, nil, nil)).to eql 'bar are value of foo key'
-      end
-    end
-
-    context 'array value' do
-      let(:rule) { { foo: ['bar', 'zone'], message: ':foo are values of foo key' } }
-
-      it 'substitue value of key' do
-        expect(subject.send(:message, rule, nil, nil)).to eql '["bar", "zone"] are values of foo key'
-      end
-    end
-
-    context 'with position' do
-      let(:rule) { { message: 'value not found on :position' } }
-
-      it 'substitue value of key' do
-        expect(subject.send(:message, rule, 0, 2)).to eql 'value not found on [0, 2]'
-      end
-    end
-  end
-
 end

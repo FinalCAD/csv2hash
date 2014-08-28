@@ -28,6 +28,19 @@ Or install it yourself as:
 
 Parsing is based on rules, you must defined rules of parsing
 
+### DSL
+
+Csv2hash::Main.generate_definition :name do
+  set_type { Definition::MAPPING }
+  set_header_size { 2 } # 0 by default
+  set_structure_rules {{ 'MaxColumns' => 2 }}
+  mapping do
+    cell position: [0,0], key: 'gender'
+    cell position: [1,0], key: 'name'
+  end
+end
+Csv2hash::Main[:name] # Access anywhere
+
 ### Rules
 
 You should declared a definition for you CSV, and then define for each cell what you would expect.
@@ -37,31 +50,31 @@ Example :
 If you want the very first cell, located on the first line and on the first column to be a string with values are either 'yes' either 'no', you can write the following validation rule:
 
 ```
-	{ name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0] }
+	cell name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0]
 ```
 
 :type attribute has 'string' for default value, therefore you can just write this:
 
 ```
-	{ name: 'aswering', values: ['yes', 'no'], position: [0,0] }
+	cell name: 'aswering', values: ['yes', 'no'], position: [0,0]
 ```
 
 You can define you own message but default message is 'undefined :key on :position'
 
 ```
-	{ name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported' }
+	cell name: 'aswering', values: ['yes', 'no'], position: [0,0], message: 'this value is not supported'
 ```
 
 You can also define Range of values
 
 ```
-	{ name: 'score', values: 0..5, position: [0,0] }
+	cell name: 'score', values: 0..5, position: [0,0]
 ```
 
 The message is parsed:
 
 ```
-	{ ..., message: 'value of :name is not supported, please you one of :values' }
+	cell ..., message: 'value of :name is not supported, please you one of :values'
 ```
 
 It produces :
@@ -119,20 +132,21 @@ Precise position validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
 		end
 
 		private
 
-		def rules
-			[].tap do |mapping|
-				mapping << { position: [2,1], key: 'first_name' }
-				mapping << { position: [3,1], key: 'last_name' }
-			end
-		end
-
 		def definition
-			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::MAPPING, header_size: 1)
+      Main.generate_definition :my_defintion do
+        set_type { Definition::MAPPING }
+        set_header_size { 1 }
+          mapping do
+            cell position: [2,1], key: 'first_name'
+            cell position: [3,1], key: 'last_name'
+          end
+        end
+      end
 		end
 
 	end
@@ -159,22 +173,27 @@ Collection validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
 		end
 
 		private
 
-		def rules
-			[].tap do |mapping|
-				mapping << { position: 0, key: 'nickname'   }
-				mapping << { position: 1, key: 'first_name' }
-				mapping << { position: 2, key: 'last_name'  }
-			end
-		end
-
 		def definition
 			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
 		end
+
+    def definition
+      Main.generate_definition :my_defintion do
+        set_type { Definition::COLLECTION }
+        set_header_size { 1 }
+          mapping do
+            cell position: 0, key: 'nickname'
+            cell position: 1, key: 'first_name'
+            cell position: 2, key: 'last_name'
+          end
+        end
+      end
+    end
 
 	end
 ```
@@ -194,22 +213,23 @@ Current validations are: MinColumn, MaxColumn
   	end
 
   	def data
-  		@data_wrapper ||= Csv2hash::Main.new(definition, file_path_or_data).parse
+  		@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
   	end
 
   	private
 
-  	def rules
-  		[].tap do |mapping|
-  			mapping << { position: 0, key: 'nickname'   }
-  			mapping << { position: 1, key: 'first_name' }
-  			mapping << { position: 2, key: 'last_name'  }
-  		end
-  	end
-
     def definition
-  	  Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION,
-        structure_rules: { 'MinColumns' => 2, 'MaxColumns' => 3 })
+      Main.generate_definition :my_defintion do
+        set_type { Definition::COLLECTION }
+        set_header_size { 1 }
+        set_structure_rules {{ 'MinColumns' => 2, 'MaxColumns' => 3 }}
+          mapping do
+            cell position: 0, key: 'nickname'
+            cell position: 1, key: 'first_name'
+            cell position: 2, key: 'last_name'
+          end
+        end
+      end
     end
   end
 ```
@@ -219,7 +239,7 @@ Current validations are: MinColumn, MaxColumn
 You can define the number of rows to skip in the header of the CSV.
 
 ```
-	Definition.new(rules, type, header_size: 0)
+	set_header_size { 1 }
 ```
 
 ### Parser and configuration
@@ -343,14 +363,38 @@ For downcase validation
 in your rule
 
 ```
-	{ position: [0,0], key: 'name', extra_validator: DowncaseValidator.new,
-		message: 'your data should be written in lowercase only.' }
+	cell position: [0,0], key: 'name', extra_validator: DowncaseValidator.new,
+		message: 'your data should be written in lowercase only.'
 ```
 
 Csv data
 
 ```
 	[ [ 'Foo' ] ]
+```
+
+# Upgrading
+
+# Upgrading from 0.5 to 0.6
+
+Introduce DSL
+
+Prior to 0.6 :
+
+```
+  rules = [{ position: [0,0], key: 'name' }]
+  Csv2hash::Definition.new(rules, Definition::MAPPING, options={})
+
+```
+
+Starting from 0.6 :
+
+```
+  Csv2hash::Main.generate_definition :foo do
+    set_type { Definition::MAPPING }
+    mapping { cell position: [0,0], key: 'name' }
+  end
+  Csv2hash::Main[:foo] # Access anywhere
 ```
 
 # Upgrading from 0.4 to 0.5

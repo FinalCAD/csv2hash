@@ -1,10 +1,18 @@
+### VERSION 0.6.0
+
+* backwards incompatible changes
+  * Introduce DSL for definition
+
+* refactoring
+  * replace arguments for rules by DSL of cells
+
 ### VERSION 0.5.0
 
 * backwards incompatible changes
   * The signature of Csv2hash::Main#new has changed.
 
 * refactoring
-  * remove params ``` ignore_blank_line ``` to benefit of options of Hash 
+  * remove params ``` ignore_blank_line ``` to benefit of options of Hash
 
 ### VERSION 0.4.0
 

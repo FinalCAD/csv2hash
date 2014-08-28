@@ -1,18 +1,24 @@
-module Csv2hash::Validator::Collection
-  include Csv2hash::Validator
+require_relative '../expectation'
 
-  def validate_data!
-    self.data_source.each_with_index do |line, y|
-      next if y < definition.header_size
-      next if self.options.fetch(:ignore_blank_line) and line.compact.empty?
-      validate_rules y
+module Csv2hash
+  module Validator
+    module Collection
+      include Validator
+      include Expectation
+
+      def validate_data!
+        self.data_source.each_with_index do |line, y|
+          next if unexpected_line?(line, y)
+          validate_rules y
+        end
+      end
+
+      protected
+
+      def position _position
+        [nil, _position]
+      end
+
     end
   end
-
-  protected
-
-  def position _position
-    [nil, _position]
-  end
-
 end
