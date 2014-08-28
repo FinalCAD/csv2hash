@@ -1,3 +1,11 @@
+### VERSION 0.4.0
+
+* backwards incompatible changes
+  * The signature of Csv2hash::Main#new has changed.
+
+* refactoring
+  * remove params ``` break_on_failure ``` to benefit of ``` Csv2hash::Main#parse! ``` of ``` Csv2hash::Main#parse ```
+
 ### VERSION 0.3.0
 
 * backwards incompatible changes

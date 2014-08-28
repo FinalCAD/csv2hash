@@ -8,7 +8,7 @@ module Csv2hash
           validate_cell (_y||y), x, rule
         rescue => e
           self.errors << { y: (_y||y), x: x, message: e.message, key: rule.fetch(:key) }
-          raise if exception_mode
+          raise if break_on_failure
         end
       end
     end

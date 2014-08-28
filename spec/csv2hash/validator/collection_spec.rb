@@ -10,11 +10,16 @@ describe Csv2hash::Validator::Collection do
   end
 
   subject do
-    Csv2hash::Main.new(definition, data_source, exception_mode=true, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+  end
+
+  before do
+    allow(subject).to receive(:break_on_failure) { true }
   end
 
   context 'with valid data' do
     let(:data_source) { [ [ 'John Doe' ] ]}
+
     it { expect { subject.validate_data! }.to_not raise_error }
     context 'with header' do
       let(:options) { { header_size: 1 } }
@@ -28,7 +33,7 @@ describe Csv2hash::Validator::Collection do
     before { subject.ignore_blank_line = true }
     it { expect { subject.validate_data! }.to_not raise_error }
     context 'csv mode' do
-      before { subject.exception_mode = false }
+      before { subject.break_on_failure = false }
       its(:errors) { should be_empty }
     end
   end
@@ -45,7 +50,11 @@ describe Csv2hash::Validator::Collection do
 
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ]}
-    before { subject.exception_mode = false }
+    
+    before do
+      allow(subject).to receive(:break_on_failure) { false }
+    end
+
     it { expect(subject.parse.errors.to_csv).to eql ",\"undefined name on [0, 0]\"\n" }
 
     context 'errors should be filled' do

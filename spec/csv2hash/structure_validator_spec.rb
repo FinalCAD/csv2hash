@@ -4,7 +4,6 @@ describe Csv2hash::StructureValidator do
 
   let(:rules) { [ { position: [0,0], key: 'name' } ] }
   let(:options) { {} }
-  let(:exception_mode) { true }
   let(:definition) do
     Csv2hash::Definition.new(rules, Csv2hash::Definition::MAPPING, options).tap do |definition|
       definition.validate!
@@ -13,12 +12,11 @@ describe Csv2hash::StructureValidator do
   end
 
   subject do
-    Csv2hash::Main.new(definition, data_source, exception_mode, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
   end
 
   context 'the csv with errors' do
     let(:options){ { structure_rules: { 'MaxColumns' => 2 } } }
-    let(:exception_mode) { false }
     before { subject.parse }
     let(:data_source) do
       [
@@ -36,6 +34,10 @@ describe Csv2hash::StructureValidator do
 
   context '#MaxColumns'  do
     let(:options){ { structure_rules: { 'MaxColumns' => 2 } } }
+
+    before do
+      allow(subject).to receive(:break_on_failure) { true }
+    end
 
     context 'valid data' do
       let(:data_source) do
@@ -59,6 +61,10 @@ describe Csv2hash::StructureValidator do
 
   context '#MinColumns'  do
     let(:options){ { structure_rules: { 'MinColumns' => 2 } } }
+
+    before do
+      allow(subject).to receive(:break_on_failure) { true }
+    end
 
     context 'valid data' do
       let(:data_source) do

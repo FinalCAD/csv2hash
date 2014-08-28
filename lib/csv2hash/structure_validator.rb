@@ -9,7 +9,7 @@ module Csv2hash::StructureValidator
         rule_instance(rule, options).validate! data_source
       rescue => e
         self.errors << { y: nil, x: nil, message: e.message, key: nil }
-        raise if exception_mode
+        raise if break_on_failure
       end
     end
   end

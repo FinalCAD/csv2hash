@@ -24,13 +24,13 @@ module Csv2hash
   class Main
     include Csv2hash::StructureValidator
 
-    attr_accessor :definition, :file_path_or_data, :data, :notifier, :exception_mode, :errors, :ignore_blank_line
+    attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :ignore_blank_line
 
-    def initialize definition, file_path_or_data, exception_mode=true, ignore_blank_line=false
+    def initialize definition, file_path_or_data, ignore_blank_line=false
       self.definition, self.file_path_or_data = definition, file_path_or_data
       @data_source = data_source
       dynamic_lib_loading 'Parser'
-      self.exception_mode, self.errors = exception_mode, []
+      self.break_on_failure, self.errors = false, []
       dynamic_lib_loading 'Validator'
       self.notifier = Notifier.new
       self.ignore_blank_line = ignore_blank_line
@@ -45,6 +45,13 @@ module Csv2hash
           @plugins << ::Csv2hash::Plugins.const_get(name).new(self)
         end
       rescue; end
+    end
+
+    def parse!
+      self.break_on_failure = true
+      parse
+    ensure
+      self.break_on_failure = false
     end
 
     def parse
