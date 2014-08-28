@@ -8,9 +8,10 @@ describe Csv2hash::Validator::Collection do
       definition.default!
     end
   end
+  let(:ignore_blank_line) { false }
 
   subject do
-    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line: ignore_blank_line)
   end
 
   before do
@@ -30,7 +31,7 @@ describe Csv2hash::Validator::Collection do
 
   context '#ignore_blank_line' do
     let(:data_source) { [ [ ] ] }
-    before { subject.ignore_blank_line = true }
+    let(:ignore_blank_line) { true }
     it { expect { subject.validate_data! }.to_not raise_error }
     context 'csv mode' do
       before { subject.break_on_failure = false }
@@ -50,7 +51,7 @@ describe Csv2hash::Validator::Collection do
 
   context 'wihtout exception' do
     let(:data_source) { [ [ ] ]}
-    
+
     before do
       allow(subject).to receive(:break_on_failure) { false }
     end

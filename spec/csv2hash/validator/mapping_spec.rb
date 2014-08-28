@@ -10,7 +10,7 @@ describe Csv2hash::Validator::Mapping do
   end
 
   subject do
-    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line: false)
   end
 
   before do

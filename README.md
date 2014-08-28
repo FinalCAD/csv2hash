@@ -227,7 +227,7 @@ You can define the number of rows to skip in the header of the CSV.
 Pasrer can take several parameters like that:
 
 ```
-	definition, file_path_or_data, ignore_blank_line=false
+	definition, file_path_or_data, ignore_blank_line: false
 ```
 
 in file_path_or_data attribute you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
@@ -266,7 +266,7 @@ You need call `.parse()` return `data_wrapper` if `.parse()` is invalid, you can
 in your code
 
 ```
-	parser = Csv2hash::Main.new(definition, file_path_or_data, ignore_blank_line=false).new
+	parser = Csv2hash::Main.new(definition, file_path_or_data, ignore_blank_line: false).new
 	response = parser.parse
 	return response if response.valid?
 	# Whatever
@@ -352,11 +352,28 @@ Csv data
 ```
 	[ [ 'Foo' ] ]
 ```
+
+# Upgrading from 0.4 to 0.5
+
+Signature of ```Csv2hash::Main#new``` has changed too
+
+Prior to 0.5 :
+
+```
+  Csv2Hash::Main.new(definition, file_path_or_data, ignore_blank_line=false)
+```
+
+Starting from 0.5 :
+
+```
+  Csv2Hash::Main.new(definition, file_path_or_data, ignore_blank_line: false)
+```
+
 # Upgrading from 0.3 to 0.4
 
 Signature of ```Csv2hash::Main#new``` has changed too
 
-Prior to 0.3 :
+Prior to 0.4 :
 
 ```
   Csv2Hash::Main.new(definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false)
@@ -364,7 +381,7 @@ Prior to 0.3 :
 
 call ```.parse!``` for same result
 
-Starting from 0.3 :
+Starting from 0.4 :
 
 ```
   Csv2Hash::Main.new(definition, file_path_or_data, ignore_blank_line=false)
