@@ -19,14 +19,14 @@ module Csv2hash
       end
 
       def fill_it parsed_data, source_data
-        definition.rules.each do |rule|
-          if rule.fetch :mappable
-            x = rule.fetch :position
-            if (nested = rule.fetch :nested)
+        definition.cells.each do |cell|
+          if cell.rules.fetch :mappable
+            x = cell.rules.fetch :position
+            if (nested = cell.rules.fetch :nested)
               parsed_data[nested] ||= {}
-              parsed_data[nested][rule.fetch(:key)] = source_data[x]
+              parsed_data[nested][cell.rules.fetch(:key)] = source_data[x]
             else
-              parsed_data[rule.fetch(:key)] = source_data[x]
+              parsed_data[cell.rules.fetch(:key)] = source_data[x]
             end
           end
         end

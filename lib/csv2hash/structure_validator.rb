@@ -4,6 +4,7 @@ module Csv2hash::StructureValidator
   class ValidationError < StandardError ; end
 
   def validate_structure!
+    # binding.pry
     definition.structure_rules.each do |rule, options|
       begin
         rule_instance(rule, options).validate! data_source

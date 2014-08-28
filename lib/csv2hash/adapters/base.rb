@@ -5,7 +5,6 @@ module Csv2hash
       class UnsupportedAdapter < StandardError ; end
 
       def self.create adapter_name, file_path_or_data
-        # binding.pry
         load "csv2hash/adapters/#{adapter_name}_adapter.rb"
         class_eval("Csv2hash::Adapter::#{klass_adapter(adapter_name)}").new file_path_or_data
       end
