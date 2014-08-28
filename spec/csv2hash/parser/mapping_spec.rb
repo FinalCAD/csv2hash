@@ -9,7 +9,7 @@ describe Csv2hash::Parser::Mapping do
   let(:data_source) { [ [ 'John Doe' ] ] }
 
   subject do
-    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line: false)
   end
 
   context 'regular way' do

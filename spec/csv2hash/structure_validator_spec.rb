@@ -12,7 +12,7 @@ describe Csv2hash::StructureValidator do
   end
 
   subject do
-    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line: false)
   end
 
   context 'the csv with errors' do

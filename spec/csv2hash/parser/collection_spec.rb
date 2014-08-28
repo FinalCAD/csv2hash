@@ -7,9 +7,10 @@ describe Csv2hash::Parser::Collection do
   end
 
   let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ] ] }
+  let(:ignore_blank_line) { false }
 
   subject do
-    Csv2hash::Main.new(definition, data_source, ignore_blank_line=false)
+    Csv2hash::Main.new(definition, data_source, ignore_blank_line: ignore_blank_line)
   end
 
   context 'regular way' do
@@ -47,9 +48,9 @@ describe Csv2hash::Parser::Collection do
 
   context '#ignore_blank_line' do
     let(:data_source) { [ [ 'John Doe' ], [ 'Jane Doe' ], [ nil ] ] }
+    let(:ignore_blank_line) { true }
     it {
       expect(subject.tap do |parser|
-        parser.ignore_blank_line = true
         parser.parse
       end.data).to eql({ data: [ { 'name' => 'John Doe' }, { 'name' => 'Jane Doe' } ] })
     }

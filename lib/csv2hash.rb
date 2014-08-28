@@ -15,6 +15,8 @@ require_relative 'csv2hash/notifier'
 require_relative 'csv2hash/extra_validator'
 require_relative 'csv2hash/adapters/base'
 
+require 'active_support/core_ext/array/extract_options'
+
 begin
   require 'pry'
 rescue LoadError
@@ -24,16 +26,18 @@ module Csv2hash
   class Main
     include Csv2hash::StructureValidator
 
-    attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :ignore_blank_line
+    attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :options
 
-    def initialize definition, file_path_or_data, ignore_blank_line=false
+    def initialize definition, file_path_or_data, *args
+      self.options = args.extract_options!
       self.definition, self.file_path_or_data = definition, file_path_or_data
-      @data_source = data_source
-      dynamic_lib_loading 'Parser'
       self.break_on_failure, self.errors = false, []
-      dynamic_lib_loading 'Validator'
       self.notifier = Notifier.new
-      self.ignore_blank_line = ignore_blank_line
+
+      dynamic_lib_loading 'Parser'
+      dynamic_lib_loading 'Validator'
+
+      @data_source = data_source
 
       init_plugins
     end

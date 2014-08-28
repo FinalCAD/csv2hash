@@ -6,7 +6,7 @@ module Csv2hash::Parser::Collection
       data_computed[:data] ||= []
       self.data_source.each_with_index do |line, y|
         next if y < definition.header_size
-        next if self.ignore_blank_line and line.compact.empty?
+        next if self.options.fetch(:ignore_blank_line) and line.compact.empty?
         data_computed[:data] << {}.tap do |data_parsed|
           fill_it data_parsed, line
         end

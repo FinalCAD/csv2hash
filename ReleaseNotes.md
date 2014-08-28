@@ -1,3 +1,11 @@
+### VERSION 0.5.0
+
+* backwards incompatible changes
+  * The signature of Csv2hash::Main#new has changed.
+
+* refactoring
+  * remove params ``` ignore_blank_line ``` to benefit of options of Hash 
+
 ### VERSION 0.4.0
 
 * backwards incompatible changes
