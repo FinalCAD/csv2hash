@@ -227,10 +227,10 @@ You can define the number of rows to skip in the header of the CSV.
 Pasrer can take several parameters like that:
 
 ```
-	definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false
+	definition, file_path_or_data, ignore_blank_line=false
 ```
 
-in file_path_or_data attribubte you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
+in file_path_or_data attribute you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
 
 ### Response
 
@@ -253,16 +253,20 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 
 ## Exception or Not !
 
-You can choose into 2 different modes of parsing, either **exception mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
+You can choose into 2 different modes of parsing, either **break_on_failure mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
 
-### On **CSV MODE** you can choose different way for manage errors
+### On **BREAK_ON_FAILURE MODE**
 
-`.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior:
+You need call ```.parse()``` with bang ```!```
+
+### On **CSV MODE**
+
+You need call `.parse()` return `data_wrapper` if `.parse()` is invalid, you can code your own behavior:
 
 in your code
 
 ```
-	parser = Csv2hash::Main.new(definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false).new
+	parser = Csv2hash::Main.new(definition, file_path_or_data, ignore_blank_line=false).new
 	response = parser.parse
 	return response if response.valid?
 	# Whatever
@@ -348,6 +352,25 @@ Csv data
 ```
 	[ [ 'Foo' ] ]
 ```
+# Upgrading from 0.3 to 0.4
+
+Signature of ```Csv2hash::Main#new``` has changed too
+
+Prior to 0.3 :
+
+```
+  Csv2Hash::Main.new(definition, file_path_or_data, break_on_failure=true, ignore_blank_line=false)
+```
+
+call ```.parse!``` for same result
+
+Starting from 0.3 :
+
+```
+  Csv2Hash::Main.new(definition, file_path_or_data, ignore_blank_line=false)
+```
+
+call ```.parse``` for same result
 
 # Upgrading from 0.2 to 0.3
 
