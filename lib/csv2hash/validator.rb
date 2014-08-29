@@ -1,8 +1,12 @@
+require_relative 'discover'
+
 module Csv2hash
   module Validator
+    include Discover
 
     def validate_rules y=nil
-      # binding.pry
+      find_positions!
+
       definition.cells.each do |cell|
         _y, x = position cell.rules.fetch(:position)
         begin
@@ -22,7 +26,7 @@ module Csv2hash
       value = data_source[y][x] rescue nil
       begin
         raise unless value unless cell.rules.fetch :allow_blank
-        if (extra_validator = cell.rules.fetch :extra_validator) && extra_validator.kind_of?(Csv2hash::ExtraValidator)
+        if (extra_validator = cell.rules.fetch :extra_validator) && extra_validator.kind_of?(ExtraValidator)
           raise unless extra_validator.valid? cell.rules, value
         else
           if value && (values = cell.rules.fetch :values)

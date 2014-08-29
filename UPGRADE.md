@@ -1,5 +1,13 @@
 # Upgrading
 
+# Upgrading from 0.6.1 to 0.6.2
+
+nothing
+
+# Upgrading from 0.6 to 0.6.1
+
+Change Structure validation rules, MinColumn, MaxColumn are replaced by :min_columns, :max_columns
+
 # Upgrading from 0.5 to 0.6
 
 Introduce DSL

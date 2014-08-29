@@ -1,3 +1,8 @@
+### VERSION 0.6.2
+
+* feature
+  * Auto discover, you can add floating position on mapping rules
+
 ### VERSION 0.6.1
 
 * deprecations
