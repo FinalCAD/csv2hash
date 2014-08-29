@@ -203,7 +203,7 @@ Collection validation sample:
 ### Structure validation rules
 
 You may want to validate some structure, like min or max number of columns, definition accepts structure_rules as a key for the third parameter.
-Current validations are: MinColumn, MaxColumn
+Current validations are: :min_columns, :max_columns
 
 ```
   class MyParser
@@ -224,7 +224,7 @@ Current validations are: MinColumn, MaxColumn
       Main.generate_definition :my_defintion do
         set_type { Definition::COLLECTION }
         set_header_size { 1 }
-        set_structure_rules {{ 'MinColumns' => 2, 'MaxColumns' => 3 }}
+        set_structure_rules {{ min_columns: 2, max_columns: 3 }}
           mapping do
             cell position: 0, key: 'nickname'
             cell position: 1, key: 'first_name'
