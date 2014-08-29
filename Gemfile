@@ -6,3 +6,8 @@ group :test do
   gem 'coveralls', require: false
   gem 'pry'
 end
+
+group :doc do
+  gem 'yard-tomdoc'
+  gem 'yard'
+end

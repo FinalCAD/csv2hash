@@ -1,0 +1,1298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Csv2hash::Main
+  
+    &mdash; Documentation by YARD 0.8.7.4
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!Csv2hash/Main.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (M)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Csv2hash.html" title="Csv2hash (module)">Csv2hash</a></span></span>
+     &raquo; 
+    <span class="title">Main</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Csv2hash::Main
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Csv2hash::Main</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="StructureValidator.html" title="Csv2hash::StructureValidator (module)">StructureValidator</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/csv2hash.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="registry-classvariable" class="">@@registry =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Registry</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="StructureValidator.html" title="Csv2hash::StructureValidator (module)">StructureValidator</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="StructureValidator.html#MAX_COLUMN-constant" title="Csv2hash::StructureValidator::MAX_COLUMN (constant)">StructureValidator::MAX_COLUMN</a></span>, <span class='object_link'><a href="StructureValidator.html#MIN_COLUMN-constant" title="Csv2hash::StructureValidator::MIN_COLUMN (constant)">StructureValidator::MIN_COLUMN</a></span>, <span class='object_link'><a href="StructureValidator.html#RULES_NAME-constant" title="Csv2hash::StructureValidator::RULES_NAME (constant)">StructureValidator::RULES_NAME</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="StructureValidator/Deprecation.html" title="Csv2hash::StructureValidator::Deprecation (module)">StructureValidator::Deprecation</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="StructureValidator/Deprecation.html#NEW_SYNTAX-constant" title="Csv2hash::StructureValidator::Deprecation::NEW_SYNTAX (constant)">StructureValidator::Deprecation::NEW_SYNTAX</a></span>, <span class='object_link'><a href="StructureValidator/Deprecation.html#OLD_MAX_COLUMN-constant" title="Csv2hash::StructureValidator::Deprecation::OLD_MAX_COLUMN (constant)">StructureValidator::Deprecation::OLD_MAX_COLUMN</a></span>, <span class='object_link'><a href="StructureValidator/Deprecation.html#OLD_MIN_COLUMN-constant" title="Csv2hash::StructureValidator::Deprecation::OLD_MIN_COLUMN (constant)">StructureValidator::Deprecation::OLD_MIN_COLUMN</a></span>, <span class='object_link'><a href="StructureValidator/Deprecation.html#OLD_RULES_NAME-constant" title="Csv2hash::StructureValidator::Deprecation::OLD_RULES_NAME (constant)">StructureValidator::Deprecation::OLD_RULES_NAME</a></span></p>
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#break_on_failure-instance_method" title="#break_on_failure (instance method)">- (Object) <strong>break_on_failure</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute break_on_failure.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#data-instance_method" title="#data (instance method)">- (Object) <strong>data</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute data.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#definition-instance_method" title="#definition (instance method)">- (Object) <strong>definition</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute definition.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#errors-instance_method" title="#errors (instance method)">- (Object) <strong>errors</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute errors.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_path_or_data-instance_method" title="#file_path_or_data (instance method)">- (Object) <strong>file_path_or_data</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute file_path_or_data.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#notifier-instance_method" title="#notifier (instance method)">- (Object) <strong>notifier</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute notifier.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#options-instance_method" title="#options (instance method)">- (Object) <strong>options</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute options.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D-class_method" title="[] (class method)">+ (Object) <strong>[]</strong>(definition_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D%3D-class_method" title="[]= (class method)">+ (Object) <strong>[]=</strong>(definition_name, role) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_definition-class_method" title="generate_definition (class method)">+ (Object) <strong>generate_definition</strong>(name, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#csv_with_errors-instance_method" title="#csv_with_errors (instance method)">- (Object) <strong>csv_with_errors</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#data_source-instance_method" title="#data_source (instance method)">- (Object) <strong>data_source</strong> </a>
+    
+
+    
+      (also: #load_data_source)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>protected.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#init_plugins-instance_method" title="#init_plugins (instance method)">- (Object) <strong>init_plugins</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Main) <strong>initialize</strong>(definition, file_path_or_data, *args) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Main.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse-instance_method" title="#parse (instance method)">- (Object) <strong>parse</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse%21-instance_method" title="#parse! (instance method)">- (Object) <strong>parse!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="StructureValidator.html" title="Csv2hash::StructureValidator (module)">StructureValidator</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="StructureValidator.html#rule_instance-instance_method" title="Csv2hash::StructureValidator#rule_instance (method)">#rule_instance</a></span>, <span class='object_link'><a href="StructureValidator.html#validate_structure%21-instance_method" title="Csv2hash::StructureValidator#validate_structure! (method)">#validate_structure!</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="StructureValidator/Deprecation.html" title="Csv2hash::StructureValidator::Deprecation (module)">StructureValidator::Deprecation</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="StructureValidator/Deprecation.html#check_params-instance_method" title="Csv2hash::StructureValidator::Deprecation#check_params (method)">#check_params</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Csv2hash::Main (class)">Main</a></span></tt>) <strong>initialize</strong>(definition, file_path_or_data, *args) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of Main</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_definition'>definition</span><span class='comma'>,</span> <span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_extract_options!'>extract_options!</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_definition'>definition</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span> <span class='op'>=</span> <span class='id identifier rubyid_definition'>definition</span><span class='comma'>,</span> <span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_break_on_failure'>break_on_failure</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_notifier'>notifier</span> <span class='op'>=</span> <span class='const'>Notifier</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+  <span class='id identifier rubyid_dynamic_lib_loading'>dynamic_lib_loading</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Parser</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_dynamic_lib_loading'>dynamic_lib_loading</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Validator</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='ivar'>@data_source</span> <span class='op'>=</span> <span class='id identifier rubyid_data_source'>data_source</span>
+
+  <span class='id identifier rubyid_init_plugins'>init_plugins</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="break_on_failure=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="break_on_failure-instance_method">
+  
+    - (<tt>Object</tt>) <strong>break_on_failure</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute break_on_failure</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_break_on_failure'>break_on_failure</span>
+  <span class='ivar'>@break_on_failure</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="data=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="data-instance_method">
+  
+    - (<tt>Object</tt>) <strong>data</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='ivar'>@data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="definition=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="definition-instance_method">
+  
+    - (<tt>Object</tt>) <strong>definition</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute definition</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_definition'>definition</span>
+  <span class='ivar'>@definition</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="errors=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="errors-instance_method">
+  
+    - (<tt>Object</tt>) <strong>errors</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute errors</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_errors'>errors</span>
+  <span class='ivar'>@errors</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="file_path_or_data=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="file_path_or_data-instance_method">
+  
+    - (<tt>Object</tt>) <strong>file_path_or_data</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute file_path_or_data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span>
+  <span class='ivar'>@file_path_or_data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="notifier=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="notifier-instance_method">
+  
+    - (<tt>Object</tt>) <strong>notifier</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute notifier</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_notifier'>notifier</span>
+  <span class='ivar'>@notifier</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="options=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="options-instance_method">
+  
+    - (<tt>Object</tt>) <strong>options</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute options</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='ivar'>@options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="[]-class_method">
+  
+    + (<tt>Object</tt>) <strong>[]</strong>(definition_name) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='op'>[]</span> <span class='id identifier rubyid_definition_name'>definition_name</span>
+  <span class='cvar'>@@registry</span><span class='lbracket'>[</span><span class='id identifier rubyid_definition_name'>definition_name</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="[]=-class_method">
+  
+    + (<tt>Object</tt>) <strong>[]=</strong>(definition_name, role) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='op'>[]=</span> <span class='id identifier rubyid_definition_name'>definition_name</span><span class='comma'>,</span> <span class='id identifier rubyid_role'>role</span>
+  <span class='cvar'>@@registry</span><span class='lbracket'>[</span><span class='id identifier rubyid_definition_name'>definition_name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_role'>role</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate_definition-class_method">
+  
+    + (<tt>Object</tt>) <strong>generate_definition</strong>(name, &amp;block) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_definition'>generate_definition</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_definition'>definition</span> <span class='op'>=</span> <span class='const'>Definition</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='const'>Main</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_definition'>definition</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="csv_with_errors-instance_method">
+  
+    - (<tt>Object</tt>) <strong>csv_with_errors</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_csv_with_errors'>csv_with_errors</span>
+  <span class='ivar'>@csv_with_errors</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='const'>CsvArray</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_rows'>rows</span><span class='op'>|</span>
+      <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_error'>error</span><span class='op'>|</span>
+        <span class='id identifier rubyid_rows'>rows</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>value:</span> <span class='lparen'>(</span><span class='id identifier rubyid_data_source'>data_source</span><span class='lbracket'>[</span><span class='id identifier rubyid_error'>error</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_error'>error</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='kw'>rescue</span> <span class='kw'>nil</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span> <span class='comment'>#.to_csv
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="data_source-instance_method">
+  
+    - (<tt>Object</tt>) <strong>data_source</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='load_data_source-instance_method'>load_data_source</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>protected</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118
+119</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_data_source'>data_source</span>
+  <span class='ivar'>@data_source</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='id identifier rubyid_adapter_name'>adapter_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='symbol'>:csv</span> <span class='op'>:</span> <span class='symbol'>:memory</span>
+    <span class='id identifier rubyid_adapter'>adapter</span> <span class='op'>=</span> <span class='const'>Adapter</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_adapter_name'>adapter_name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_file_path_or_data'>file_path_or_data</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_adapter'>adapter</span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="init_plugins-instance_method">
+  
+    - (<tt>Object</tt>) <strong>init_plugins</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 65</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_init_plugins'>init_plugins</span>
+  <span class='kw'>begin</span>
+    <span class='ivar'>@plugins</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='op'>::</span><span class='const'>Csv2hash</span><span class='op'>::</span><span class='const'>Plugins</span><span class='period'>.</span><span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
+      <span class='ivar'>@plugins</span> <span class='op'>&lt;&lt;</span> <span class='op'>::</span><span class='const'>Csv2hash</span><span class='op'>::</span><span class='const'>Plugins</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>rescue</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parse-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parse</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span>
+  <span class='id identifier rubyid_load_data_source'>load_data_source</span>
+
+  <span class='id identifier rubyid_definition'>definition</span><span class='period'>.</span><span class='id identifier rubyid_validate!'>validate!</span>
+  <span class='id identifier rubyid_definition'>definition</span><span class='period'>.</span><span class='id identifier rubyid_default!'>default!</span>
+  <span class='id identifier rubyid_validate_structure!'>validate_structure!</span>
+  <span class='id identifier rubyid_validate_data!'>validate_data!</span>
+
+  <span class='const'>Csv2hash</span><span class='op'>::</span><span class='const'>DataWrapper</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_valid?'>valid?</span>
+      <span class='id identifier rubyid_fill!'>fill!</span>
+      <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_valid'>valid</span> <span class='op'>=</span> <span class='kw'>false</span>
+      <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span> <span class='op'>=</span> <span class='id identifier rubyid_csv_with_errors'>csv_with_errors</span>
+      <span class='id identifier rubyid_notifier'>notifier</span><span class='period'>.</span><span class='id identifier rubyid_notify'>notify</span> <span class='id identifier rubyid_response'>response</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parse!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parse!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/csv2hash.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parse!'>parse!</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_break_on_failure'>break_on_failure</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_parse'>parse</span>
+<span class='kw'>ensure</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_break_on_failure'>break_on_failure</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Fri Aug 29 17:12:26 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.4 (ruby-2.1.2).
+</div>
+
+  </body>
+</html>
