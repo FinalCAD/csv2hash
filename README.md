@@ -34,7 +34,7 @@ Parsing is based on rules, you should defined rule for each cells
   Csv2hash::Main.generate_definition :name do
     set_type { Definition::MAPPING }
     set_header_size { 2 } # 0 by default
-    set_structure_rules {{ 'MaxColumns' => 2 }}
+    set_structure_rules {{ max_columns: 2 }}
     mapping do
       cell position: [0,0], key: 'gender'
       cell position: [1,0], key: 'name'
