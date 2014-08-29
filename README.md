@@ -26,24 +26,26 @@ Or install it yourself as:
 
 ## Usage
 
-Parsing is based on rules, you must defined rules of parsing
+Parsing is based on rules, you should defined rule for each cells
 
 ### DSL
 
-Csv2hash::Main.generate_definition :name do
-  set_type { Definition::MAPPING }
-  set_header_size { 2 } # 0 by default
-  set_structure_rules {{ 'MaxColumns' => 2 }}
-  mapping do
-    cell position: [0,0], key: 'gender'
-    cell position: [1,0], key: 'name'
+```
+  Csv2hash::Main.generate_definition :name do
+    set_type { Definition::MAPPING }
+    set_header_size { 2 } # 0 by default
+    set_structure_rules {{ 'MaxColumns' => 2 }}
+    mapping do
+      cell position: [0,0], key: 'gender'
+      cell position: [1,0], key: 'name'
+    end
   end
-end
-Csv2hash::Main[:name] # Access anywhere
+  Csv2hash::Main[:name] # Access anywhere
+```
 
 ### Rules
 
-You should declared a definition for you CSV, and then define for each cell what you would expect.
+You should declared a definition of your CSV file, and then define for each cell what you would expect.
 
 Example :
 
@@ -53,7 +55,7 @@ If you want the very first cell, located on the first line and on the first colu
 	cell name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0]
 ```
 
-:type attribute has 'string' for default value, therefore you can just write this:
+`:type` attribute has `String` for default value, therefore you can just write this:
 
 ```
 	cell name: 'aswering', values: ['yes', 'no'], position: [0,0]
@@ -109,7 +111,7 @@ A definition should be provided. There are 2 types of definitions:
 
 ## Samples
 
-### Validation of cells with defined precision
+### [MAPPING] Validation of cells with defined precision
 
 Consider the following CSV:
 
@@ -138,21 +140,21 @@ Precise position validation sample:
 		private
 
 		def definition
-      Main.generate_definition :my_defintion do
-        set_type { Definition::MAPPING }
-        set_header_size { 1 }
-          mapping do
-            cell position: [2,1], key: 'first_name'
-            cell position: [3,1], key: 'last_name'
-          end
-        end
-      end
+	      Main.generate_definition :my_defintion do
+	        set_type { Definition::MAPPING }
+	        set_header_size { 1 }
+	          mapping do
+	            cell position: [2,1], key: 'first_name'
+	            cell position: [3,1], key: 'last_name'
+	          end
+	        end
+	      end
 		end
 
 	end
 ```
 
-### Validation of a collection (Regular CSV)
+### [COLLECTION] Validation of a collection (Regular CSV)
 
 Consider the following CSV:
 
@@ -182,18 +184,18 @@ Collection validation sample:
 			Csv2Hash::Definition.new(rules, type = Csv2Hash::Definition::COLLECTION, header_size: 1)
 		end
 
-    def definition
-      Main.generate_definition :my_defintion do
-        set_type { Definition::COLLECTION }
-        set_header_size { 1 }
-          mapping do
-            cell position: 0, key: 'nickname'
-            cell position: 1, key: 'first_name'
-            cell position: 2, key: 'last_name'
-          end
-        end
-      end
-    end
+	    def definition
+	      Main.generate_definition :my_defintion do
+	        set_type { Definition::COLLECTION }
+	        set_header_size { 1 }
+	          mapping do
+	            cell position: 0, key: 'nickname'
+	            cell position: 1, key: 'first_name'
+	            cell position: 2, key: 'last_name'
+	          end
+	        end
+	      end
+	    end
 
 	end
 ```
@@ -250,18 +252,18 @@ Pasrer can take several parameters like that:
 	definition, file_path_or_data, ignore_blank_line: false
 ```
 
-in file_path_or_data attribute you can pass directly an Array of data (Array with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
+in `file_path_or_data` attribute you can pass directly an `Array` of data (`Array` with 2 dimensions) really useful for testing, if you don't care about blank lines in your CSV you can ignore them.
 
 ### Response
 
-The parser return values wrapper into DataWrapper Object, you can call ```.valid?``` method on this Object and grab either data or errors like that :
+The parser return values wrapper into `DataWrapper Object`, you can call ```.valid?``` method on this Object and grab either data or errors like that :
 
 ```
     response = parser.parse
     if response.valid?
 	    response.data
     else
-	    response.errors
+		response.errors
     end
 ```
 
@@ -273,7 +275,7 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 
 ## Exception or Not !
 
-You can choose into 2 different modes of parsing, either **break_on_failure mode** for raise exception in first breaking rules or **csv mode** for get csv original data + errors throwing into added columns.
+You can choose into 2 differents modes of parsing, either **break_on_failure mode** for throw an exception when rule fail or **csv mode** for get csv original data + errors throwing into added extra column.
 
 ### On **BREAK_ON_FAILURE MODE**
 
@@ -337,7 +339,7 @@ errors is a Array of Hash
 ### Rule
 
 ```
-	{ position: [1,1], key: 'nickname', allow_blank: false }
+	cell position: [1,1], key: 'nickname', allow_blank: false
 ```
 
 ### Error
