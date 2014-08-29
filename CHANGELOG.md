@@ -1,3 +1,8 @@
+### VERSION 0.6.1
+
+* deprecations
+  * Structure validation rules, MinColumn, MaxColumn are replaced by :min_columns, :max_columns
+
 ### VERSION 0.6.0
 
 * backwards incompatible changes

@@ -18,7 +18,7 @@ module Csv2hash
 
     context 'the csv with errors' do
       before do
-        allow(definition).to receive(:structure_rules) {{ 'MaxColumns' => 2 }}
+        allow(definition).to receive(:structure_rules) {{ max_columns: 2 }}
         subject.parse
       end
       let(:data_source) do
@@ -30,13 +30,14 @@ module Csv2hash
 
       its(:csv_with_errors) { should be_kind_of CsvArray }
       it "adds structure error in first cell" do
+
         expect(subject.csv_with_errors.first[:message]).to eq 'Too many columns (max. 2) on line 1'
       end
     end
 
     context '#MaxColumns'  do
       before do
-        allow(definition).to receive(:structure_rules) {{ 'MaxColumns' => 2 }}
+        allow(definition).to receive(:structure_rules) {{ max_columns: 2 }}
         allow(subject).to receive(:break_on_failure) { true }
       end
 
@@ -62,7 +63,7 @@ module Csv2hash
 
     context '#MinColumns'  do
       before do
-        allow(definition).to receive(:structure_rules) {{ 'MinColumns' => 2 }}
+        allow(definition).to receive(:structure_rules) {{ min_columns: 2 }}
         allow(subject).to receive(:break_on_failure) { true }
       end
 
