@@ -157,6 +157,7 @@ Precise position validation sample:
 
 This is a special feature for finding the Y index of row where you data start. For instance you have this following data :
 
+```
 |---------------|---------------|------|-----|
 | Nickname      | jo            |      |     |
 | First Name    | John          |      |     |
@@ -168,6 +169,7 @@ This is a special feature for finding the Y index of row where you data start. F
 |               | Personal info | Age  | 26  |
 |               | Sex           | Male |     |
 |               |               |      |     |
+```
 
 You want extract `Employment` information and `Personal info` but we do not know if extra information will not come and break our index. This feature can be useful is this case.
 
