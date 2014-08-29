@@ -375,6 +375,10 @@ Csv data
 	[ [ 'Foo' ] ]
 ```
 
+# Changes
+
+please refere to [CHANGELOG.md](https://github.com/FinalCAD/csv2hash/blob/master/CHANGELOG.md) doc
+
 # Upgrading
 
 please refere to [UPGRADE.md](https://github.com/FinalCAD/csv2hash/blob/master/UPGRADE.md) doc
