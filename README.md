@@ -173,11 +173,15 @@ You want extract `Employment` information and `Personal info` but we do not know
 
 You must change Y position (rows) by the column index and regex, the parser will search on this column the index row of this regex, here our rule :
 
-cell position: [4,1], key: 'employment'
+```  
+  cell position: [4,1], key: 'employment'
+```
 
 became
 
-cell position: [[0, /Employment/],1], key: 'employment'
+```
+  cell position: [[0, /Employment/],1], key: 'employment'
+```
 
 ### [COLLECTION] Validation of a collection (Regular CSV)
 
