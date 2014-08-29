@@ -38,7 +38,6 @@ module Csv2hash
     end
 
     def validate!
-      # binding.pry
       unless TYPES.include?(@type)
         raise "not suitable type, please use '#{MAPPING}' or '#{COLLECTION}'"
       end
@@ -47,7 +46,6 @@ module Csv2hash
     end
 
     def default!
-      # binding.pry
       cells.each do |cell|
         cell.rules.fetch(:position)
 
@@ -66,7 +64,6 @@ module Csv2hash
         cell.rules.merge! allow_blank: false   unless cell.rules.has_key? :allow_blank
         cell.rules.merge! extra_validator: nil unless cell.rules.has_key? :extra_validator
       end
-      # binding.pry
     end
 
     private
