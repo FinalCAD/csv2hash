@@ -2,18 +2,25 @@ require 'spec_helper'
 
 module Csv2hash
   describe YamlLoader do
-    let(:config_file) { 'config/rules.yml' }
+    subject { YamlLoader.new config_file }
+    before  { subject.load! }
 
-    subject do
-      YamlLoader.new config_file
+    context 'yml' do
+      let(:config_file) { 'config/rules.erb.yml' }
+
+      specify do
+        expect(subject.definition.name).to eql('example')
+        expect(subject.definition.header_size).to eql(2)
+      end
     end
 
-    before do
-      subject.load!
-    end
+    context 'erb' do
+      let(:config_file) { 'config/rules.yml' }
 
-    specify do
-      expect(subject.definition.name).to eql('example')
+      specify do
+        expect(subject.definition.name).to eql('example')
+        expect(subject.definition.header_size).to eql(2)
+      end
     end
 
   end

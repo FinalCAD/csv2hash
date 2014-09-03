@@ -8,7 +8,7 @@ module Csv2hash
     attr_accessor :definition
 
     def initialize file
-      @conf = YAML.load_file(file)
+      @conf = load_config_file file
       self.conf.deep_symbolize_keys!
     end
 
@@ -29,5 +29,16 @@ module Csv2hash
 
       Main[self.conf.fetch(:name)] = self.definition
     end
+
+    private
+
+    def load_config_file file
+      if file.to_s =~ /(?<ext>\.erb\.)/
+        YAML.load(ERB.new(File.read(file)).result)
+      else
+        YAML.load_file(file)
+      end
+    end
+
   end
 end

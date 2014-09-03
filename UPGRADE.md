@@ -1,6 +1,12 @@
 # Upgrading
 
+# Upgrading from 0.6.3 to 0.6.4
+
+nothing
+
 # Upgrading from 0.6.2 to 0.6.3
+
+nothing
 
 # Upgrading from 0.6.1 to 0.6.2
 
