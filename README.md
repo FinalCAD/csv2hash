@@ -135,7 +135,7 @@ Precise position validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
 		end
 
 		private
@@ -210,7 +210,7 @@ Collection validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
 		end
 
 		private
@@ -250,7 +250,7 @@ Current validations are: :min_columns, :max_columns
   	end
 
   	def data
-  		@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+  		@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
   	end
 
   	private
@@ -412,6 +412,20 @@ Csv data
 	[ [ 'Foo' ] ]
 ```
 
+# Config file
+
+You can defined rules into a yaml file
+
+```
+name: 'example'
+mapping: 'mapping'
+header_size: 2
+structure_rules: { max_columns: 20 }
+rules:
+  - { position: [1,1], key: 'first_name' }
+  - { position: [2,1], key: 'first_name' }
+```
+
 # Changes
 
 please refere to [CHANGELOG.md](https://github.com/FinalCAD/csv2hash/blob/master/CHANGELOG.md) doc
@@ -422,7 +436,9 @@ please refere to [UPGRADE.md](https://github.com/FinalCAD/csv2hash/blob/master/U
 
 # Yard doc
 
-[Documentation](https://github.com/FinalCAD/csv2hash/blob/master/doc/index.html) doc
+```
+bundle exec yard --plugin tomdoc
+```
 
 ## Contributing
 

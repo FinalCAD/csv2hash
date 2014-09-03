@@ -1,5 +1,7 @@
 # Upgrading
 
+# Upgrading from 0.6.2 to 0.6.3
+
 # Upgrading from 0.6.1 to 0.6.2
 
 nothing

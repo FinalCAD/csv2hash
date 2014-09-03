@@ -1,3 +1,11 @@
+### VERSION 0.6.3
+
+* refactoring
+  * The Main constructor can be take in first arg a definition itself or simply the path of yaml file definition or just symbol of name of definition (when it have already loaded)
+
+* feature
+  * add yml loader
+
 ### VERSION 0.6.2
 
 * feature

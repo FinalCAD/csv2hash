@@ -10,4 +10,5 @@ end
 group :doc do
   gem 'yard-tomdoc'
   gem 'yard'
+  gem 'inch', require: false # https://github.com/rrrene/inch
 end
