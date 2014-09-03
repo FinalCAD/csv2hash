@@ -16,6 +16,7 @@ require_relative 'csv2hash/data_wrapper'
 require_relative 'csv2hash/notifier'
 require_relative 'csv2hash/extra_validator'
 require_relative 'csv2hash/adapters/base'
+require_relative 'csv2hash/yaml_loader'
 
 require 'active_support/core_ext/array/extract_options'
 

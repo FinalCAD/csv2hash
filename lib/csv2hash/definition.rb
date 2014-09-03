@@ -6,11 +6,11 @@ module Csv2hash
 
     TYPES = [ MAPPING, COLLECTION ]
 
-    attr_accessor :cells, :structure_rules, :header_size
-    attr_reader :type, :name
+    attr_accessor :cells, :structure_rules, :header_size, :name
+    attr_reader :type
 
     def initialize name, &blk
-      @name = name
+      self.name = name
       self.cells = []
       self.header_size = 0
       self.structure_rules = {}

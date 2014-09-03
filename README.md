@@ -412,6 +412,20 @@ Csv data
 	[ [ 'Foo' ] ]
 ```
 
+# Config file
+
+You can defined rules into a yaml file
+
+```
+name: 'example'
+mapping: 'mapping'
+header_size: 2
+structure_rules: { max_columns: 20 }
+rules:
+  - { position: [1,1], key: 'first_name' }
+  - { position: [2,1], key: 'first_name' }
+```
+
 # Changes
 
 please refere to [CHANGELOG.md](https://github.com/FinalCAD/csv2hash/blob/master/CHANGELOG.md) doc

@@ -1,3 +1,8 @@
+### VERSION 0.6.3
+
+* feature
+  * add yml loader
+
 ### VERSION 0.6.2
 
 * feature
