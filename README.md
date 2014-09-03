@@ -436,7 +436,9 @@ please refere to [UPGRADE.md](https://github.com/FinalCAD/csv2hash/blob/master/U
 
 # Yard doc
 
-[Documentation](https://github.com/FinalCAD/csv2hash/blob/master/doc/index.html) doc
+```
+bundle exec yard --plugin tomdoc
+```
 
 ## Contributing
 
