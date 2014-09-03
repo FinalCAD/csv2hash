@@ -1,3 +1,8 @@
+### VERSION 0.6.4
+
+* feature
+  * make configuration file can be writing with ERB interpolation.
+
 ### VERSION 0.6.3
 
 * refactoring

@@ -426,6 +426,8 @@ rules:
   - { position: [2,1], key: 'first_name' }
 ```
 
+You can write ERB file, should be named with following convention ```<file name>.erb.yml```
+
 # Changes
 
 please refere to [CHANGELOG.md](https://github.com/FinalCAD/csv2hash/blob/master/CHANGELOG.md) doc
