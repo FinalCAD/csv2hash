@@ -135,7 +135,7 @@ Precise position validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
 		end
 
 		private
@@ -210,7 +210,7 @@ Collection validation sample:
 		end
 
 		def data
-			@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+			@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
 		end
 
 		private
@@ -250,7 +250,7 @@ Current validations are: :min_columns, :max_columns
   	end
 
   	def data
-  		@data_wrapper ||= Csv2hash::Main.new(Csv2hash::Main[:<definition_name>], file_path_or_data).parse
+  		@data_wrapper ||= Csv2hash::Main.new(:<definition_name>, file_path_or_data).parse
   	end
 
   	private

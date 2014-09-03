@@ -14,10 +14,10 @@ module Csv2hash
 
     def load!
       mapping         = self.conf.fetch(:mapping)
-      header_size     = self.conf.fetch(:header_size)
+      header_size     = self.conf.fetch(:header_size).to_i
       structure_rules = self.conf.fetch(:structure_rules)
 
-      self.definition = Csv2hash::Main.generate_definition self.conf.fetch(:name) do
+      self.definition = Main.generate_definition self.conf.fetch(:name) do
         set_type            { mapping }
         set_header_size     { header_size }
         set_structure_rules { structure_rules }
@@ -27,7 +27,7 @@ module Csv2hash
         definition.cells << Cell.new(rule)
       end
 
-      Csv2hash::Main[conf.fetch(:name)] = self.definition
+      Main[self.conf.fetch(:name)] = self.definition
     end
   end
 end

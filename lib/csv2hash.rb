@@ -37,11 +37,11 @@ module Csv2hash
       end
 
       def [] definition_name
-        @@registry[definition_name]
+        @@registry[definition_name.to_sym]
       end
 
       def []= definition_name, role
-        @@registry[definition_name] = role
+        @@registry[definition_name.to_sym] = role
       end
     end
 
@@ -49,11 +49,13 @@ module Csv2hash
 
     attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :options
 
-    def initialize definition, file_path_or_data, *args
-      self.options = args.extract_options!
-      self.definition, self.file_path_or_data = definition, file_path_or_data
-      self.break_on_failure, self.errors = false, []
-      self.notifier = Notifier.new
+    def initialize definition_file_or_symbol, file_path_or_data, *args
+      self.options           = args.extract_options!
+      self.definition        = load_definition(definition_file_or_symbol)
+      self.file_path_or_data = file_path_or_data
+      self.break_on_failure  = false
+      self.errors            = []
+      self.notifier          = Notifier.new
 
       dynamic_lib_loading 'Parser'
       dynamic_lib_loading 'Validator'
@@ -113,7 +115,7 @@ module Csv2hash
 
     def data_source
       @data_source ||= begin
-        adapter_name = self.file_path_or_data.is_a?(String) ? :csv : :memory
+        adapter_name = self.file_path_or_data.respond_to?(:to_path) ? :csv : :memory
         adapter = Adapter::Base.create(adapter_name, self.file_path_or_data)
         adapter.source
       end
@@ -130,5 +132,22 @@ module Csv2hash
         self.extend Module.module_eval("Csv2hash::#{type}::Collection")
       end
     end
+
+    def load_definition definition_file_or_symbol
+      case definition_file_or_symbol
+      when String
+        config_file = definition_file_or_symbol
+        config_file = Pathname(definition_file_or_symbol) unless config_file.respond_to?(:to_path)
+        loader      = YamlLoader.new(config_file).tap &:load!
+        loader.definition
+      when Symbol
+        Main[definition_file_or_symbol]
+      when Definition
+        definition_file_or_symbol
+      else
+        raise 'unsupported definition'
+      end
+    end
+
   end
 end
