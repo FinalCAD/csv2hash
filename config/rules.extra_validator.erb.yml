@@ -1,0 +1,8 @@
+name: 'example'
+mapping: 'mapping'
+header_size: 0
+structure_rules: { max_columns: 20 }
+rules:
+  - { position: [0,1], key: 'nick_name', extra_validator: 'Csv2hash::DowncaseValidator', message: 'your data should be writting in downcase only' }
+  - { position: [1,1], key: 'first_name', extra_validator: 'Csv2hash::DowncaseValidator', message: 'your data should be writting in downcase only' }
+  - { position: [[0,'LastName'],1], key: 'last_name', extra_validator: 'Csv2hash::DowncaseValidator', message: 'your data should be writting in downcase only' }

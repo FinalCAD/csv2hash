@@ -6,10 +6,7 @@ module Csv2hash
       Main.generate_definition :foo do
         set_type { Definition::MAPPING }
         mapping { cell position: [0,0], key: 'name' }
-      end.tap do |definition|
-        definition.validate!
-        definition.default!
-      end
+      end.tap { |d| d.validate! ; d.default! }
     end
 
     subject do

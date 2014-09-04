@@ -7,10 +7,7 @@ module Csv2hash
       Main.generate_definition :foo do
         set_type { Definition::COLLECTION }
         mapping { cell position: 0, key: 'name' }
-      end.tap do |definition|
-        definition.validate!
-        definition.default!
-      end
+      end.tap { |d| d.validate! ; d.default! }
     end
     let(:ignore_blank_line) { false }
 
@@ -72,10 +69,7 @@ module Csv2hash
           Main.generate_definition :foo do
             set_type { Definition::COLLECTION }
             mapping  { cell position: 0, key: 'agree', values: ['yes', 'no'] }
-          end.tap do |definition|
-            definition.validate!
-            definition.default!
-          end
+          end.tap { |d| d.validate! ; d.default! }
         end
         let(:data_source) { [ [ 'what?' ], [ 'yes' ], [ 'no' ] ] }
         it { expect(subject.parse.errors.to_csv).to eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
