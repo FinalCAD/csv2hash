@@ -426,6 +426,22 @@ rules:
   - { position: [2,1], key: 'first_name' }
 ```
 
+or for complex and verbose rule
+
+```
+name: 'example'
+mapping: 'mapping'
+header_size: 2
+structure_rules: { max_columns: 20 }
+rules:
+  - !rule
+    position: [1,1]
+    key: 'first_name'
+  - !rule
+    position: [2,1]
+    key: 'last_name'
+```
+
 Special attention, if you use `ExtraValidator` you must give only the String name of the classe, like that :
 
 ```
@@ -450,7 +466,7 @@ should become
 position: [[0,'LastName'],1]
 ```
 
-this change is due to Yaml convertion 
+this change is due to Yaml convertion
 
 You can write ERB file, should be named with following convention ```<file name>.erb.yml```
 
