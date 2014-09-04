@@ -115,6 +115,7 @@ module Csv2hash
 
     def data_source
       @data_source ||= begin
+        self.file_path_or_data = Pathname(self.file_path_or_data) if self.file_path_or_data.is_a?(String)
         adapter_name = self.file_path_or_data.respond_to?(:to_path) ? :csv : :memory
         adapter = Adapter::Base.create(adapter_name, self.file_path_or_data)
         adapter.source
