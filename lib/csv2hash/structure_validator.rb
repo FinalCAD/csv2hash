@@ -21,6 +21,7 @@ module Csv2hash
           raise if break_on_failure
         end
       end
+      nil
     end
 
     def rule_instance rule, options
