@@ -2,6 +2,7 @@
 
 * enhancements
   * Add Coercer for deserialize field from Yaml like ExtraValidator and Regex
+  * Add missing module prefix Csv2hash
 
 ### VERSION 0.6.4
 
