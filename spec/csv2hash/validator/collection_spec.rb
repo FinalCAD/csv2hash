@@ -42,11 +42,11 @@ module Csv2hash
 
     context 'with invalid data' do
       let(:data_source) { [ [ ] ] }
-      it { expect { subject.validate_data! }.to raise_error('undefined name on [0, 0]') }
+      it { expect { subject.validate_data! }.to raise_error('undefined :name on [0, 0]') }
       context 'with header' do
         let(:options) { { header_size: 1 } }
         let(:data_source) { [ [ 'Name' ], [ ] ]}
-        it { expect { subject.validate_data! }.to raise_error('undefined name on [1, 0]') }
+        it { expect { subject.validate_data! }.to raise_error('undefined :name on [1, 0]') }
       end
     end
 
@@ -57,11 +57,11 @@ module Csv2hash
         allow(subject).to receive(:break_on_failure) { false }
       end
 
-      it { expect(subject.parse.errors.to_csv).to eql ",\"undefined name on [0, 0]\"\n" }
+      it { expect(subject.parse.errors.to_csv).to eql ",\"undefined :name on [0, 0]\"\n" }
 
       context 'errors should be filled' do
         before { subject.parse }
-        its(:errors) { should eql [{x: 0, y: 0, message: 'undefined name on [0, 0]', key: 'name'}] }
+        its(:errors) { should eql [{x: 0, y: 0, message: 'undefined :name on [0, 0]', key: 'name'}] }
       end
 
       context 'original csv + errors should returned' do
@@ -72,7 +72,9 @@ module Csv2hash
           end.tap { |d| d.validate! ; d.default! }
         end
         let(:data_source) { [ [ 'what?' ], [ 'yes' ], [ 'no' ] ] }
-        it { expect(subject.parse.errors.to_csv).to eql "what?,\"agree not supported, please use one of [\"\"yes\"\", \"\"no\"\"]\"\n" }
+        it { expect(subject.parse.errors.to_csv).to eql(
+          "what?,\"value <what?> not supported for :agree, please use one of <[\"\"yes\"\", \"\"no\"\"]>\"\n"
+          ) }
       end
     end
 
