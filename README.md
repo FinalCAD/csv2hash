@@ -470,6 +470,24 @@ this change is due to Yaml convertion
 
 You can write ERB file, should be named with following convention ```<file name>.erb.yml```
 
+# Type convertion
+
+By default Csv2hash doesn't convert basic value, but you can activate this on configuration, for Rails use :
+
+add file `config/initializers/csv2hash.rb`
+
+```
+Csv2hash.configure do |conf|
+  conf.convert = true
+end
+```
+
+```
+rails generate csh2hash:install
+```
+
+If you want add your specific conversion
+
 # Changes
 
 please refere to [CHANGELOG.md](https://github.com/FinalCAD/csv2hash/blob/master/CHANGELOG.md) doc

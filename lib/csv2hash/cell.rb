@@ -1,6 +1,6 @@
 require 'active_support/core_ext/array/extract_options'
 
-require_relative 'coercer'
+require_relative 'coercers/yaml_coercer'
 
 module Csv2hash
   class Cell
@@ -9,7 +9,7 @@ module Csv2hash
 
     def initialize *args
       self.rules = args.extract_options!
-      Csv2hash::Coercer.new(rules).from_yml!
+      Csv2hash::Coercers::YamlCoercer.new(rules).deserialize!
     end
 
   end

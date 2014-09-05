@@ -2,7 +2,9 @@
 
 * enhancements
   * Add Coercer for deserialize field from Yaml like ExtraValidator and Regex
+  * Add Coercer for deserialize field from Csv value to ruby value like 'true' => true
   * Add missing module prefix Csv2hash
+  * Add generator for configure csv2hash on Rails app
 
 ### VERSION 0.6.4
 

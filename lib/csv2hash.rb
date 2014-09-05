@@ -1,4 +1,5 @@
 require_relative 'csv2hash/version'
+require_relative 'csv2hash/configuration'
 require_relative 'csv2hash/registry'
 require_relative 'csv2hash/cell'
 require_relative 'csv2hash/definition'
@@ -17,6 +18,9 @@ require_relative 'csv2hash/notifier'
 require_relative 'csv2hash/extra_validator'
 require_relative 'csv2hash/adapters/base'
 require_relative 'csv2hash/yaml_loader'
+require_relative 'csv2hash/coercers/type_coercer'
+
+require 'csv2hash/railtie' if defined?(Rails)
 
 require 'active_support/core_ext/array/extract_options'
 
@@ -26,8 +30,25 @@ rescue LoadError
 end
 
 module Csv2hash
+
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
   class Main
-    include Csv2hash::StructureValidator
+    include StructureValidator
 
     class << self
 
@@ -89,9 +110,10 @@ module Csv2hash
       validate_structure!
       validate_data!
 
-      Csv2hash::DataWrapper.new.tap do |response|
+      DataWrapper.new.tap do |response|
         if valid?
           fill!
+          TypeCoercer.new(data[:data]).deserialize! if Csv2hash.configuration.convert
           response.data = data[:data]
         else
           response.valid = false
