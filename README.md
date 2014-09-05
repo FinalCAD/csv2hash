@@ -466,11 +466,11 @@ should become
 position: [[0,'LastName'],1]
 ```
 
-this change is due to Yaml convertion
+this change is due to Yaml conversion
 
 You can write ERB file, should be named with following convention ```<file name>.erb.yml```
 
-# Type convertion
+# Type conversion
 
 By default Csv2hash doesn't convert basic value, but you can activate this on configuration, for Rails use :
 
