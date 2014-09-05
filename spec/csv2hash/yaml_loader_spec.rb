@@ -11,6 +11,7 @@ module Csv2hash
       specify do
         expect(subject.definition.name).to eql('example')
         expect(subject.definition.header_size).to eql(2)
+        expect(subject.definition.cells.last.rules.fetch(:values)).to eql(18..90)
       end
     end
 

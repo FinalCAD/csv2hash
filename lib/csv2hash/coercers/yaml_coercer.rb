@@ -5,6 +5,7 @@ module Csv2hash
       def deserialize!
         deserialize_validator!
         deserialize_regex!
+        deserialize_range!
       end
 
       private
@@ -23,6 +24,17 @@ module Csv2hash
         if y.is_a?(Array)
           column, matcher_string = y
           self.rules[:position] = [[column, Regexp.new(matcher_string)],x]
+        end
+      end
+
+      def deserialize_range!
+        begin
+          values = self.rules.fetch(:values)
+          if values.is_a?(String)
+            match_data = values.match(/^\((?<range>.*)\)$/)
+            self.rules[:values] = eval(match_data[:range])
+          end
+        rescue KeyError # Rules without ExtraValidator
         end
       end
 
