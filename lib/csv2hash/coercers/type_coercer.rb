@@ -2,10 +2,12 @@ module Csv2hash
   class TypeCoercer < Struct.new(:data)
 
     def deserialize!
-      data.each do |key, value|
-        _value = value.to_s.gsub(/\s+/, '').downcase
-        change.each do |keys, v|
-          data[key] = v if keys.include?(_value)
+      data.each do |line|
+        line.each do |key, value|
+          _value = value.to_s.strip.downcase
+          change.each do |keys, v|
+            line[key] = v if keys.include?(_value)
+          end
         end
       end
     end
