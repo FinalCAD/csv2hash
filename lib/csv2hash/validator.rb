@@ -5,11 +5,10 @@ module Csv2hash
     include Discover
 
     def validate_rules y=nil
-      find_positions!
-
       definition.cells.each do |cell|
         _y, x = position cell.rules.fetch(:position)
         begin
+          _y, x = find_position cell if _y.is_a?(Array)
           validate_cell (_y||y), x, cell
         rescue => e
           self.errors << { y: (_y||y), x: x, message: e.message, key: cell.rules.fetch(:key) }
@@ -38,15 +37,18 @@ module Csv2hash
           end
         end
       rescue => e
-        raise message(cell, y, x)
+        raise message(cell, y, x, value)
       end
     end
 
-    def message cell, y, x
-      msg = cell.rules.fetch(:message).tap do |msg|
-        cell.rules.each { |key, value| msg.gsub!(":#{key.to_s}", value.to_s) unless key == :position }
-      end
-      msg.gsub ':position', "[#{y}, #{x}]"
+    def message cell, y, x, value
+      msg = cell.rules.fetch(:message)
+      msg = msg.gsub(':position', "[#{y}, #{x}]")
+      msg = msg.gsub(':key', ":#{cell.rules.fetch(:key, :no_key_given)}")
+      msg = msg.gsub(':found', "<#{value}>")
+      msg = msg.gsub(':values', "<#{cell.rules.fetch(:values, :no_values_given)}>")
+      cell.rules.each { |key, _value| msg.gsub!(":#{key.to_s}", _value.to_s) unless key == :position }
+      msg
     end
 
   end
