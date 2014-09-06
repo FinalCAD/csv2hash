@@ -4,6 +4,9 @@
   * Add Coercer for deserialize field from Yaml like ExtraValidator and Regex
   * Add Coercer for deserialize field from Csv value to ruby value like 'true' => true
   * Add missing module prefix Csv2hash
+  * remove rule for dynmaic field with field is optional and not found
+
+* feature
   * Add generator for configure csv2hash on Rails app
 
 ### VERSION 0.6.4
