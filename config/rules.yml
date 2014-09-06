@@ -3,5 +3,9 @@ mapping: 'mapping'
 header_size: 2
 structure_rules: { max_columns: 20 }
 rules:
-  - { position: [1,1], key: 'first_name' }
-  - { position: [2,1], key: 'first_name' }
+  - !rule
+    position: [1,1]
+    key: 'first_name'
+  - !rule
+    position: [2,1]
+    key: 'last_name'

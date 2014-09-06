@@ -5,6 +5,7 @@ module Csv2hash
 
       def validate_data!
         validate_rules data_source
+        nil
       end
 
       protected

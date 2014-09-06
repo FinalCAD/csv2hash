@@ -52,7 +52,7 @@ module Csv2hash
         default_position cell
         unless cell.rules.has_key? :message
           if cell.rules.has_key? :values
-            cell.rules.merge! message: ':key not supported, please use one of :values'
+            cell.rules.merge! message: 'value :found not supported for :key, please use one of :values'
           else
             cell.rules.merge! message: 'undefined :key on :position'
           end

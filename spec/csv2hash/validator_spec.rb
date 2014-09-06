@@ -13,10 +13,10 @@ module Csv2hash
       end
 
       context 'string value' do
-        let(:rules) {{ foo: 'bar', message: ':foo are value of foo key' }}
+        let(:rules) {{ foo: 'bar', message: ':foo are value of foo key', key: 'bar' }}
 
         it 'substitue value of key' do
-          expect(subject.send(:message, cell, nil, nil)).to eql 'bar are value of foo key'
+          expect(subject.send(:message, cell, nil, nil, 'foo')).to eql 'bar are value of foo key'
         end
       end
 
@@ -24,7 +24,7 @@ module Csv2hash
         let(:rules) { { foo: ['bar', 'zone'], message: ':foo are values of foo key' } }
 
         it 'substitue value of key' do
-          expect(subject.send(:message, cell, nil, nil)).to eql '["bar", "zone"] are values of foo key'
+          expect(subject.send(:message, cell, nil, nil, nil)).to eql '["bar", "zone"] are values of foo key'
         end
       end
 
@@ -32,7 +32,7 @@ module Csv2hash
         let(:rules) { { message: 'value not found on :position' } }
 
         it 'substitue value of key' do
-          expect(subject.send(:message, cell, 0, 2)).to eql 'value not found on [0, 2]'
+          expect(subject.send(:message, cell, 0, 2, nil)).to eql 'value not found on [0, 2]'
         end
       end
     end

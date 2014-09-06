@@ -426,7 +426,67 @@ rules:
   - { position: [2,1], key: 'first_name' }
 ```
 
+or for complex and verbose rule
+
+```
+name: 'example'
+mapping: 'mapping'
+header_size: 2
+structure_rules: { max_columns: 20 }
+rules:
+  - !rule
+    position: [1,1]
+    key: 'first_name'
+  - !rule
+    position: [2,1]
+    key: 'last_name'
+```
+
+Special attention, if you use `ExtraValidator` you must give only the String name of the classe, like that :
+
+```
+extra_validator: DowncaseValidator.new
+```
+
+should become
+
+```
+extra_validator: 'DowncaseValidator'
+```
+
+for autodiscover field you must give String without Regex like that :
+
+```
+position: [[0,/LastName/],1]
+```
+
+should become
+
+```
+position: [[0,'LastName'],1]
+```
+
+this change is due to Yaml conversion
+
 You can write ERB file, should be named with following convention ```<file name>.erb.yml```
+
+# Type conversion
+
+By default Csv2hash doesn't convert basic value, but you can activate this on configuration, for Rails use :
+
+add file `config/initializers/csv2hash.rb`
+
+```
+Csv2hash.configure do |conf|
+  conf.convert = true
+end
+```
+
+```
+rails generate csh2hash:install
+```
+
+If you want add your specific conversion
 
 # Changes
 

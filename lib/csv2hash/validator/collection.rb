@@ -11,6 +11,7 @@ module Csv2hash
           next if unexpected_line?(line, y)
           validate_rules y
         end
+        nil
       end
 
       protected

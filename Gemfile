@@ -5,6 +5,7 @@ gemspec
 group :test do
   gem 'coveralls', require: false
   gem 'pry'
+  # gem 'rails'
 end
 
 group :doc do
