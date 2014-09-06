@@ -53,7 +53,7 @@ module Csv2hash
 
     context 'discover' do
       before do
-        definition.cells << Cell.new({ position: [[1,/Sex/],2], key: 'sex'})
+        definition.cells << Cell.new({ position: [[1,/Sex/],2], key: 'sex' })
       end
       it {
         expect(subject.tap { |c| c.parse! }.data).to eql(
@@ -62,24 +62,38 @@ module Csv2hash
       }
     end
 
-    context 'discover wit fail!' do
+    context 'discover with fail!' do
       before do
-        definition.cells << Cell.new({ position: [[1,/foo/],2], key: 'sex'})
+        definition.cells << Cell.new({ position: [[1,/foo/],2], key: 'sex', allow_blank: false })
       end
       it {
         expect { subject.tap { |c| c.parse! }}.to raise_error("Y doesn't found for [[1, /foo/], 2] on :sex")
       }
     end
 
-    context 'discover wit fail' do
-      before do
-        definition.cells << Cell.new({ position: [[1,/foo/],2], key: 'sex'})
-        subject.tap { |c| c.parse }
+    context 'discover with fail' do
+      context 'allow_blank: false' do
+        before do
+          definition.cells << Cell.new({ position: [[1,/foo/],2], key: 'sex', allow_blank: false })
+          subject.tap { |c| c.parse }
+        end
+        specify do
+          expect(subject.errors).to_not be_empty
+          expect(subject.errors).to eql(
+            [{y: [1, /foo/], x: 2, message: "Y doesn't found for [[1, /foo/], 2] on :sex", key: 'sex'}])
+        end
       end
-      specify do
-        expect(subject.errors).to_not be_empty
-        expect(subject.errors).to eql(
-          [{y: [1, /foo/], x: 2, message: "Y doesn't found for [[1, /foo/], 2] on :sex", key: 'sex'}])
+
+      context 'allow_blank: true' do
+        before do
+          definition.cells << Cell.new({ position: [[1,/foo/],2], key: 'sex', allow_blank: true })
+        end
+        specify do
+          expect(subject.definition.cells.size).to eql(3)
+          subject.tap { |c| c.parse }
+          expect(subject.errors).to be_empty
+          expect(subject.definition.cells.size).to eql(2)
+        end
       end
     end
 

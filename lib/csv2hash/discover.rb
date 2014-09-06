@@ -1,12 +1,21 @@
 module Csv2hash
   module Discover
 
-    def find_position cell
+    def find_dynamic_position cell
       y, x = cell.rules.fetch :position
       column, matcher = y
-      y = data_source.index { |entries| entries[column] =~ matcher }
-      raise "Y doesn't found for #{cell.rules[:position]} on :#{cell.rules.fetch(:key)}" unless y
-      cell.rules[:position] = [y, x]
+      dynamic_y_axe = data_source.index { |entries| entries[column] =~ matcher }
+
+      if dynamic_y_axe.nil?
+        if cell.rules.fetch(:allow_blank)
+          return nil
+        else
+          raise "Y doesn't found for #{cell.rules[:position]} on :#{cell.rules.fetch(:key)}"
+        end
+      else
+        cell.rules[:position] = [dynamic_y_axe, x]
+        cell
+      end
     end
 
   end
