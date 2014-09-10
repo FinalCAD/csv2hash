@@ -1,3 +1,10 @@
+### VERSION 0.6.6
+
+* refactoring
+  * little trick on YamlLoader
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/17)
+
 ### VERSION 0.6.5
 
 * enhancements

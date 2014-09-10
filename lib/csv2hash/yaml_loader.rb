@@ -12,6 +12,10 @@ module Csv2hash
       self.conf.deep_symbolize_keys!
     end
 
+    def self.load! file
+      new(file).tap &:load!
+    end
+
     def load!
       mapping         = self.conf.fetch(:mapping)
       header_size     = self.conf.fetch(:header_size).to_i
@@ -28,6 +32,7 @@ module Csv2hash
       end
 
       Main[self.conf.fetch(:name)] = self.definition
+      nil
     end
 
     private

@@ -470,6 +470,21 @@ this change is due to Yaml conversion
 
 You can write ERB file, should be named with following convention ```<file name>.erb.yml```
 
+## YamlLoader
+
+You can load your definition with YamlLoader llike that :
+
+```
+loader = Csv2hash::YamlLoader.load!('config/rules.erb.yml')
+loader.definition
+```
+or
+```
+loader = Csv2hash::YamlLoader.new('config/rules.erb.yml')
+loader.load!
+loader.definition
+```
+
 # Type conversion
 
 By default Csv2hash doesn't convert basic value, but you can activate this on configuration, for Rails use :
