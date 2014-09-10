@@ -3,7 +3,7 @@
 * refactoring
   * little trick on YamlLoader
 
-* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/17)
+* [fullchanges](https://github.com/FinalCAD/csv2hash/commit/a4b3fb5b6cdb3ed41b039f68391b30054fab3668)
 
 ### VERSION 0.6.5
 
