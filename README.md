@@ -481,19 +481,19 @@ position: [[0,'LastName'],1]
 
 this change is due to Yaml conversion
 
-You can write ERB file, should be named with following convention ```<file name>.erb.yml```
+You can write ERB file, should be named with following convention ```<file name>.yml.erb```
 
 ## YamlLoader
 
 You can load your definition with YamlLoader llike that :
 
 ```
-loader = Csv2hash::YamlLoader.load!('config/rules.erb.yml')
+loader = Csv2hash::YamlLoader.load!('config/rules.yml.erb')
 loader.definition
 ```
 or
 ```
-loader = Csv2hash::YamlLoader.new('config/rules.erb.yml')
+loader = Csv2hash::YamlLoader.new('config/rules.yml.erb')
 loader.load!
 loader.definition
 ```

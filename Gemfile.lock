@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    csv2hash (0.6.6)
+    csv2hash (0.6.7)
       activesupport (~> 4.1)
 
 GEM

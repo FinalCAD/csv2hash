@@ -38,7 +38,7 @@ module Csv2hash
     private
 
     def load_config_file file
-      if file.to_s =~ /(?<ext>\.erb\.)/
+      if file.to_s =~ /(?<ext>\.erb)/
         YAML.load(ERB.new(File.read(file)).result)
       else
         YAML.load_file(file)

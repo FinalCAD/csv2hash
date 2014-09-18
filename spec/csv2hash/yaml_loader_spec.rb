@@ -6,7 +6,7 @@ module Csv2hash
     before  { subject.load! }
 
     context 'yml' do
-      let(:config_file) { 'config/rules.erb.yml' }
+      let(:config_file) { 'config/rules.yml.erb' }
 
       specify do
         expect(subject.definition.name).to eql('example')
@@ -25,7 +25,7 @@ module Csv2hash
     end
 
     context 'extra validator' do
-      let(:config_file) { 'config/rules.extra_validator.erb.yml' }
+      let(:config_file) { 'config/rules.extra_validator.yml.erb' }
 
       specify do
         expect(subject.definition.name).to eql('example')
