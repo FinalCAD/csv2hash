@@ -10,7 +10,9 @@ module Csv2hash
     end
 
     subject do
-      Main.new(definition, data_source, ignore_blank_line: false)
+      Main.new(definition, ignore_blank_line: false) do
+        data_source
+      end
     end
 
     context 'the csv with errors' do
