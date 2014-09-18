@@ -70,10 +70,16 @@ module Csv2hash
 
     attr_accessor :definition, :file_path_or_data, :data, :notifier, :break_on_failure, :errors, :options
 
-    def initialize definition_file_or_symbol, file_path_or_data, *args
-      self.options           = args.extract_options!
+    def initialize *args
+      self.options = args.extract_options!
+      definition_file_or_symbol, file_path_or_data = args
+
+      unless block_given? ^ file_path_or_data
+        raise ArgumentError, 'Either value or block must be given, but not both'
+      end
+
+      self.file_path_or_data = file_path_or_data || yield
       self.definition        = load_definition(definition_file_or_symbol)
-      self.file_path_or_data = file_path_or_data
       self.break_on_failure  = false
       self.errors            = []
       self.notifier          = Notifier.new
