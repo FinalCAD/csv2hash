@@ -10,6 +10,43 @@
 
 It is a DSL to validate and map a CSV to a Ruby Hash.
 
+# Summary
+
+* [Csv2Hash](#csv2hash)
+* [Summary](#summary)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    * [Invoke parser](#invoke-parser)
+    * [Parser options](#parser-options)
+  	* [Definition DSL](#definition-dsl)
+    * [Definition Rules](#definition-rules)
+    * [Default rules values](#default-rules-values)
+    * [define where your data are expected](#define-where-your-data-are-expected)
+  * [Samples](#samples)
+    * [[MAPPING] Validation of cells with defined precision](#mapping-validation-of-cells-with-defined-precision)
+    * [Auto discover position feature](#auto-discover-position-feature)
+    * [[COLLECTION] Validation of a collection (Regular CSV)](#collection-validation-of-a-collection-regular-csv)
+    * [Structure validation rules](#structure-validation-rules)
+    * [CSV Headers](#csv-headers)
+    * [Parser and configuration](#parser-and-configuration)
+    * [Response](#response)
+  * [Exception or Not !](#exception-or-not-)
+    * [On **BREAK_ON_FAILURE MODE**](#on-break_on_failure-mode)
+    * [On **CSV MODE**](#on-csv-mode)
+    * [Errors Format](#errors-format)
+      * [Sample](#sample)
+        * [Csv data](#csv-data)
+        * [Rule](#rule)
+        * [Error](#error)
+  * [Personal Validator Rule](#personal-validator-rule)
+* [Config file](#config-file)
+  * [YamlLoader](#yamlloader)
+* [Type conversion](#type-conversion)
+* [Changes](#changes)
+* [Upgrading](#upgrading)
+* [Yard doc](#yard-doc)
+* [Contributing](#contributing)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -28,7 +65,25 @@ Or install it yourself as:
 
 Parsing is based on rules, you should defined rule for each cells
 
-### DSL
+### Invoke parser
+
+```
+Csv2hash::Main.new(:<definition_name>, file_path_or_data, options).parse
+```
+
+```
+Csv2hash::Main.new(:<definition_name>, options) do
+  file_path_or_data
+end.parse
+```
+
+### Parser options
+
+List of options :
+
+* `ignore_blank_line: :boolean` # i think is pretty straightforward to understand
+
+### Definition DSL
 
 ```
 Csv2hash::Main.generate_definition :name do
@@ -43,7 +98,7 @@ end
 Csv2hash::Main[:name] # Access anywhere
 ```
 
-### Rules
+### Definition Rules
 
 You should declared a definition of your CSV file, and then define for each cell what you would expect.
 
@@ -85,7 +140,7 @@ It produces :
 value of answering is not supported, please use one of [yes, no]
 ```
 
-### Default values
+### Default rules values
 
 Only position is required:
 
@@ -101,31 +156,13 @@ All remaining keys are optionals:
 * allow_blank: false
 * extra_validator: nil
 
-## Define where your data is expected
+### Define where your data are expected
 
 **IMPORTANT!** Position means [Y, X], where Y is rows, X columns
 
 A definition should be provided. There are 2 types of definitions:
 * search for data at a precise position in the table: `y,x`
 * or search for data in a column of rows, where all the rows are the same: `x` (column index)
-
-## Invoke
-
-```
-Csv2hash::Main.new(:<definition_name>, file_path_or_data, options).parse
-```
-
-```
-Csv2hash::Main.new(:<definition_name>, options) do
-  file_path_or_data
-end.parse
-```
-
-### Options
-
-List of options :
-
-* ignore_blank_line: :boolean # i think is pretty straightforward to understand
 
 ## Samples
 
@@ -171,7 +208,7 @@ class MyParser
 end
 ```
 
-### Auto discover position
+### Auto discover position feature
 
 This is a special feature for finding the Y index of row where you data start. For instance you have this following data :
 
@@ -376,9 +413,9 @@ errors is a Array of Hash
 { y: 1, x: 0, message: 'message', key: 'key', value: '' }
 ```
 
-## Sample
+#### Sample
 
-### Csv data
+##### Csv data
 
 ```
 | Fields      | Person Informations  |
@@ -386,13 +423,13 @@ errors is a Array of Hash
 | Nickname    |        nil           |
 ```
 
-### Rule
+##### Rule
 
 ```
 cell position: [1,1], key: 'nickname', allow_blank: false
 ```
 
-### Error
+##### Error
 
 ```
 { y: 1, x: 1, message: 'undefined nikcname on [0, 0]', key: 'nickname', value: nil }
@@ -515,6 +552,15 @@ rails generate csh2hash:install
 ```
 
 If you want add your specific conversion
+
+```
+Csv2hash.configure do |conf|
+  # conf.convert = false # default: false
+  # conf.true_values  = ['yes','y','t'] # default: ['yes','y','t']
+  # conf.false_values = ['no','n','f']  # default: ['no','n','f']
+  # conf.nil_values   = ['nil','null']  # default: ['nil','null']
+end
+```
 
 # Changes
 
