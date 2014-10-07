@@ -1,5 +1,7 @@
 # Csv2Hash
 
+[![Gem Version](https://badge.fury.io/rb/csv2hash.svg)](http://badge.fury.io/rb/csv2hash)
+
 [![Code Climate](https://codeclimate.com/github/FinalCAD/csv2hash.png)](https://codeclimate.com/github/FinalCAD/csv2hash)
 
 [![Dependency Status](https://gemnasium.com/FinalCAD/csv2hash.png)](https://gemnasium.com/FinalCAD/csv2hash)

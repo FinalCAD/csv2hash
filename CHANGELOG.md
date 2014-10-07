@@ -1,3 +1,8 @@
+### VERSION 0.6.8
+
+* bug fix
+  * fix typo on generator
+  
 ### VERSION 0.6.7
 
 * enhancements

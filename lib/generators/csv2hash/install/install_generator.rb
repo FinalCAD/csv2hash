@@ -1,10 +1,10 @@
 module Csv2hash
-  module Generator
+  module Generators
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
 
       desc <<DESC
-description:
+description :
     copy csv2hash configuration to an initializer.
 DESC
       def create_configuration

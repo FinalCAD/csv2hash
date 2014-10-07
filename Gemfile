@@ -5,7 +5,7 @@ gemspec
 group :test do
   gem 'coveralls', require: false
   gem 'pry'
-  # gem 'rails'
+  gem 'generator_spec'
 end
 
 group :doc do
