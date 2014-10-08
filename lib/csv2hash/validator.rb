@@ -5,8 +5,7 @@ module Csv2hash
     include Discover
 
     def validate_rules y=nil
-      find_or_remove_dynamic_fields! if definition.type == Definition::MAPPING
-
+      definition.type == Definition::MAPPING ? find_or_remove_dynamic_fields_on_mapping! : find_or_remove_dynamic_fields_on_collection!(y)
       definition.cells.each do |cell|
         _y, x = position cell.rules.fetch(:position)
         begin
@@ -75,14 +74,14 @@ module Csv2hash
       end
     end
 
-    def find_or_remove_dynamic_fields!
+    def find_or_remove_dynamic_fields_on_mapping!
       cells = definition.cells.dup
       # cells without optional and not found dynamic field
       definition.cells = [].tap do |_cells|
         while(!cells.empty?) do
           cell = cells.pop
           _y, x = cell.rules.fetch(:position)
-          if dynamic_field?(_y)
+          if dynamic_field_for_mapping?(_y)
             begin
               _cell = find_dynamic_position cell
               _cells << _cell
@@ -98,8 +97,35 @@ module Csv2hash
       nil
     end
 
-    def dynamic_field? field
+    def find_or_remove_dynamic_fields_on_collection! y
+      cells = definition.cells.dup
+      # cells without optional and not found dynamic field
+      definition.cells = [].tap do |_cells|
+        while(!cells.empty?) do
+          cell = cells.pop
+          x = cell.rules.fetch(:position)
+          if dynamic_field_for_collection?(x) 
+            begin
+              _cell = find_dynamic_position cell, data_source.first
+              _cells << _cell
+            rescue => e
+              self.errors << { y: y, x: x, message: e.message, key: cell.rules.fetch(:key) }
+              raise if break_on_failure
+            end
+          else
+            _cells << cell
+          end
+        end
+      end.compact
+      nil
+    end
+
+    def dynamic_field_for_mapping? field
       field.is_a?(Array)
+    end
+
+    def dynamic_field_for_collection? field
+      field.is_a?(Regexp)
     end
 
   end
