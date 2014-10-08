@@ -104,7 +104,7 @@ module Csv2hash
         while(!cells.empty?) do
           cell = cells.pop
           x = cell.rules.fetch(:position)
-          if dynamic_field_for_collection?(x) 
+          if dynamic_field_for_collection?(x)
             begin
               _cell = find_dynamic_position cell, data_source.first
               _cells << _cell
@@ -127,6 +127,5 @@ module Csv2hash
     def dynamic_field_for_collection? field
       field.is_a?(Regexp)
     end
-
   end
 end

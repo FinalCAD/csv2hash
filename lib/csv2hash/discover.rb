@@ -5,7 +5,7 @@ module Csv2hash
       header.present? ? find_dynamic_position_x(cell, header) : find_dynamic_position_y(cell)
     end
 
-    private 
+    private
       def find_dynamic_position_y cell
         y, x = cell.rules.fetch :position
         column, matcher = y
