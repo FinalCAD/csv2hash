@@ -1,8 +1,15 @@
+### VERSION 0.7.0
+
+* feature
+  * Auto discover is also available for collection.
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/20)
+
 ### VERSION 0.6.8
 
 * bug fix
   * fix typo on generator
-  
+
 ### VERSION 0.6.7
 
 * enhancements
@@ -10,7 +17,7 @@
 
 * refactoring
   * following rails way for naming file
-  
+
 * [fullchanges](https://github.com/FinalCAD/csv2hash/pull/17)
 
 ### VERSION 0.6.6

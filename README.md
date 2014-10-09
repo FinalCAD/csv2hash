@@ -26,8 +26,9 @@ It is a DSL to validate and map a CSV to a Ruby Hash.
     * [define where your data are expected](#define-where-your-data-are-expected)
   * [Samples](#samples)
     * [[MAPPING] Validation of cells with defined precision](#mapping-validation-of-cells-with-defined-precision)
-    * [Auto discover position feature](#auto-discover-position-feature)
+    * [Auto discover position feature in Mapping](#auto-discover-position-feature-in-mapping)
     * [[COLLECTION] Validation of a collection (Regular CSV)](#collection-validation-of-a-collection-regular-csv)
+    * [Auto discover position feature in Collection](#auto-discover-position-feature-in-collection)
     * [Structure validation rules](#structure-validation-rules)
     * [CSV Headers](#csv-headers)
     * [Parser and configuration](#parser-and-configuration)
@@ -210,7 +211,7 @@ class MyParser
 end
 ```
 
-### Auto discover position feature
+### Auto discover position feature in Mapping
 
 This is a special feature for finding the Y index of row where you data start. For instance you have this following data :
 
@@ -241,6 +242,7 @@ became
 ```
 cell position: [[0, /Employment/],1], key: 'employment'
 ```
+
 
 ### [COLLECTION] Validation of a collection (Regular CSV)
 
@@ -287,6 +289,34 @@ class MyParser
   end
 end
 ```
+
+### Auto discover position feature in Collection
+
+This is a special feature for finding a specific column index on header. For example you have the following data:
+
+
+```
+| Name          | Age           |
+|---------------|---------------|
+| John Doe      | 23            |  
+| Jane Doe      | 28            |   
+|               |               |     
+|               |               |  
+```
+
+You want to extract `Name` and 'Age' for all rows but you want the order of the columns to be able to change. 
+You change the position to the regex of column index you are looking for. So this how the position 
+
+```
+cell position: 0, key: 'name'
+```
+
+can be change to
+
+```
+cell position: /Name/ key: 'name'
+```
+
 
 ### Structure validation rules
 
