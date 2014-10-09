@@ -24,6 +24,8 @@ module Csv2hash
         if y.is_a?(Array)
           column, matcher_string = y
           self.rules[:position] = [[column, Regexp.new(matcher_string)],x]
+        elsif y.is_a?(String)
+          self.rules[:position] = Regexp.new("\\A(#{y})\\z")
         end
       end
 
