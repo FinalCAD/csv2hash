@@ -1,9 +1,20 @@
+### VERSION 0.7.1
+
+* enhancements
+  * update yaml coercer to deserialize string position to regex
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/21)
+
+* [Author Ale Paredes](https://github.com/ale7714)
+
 ### VERSION 0.7.0
 
 * feature
   * Auto discover is also available for collection.
 
 * [fullchanges](https://github.com/FinalCAD/csv2hash/pull/20)
+
+* [Author Ale Paredes](https://github.com/ale7714)
 
 ### VERSION 0.6.8
 
