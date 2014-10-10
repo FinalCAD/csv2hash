@@ -26,7 +26,6 @@ module Csv2hash
         set_header_size     { header_size }
         set_structure_rules { structure_rules }
       end
-
       self.conf.fetch(:rules).each do |rule|
         definition.cells << Cell.new(rule)
       end

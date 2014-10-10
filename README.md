@@ -243,7 +243,6 @@ became
 cell position: [[0, /Employment/],1], key: 'employment'
 ```
 
-
 ### [COLLECTION] Validation of a collection (Regular CSV)
 
 Consider the following CSV:
@@ -304,7 +303,7 @@ This is a special feature for finding a specific column index on header. For exa
 |               |               |  
 ```
 
-You want to extract `Name` and 'Age' for all rows but you want the order of the columns to be able to change. 
+You want to extract `Name` and `Age` for all rows but you want the order of the columns to be able to change. 
 You change the position to the regex of column index you are looking for. So this how the position 
 
 ```
