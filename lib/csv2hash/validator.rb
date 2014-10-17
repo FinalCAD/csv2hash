@@ -28,9 +28,9 @@ module Csv2hash
         if extra_validator?(cell)
           verify_extra_validator! cell, value
         else
-          if rang? cell, value
+          if has_valid_values? cell, value
             values = cell.rules.fetch(:values)
-            verify_rang! values, value
+            verify_valid_values! values, value
           end
         end
       rescue => e
@@ -59,14 +59,14 @@ module Csv2hash
     end
 
     def verify_blank! cell, value
-      raise unless value unless cell.rules.fetch :allow_blank
+      raise unless value.present? || cell.rules.fetch(:allow_blank)
     end
 
-    def rang? cell, value
-      value && (values = cell.rules.fetch(:values))
+    def has_valid_values? cell, value
+      value.present? && cell.rules.fetch(:values)
     end
 
-    def verify_rang! values, value
+    def verify_valid_values! values, value
       if values.class == Range
         raise unless values.include?(value.to_f)
       else

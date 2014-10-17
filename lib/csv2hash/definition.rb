@@ -48,15 +48,8 @@ module Csv2hash
     def default!
       cells.each do |cell|
         cell.rules.fetch(:position)
-
         default_position cell
-        unless cell.rules.has_key? :message
-          if cell.rules.has_key? :values
-            cell.rules.merge! message: 'value :found not supported for :key, please use one of :values'
-          else
-            cell.rules.merge! message: 'undefined :key on :position'
-          end
-        end
+        default_message cell
         cell.rules.merge! mappable:    true    unless cell.rules.has_key? :mappable
         cell.rules.merge! type:       'string' unless cell.rules.has_key? :type
         cell.rules.merge! values:      nil     unless cell.rules.has_key? :values
@@ -79,5 +72,14 @@ module Csv2hash
       end
     end
 
+    def default_message cell
+      unless cell.rules.has_key? :message
+        if cell.rules.has_key? :values
+          cell.rules.merge! message: 'value :found not supported for :key, please use one of :values'
+        else
+          cell.rules.merge! message: 'undefined :key on :position'
+        end
+      end
+    end
   end
 end
