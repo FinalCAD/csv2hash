@@ -50,12 +50,13 @@ module Csv2hash
         cell.rules.fetch(:position)
         default_position cell
         default_message cell
-        cell.rules.merge! mappable:    true    unless cell.rules.has_key? :mappable
-        cell.rules.merge! type:       'string' unless cell.rules.has_key? :type
-        cell.rules.merge! values:      nil     unless cell.rules.has_key? :values
-        cell.rules.merge! nested:      nil     unless cell.rules.has_key? :nested
-        cell.rules.merge! allow_blank: false   unless cell.rules.has_key? :allow_blank
-        cell.rules.merge! extra_validator: nil unless cell.rules.has_key? :extra_validator
+        cell.rules.merge! mappable:               true  unless cell.rules.has_key? :mappable
+        cell.rules.merge! type:                'string' unless cell.rules.has_key? :type
+        cell.rules.merge! values:                  nil  unless cell.rules.has_key? :values
+        cell.rules.merge! case_sensitive_values:  true  unless cell.rules.has_key? :case_sensitive_values
+        cell.rules.merge! nested:                  nil  unless cell.rules.has_key? :nested
+        cell.rules.merge! allow_blank:           false  unless cell.rules.has_key? :allow_blank
+        cell.rules.merge! extra_validator:         nil  unless cell.rules.has_key? :extra_validator
       end
     end
 

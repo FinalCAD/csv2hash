@@ -38,21 +38,23 @@ module Csv2hash
     end
 
     describe '#validate_cell' do
-      let(:x)           { 0 }
-      let(:y)           { 0 }
-      let(:allow_blank) { false }
-      let(:values)      { nil } 
-      let(:data_source) { [ ['John Doe'] ]}
-      let(:rules)       { { position: [x, y],
-                            key: 'name',
-                            message: 'undefined :key on :position',
-                            mappable: true,
-                            type: 'string',
-                            values: values,
-                            nested: nil,
-                            allow_blank: allow_blank,
-                            extra_validator: nil }}
-      let(:cell)        { Cell.new(rules) }
+      let(:x)                     { 0 }
+      let(:y)                     { 0 }
+      let(:allow_blank)           { false }
+      let(:values)                { nil } 
+      let(:case_sensitive_values) { false }
+      let(:data_source)           { [ ['John Doe'] ]}
+      let(:rules)                 { { position: [x, y],
+                                    key: 'name',
+                                    message: 'undefined :key on :position',
+                                    mappable: true,
+                                    type: 'string',
+                                    values: values,
+                                    case_sensitive_values: case_sensitive_values,
+                                    nested: nil,
+                                    allow_blank: allow_blank,
+                                    extra_validator: nil }}
+      let(:cell)                  { Cell.new(rules) }
       
       before do 
         allow(subject).to receive(:break_on_failure) { true }
@@ -63,22 +65,41 @@ module Csv2hash
         it{ expect{ subject.send(:validate_cell, x, y, cell) }.to_not raise_error }
       end
 
-      context 'when allow_blank is false and data source value is blank' do
+      context 'when position in data source is blank' do
         let(:data_source) { [ [''] ]}
-        let(:allow_blank) { false }
-        it{ expect{ subject.send(:validate_cell, x, y, cell) }.to raise_error 'undefined :name on [0, 0]' }        
-      end
+        
+        context 'and allow_blank is false' do 
+          let(:allow_blank) { false }
+          it{ expect{ subject.send(:validate_cell, x, y, cell) }.to raise_error 'undefined :name on [0, 0]' }
+        end
 
-      context 'when allow_blank is true and data source value is blank' do
-        let(:data_source) { [ [''] ]}
-        let(:allow_blank) { true }
-        it{ expect{ subject.send(:validate_cell, x, y, cell) }.to_not raise_error }
-
-        context 'and values are not nil' do
-          let(:values) { ['yes', 'no'] }
+        context 'and allow_blank is true' do 
+          let(:allow_blank) { true }
           it{ expect{ subject.send(:validate_cell, x, y, cell) }.to_not raise_error }
-        end        
-      end        
+
+          context 'and values are not nil' do
+            let(:values) { ['yes', 'no'] }
+            it{ expect{ subject.send(:validate_cell, x, y, cell) }.to_not raise_error }
+          end  
+        end              
+      end 
+
+      context 'when values are not nil' do
+        let(:values)      { ['john doe', 'jane doe'] }
+        let(:data_source) { [ ['John Doe'] ]} 
+        
+        context 'and case_sensitive_values is true' do
+          let(:case_sensitive_values) { true }
+
+          it{ expect{ subject.send(:validate_cell, x, y, cell) }.to raise_error }
+        end
+
+        context 'and case_sensitive_values is false' do
+          let(:case_sensitive_values) { false }
+          
+          it{ expect{ subject.send(:validate_cell, x, y, cell) }.to_not raise_error }
+        end
+      end     
     end
   end
 end

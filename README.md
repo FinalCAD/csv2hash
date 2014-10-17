@@ -119,6 +119,12 @@ cell name: 'aswering', type: 'string', values: ['yes', 'no'], position: [0,0]
 cell name: 'aswering', values: ['yes', 'no'], position: [0,0]
 ```
 
+By default values are case sensitive but if you want the value to be a string that can be either 'yes' or 'no' case insentive ('Yes', 'YES', 'No', 'NO') you can define the following validation rule:
+
+```
+cell name: 'aswering', values: ['yes', 'no'], case_sensitive_values: false, position: [0,0]
+```
+
 You can define you own message but default message is 'undefined :key on :position'
 
 ```
@@ -155,6 +161,7 @@ All remaining keys are optionals:
 * mappable:    true
 * type:        'string'
 * values:      nil
+* case_sensitive_values: true
 * nested:      nil
 * allow_blank: false
 * extra_validator: nil
