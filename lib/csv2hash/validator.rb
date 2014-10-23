@@ -28,9 +28,8 @@ module Csv2hash
         if extra_validator?(cell)
           verify_extra_validator! cell, value
         else
-          if rang? cell, value
-            values = cell.rules.fetch(:values)
-            verify_rang! values, value
+          if has_valid_values? cell, value
+            verify_valid_values! cell, value
           end
         end
       rescue => e
@@ -59,20 +58,26 @@ module Csv2hash
     end
 
     def verify_blank! cell, value
-      raise unless value unless cell.rules.fetch :allow_blank
+      raise unless value.present? || cell.rules.fetch(:allow_blank)
     end
 
-    def rang? cell, value
-      value && (values = cell.rules.fetch(:values))
+    def has_valid_values? cell, value
+      value.present? && cell.rules.fetch(:values)
     end
 
-    def verify_rang! values, value
+    def verify_valid_values! cell, value
+      values = cell.rules.fetch(:values)
       if values.class == Range
         raise unless values.include?(value.to_f)
       else
-        raise unless values.include?(value)
+        case_sensitive_values = cell.rules.fetch(:case_sensitive_values)
+        raise unless valid_values_include? values, value, case_sensitive_values
       end
     end
+
+    def valid_values_include? values, value, case_sensitive
+      case_sensitive ? values.include?(value) : values.any?{ |v| v.casecmp(value)==0 }
+    end 
 
     def find_or_remove_dynamic_fields_on_mapping!
       cells = definition.cells.dup

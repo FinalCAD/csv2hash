@@ -64,6 +64,7 @@ module Csv2hash
           mappable: true,
           type: 'string',
           values: nil,
+          case_sensitive_values: true,
           nested: nil,
           allow_blank: false,
           extra_validator: nil })
