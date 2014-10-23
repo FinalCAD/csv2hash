@@ -1,41 +1,5 @@
 # Upgrading
 
-# Upgrading from 0.7.0 to 0.7.1
-
-nothing
-
-# Upgrading from 0.6.8 to 0.7.0
-
-nothing
-
-# Upgrading from 0.6.7 to 0.6.8
-
-nothing
-
-# Upgrading from 0.6.6 to 0.6.7
-
-nothing
-
-# Upgrading from 0.6.5 to 0.6.6
-
-nothing
-
-# Upgrading from 0.6.4 to 0.6.5
-
-nothing
-
-# Upgrading from 0.6.3 to 0.6.4
-
-nothing
-
-# Upgrading from 0.6.2 to 0.6.3
-
-nothing
-
-# Upgrading from 0.6.1 to 0.6.2
-
-nothing
-
 # Upgrading from 0.6 to 0.6.1
 
 Change Structure validation rules, MinColumn, MaxColumn are replaced by :min_columns, :max_columns

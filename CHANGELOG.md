@@ -1,3 +1,15 @@
+### VERSION 0.7.2
+
+* bug fix
+  Fix bug and add case sensitive values
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/22)
+* [Author Ale Paredes](https://github.com/ale7714)
+
+* enhancements
+  allow multiple versions of ruby
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/23)
+* [Author Steve Chung](https://github.com/s12chung)
+
 ### VERSION 0.7.1
 
 * enhancements
