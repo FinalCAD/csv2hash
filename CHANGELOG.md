@@ -1,3 +1,11 @@
+### VERSION 0.7.3
+
+* enhancements
+  * add sanitizer
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/24)
+* [Author Joel AZEMAR](https://github.com/joel)
+
 ### VERSION 0.7.2
 
 * bug fix
