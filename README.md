@@ -85,6 +85,15 @@ end.parse
 List of options :
 
 * `ignore_blank_line: :boolean` # i think is pretty straightforward to understand
+* `sanitizer: :boolean` remove trailing space, example:
+
+```
+  '  it is   a really  good idea!!   '
+```
+become
+```
+  => "it is a really good idea!!"
+```
 
 ### Definition DSL
 
@@ -305,13 +314,13 @@ This is a special feature for finding a specific column index on header. For exa
 | Name          | Age           |
 |---------------|---------------|
 | John Doe      | 23            |  
-| Jane Doe      | 28            |   
-|               |               |     
+| Jane Doe      | 28            |
+|               |               |
 |               |               |  
 ```
 
-You want to extract `Name` and `Age` for all rows but you want the order of the columns to be able to change. 
-You change the position to the regex of column index you are looking for. So this how the position 
+You want to extract `Name` and `Age` for all rows but you want the order of the columns to be able to change.
+You change the position to the regex of column index you are looking for. So this how the position
 
 ```
 cell position: 0, key: 'name'

@@ -24,9 +24,9 @@ module Csv2hash
             x = cell.rules.fetch :position
             if (nested = cell.rules.fetch :nested)
               parsed_data[nested] ||= {}
-              parsed_data[nested][cell.rules.fetch(:key)] = source_data[x]
+              parsed_data[nested][cell.rules.fetch(:key)] = treat(source_data[x])
             else
-              parsed_data[cell.rules.fetch(:key)] = source_data[x]
+              parsed_data[cell.rules.fetch(:key)] = treat(source_data[x])
             end
           end
         end
