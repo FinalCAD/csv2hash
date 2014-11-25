@@ -1,3 +1,7 @@
+### VERSION 0.7.4
+
+* security updates
+
 ### VERSION 0.7.3
 
 * enhancements
