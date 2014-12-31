@@ -23,8 +23,9 @@ It is a DSL to validate and map a CSV to a Ruby Hash.
   	* [Definition DSL](#definition-dsl)
     * [Definition Rules](#definition-rules)
     * [Default rules values](#default-rules-values)
-    * [define where your data are expected](#define-where-your-data-are-expected)
+    * [Define where your data are expected](#define-where-your-data-are-expected)
   * [Samples](#samples)
+    * [Autodiscover generale setting](#autodiscover-generale-setting)
     * [[MAPPING] Validation of cells with defined precision](#mapping-validation-of-cells-with-defined-precision)
     * [Auto discover position feature in Mapping](#auto-discover-position-feature-in-mapping)
     * [[COLLECTION] Validation of a collection (Regular CSV)](#collection-validation-of-a-collection-regular-csv)
@@ -33,6 +34,7 @@ It is a DSL to validate and map a CSV to a Ruby Hash.
     * [CSV Headers](#csv-headers)
     * [Parser and configuration](#parser-and-configuration)
     * [Response](#response)
+  * [Configuration](#configuration)
   * [Exception or Not !](#exception-or-not-)
     * [On **BREAK_ON_FAILURE MODE**](#on-break_on_failure-mode)
     * [On **CSV MODE**](#on-csv-mode)
@@ -42,7 +44,7 @@ It is a DSL to validate and map a CSV to a Ruby Hash.
         * [Rule](#rule)
         * [Error](#error)
   * [Personal Validator Rule](#personal-validator-rule)
-* [Config file](#config-file)
+* [Yaml Config file](#yaml-config-file)
   * [YamlLoader](#yamlloader)
 * [Type conversion](#type-conversion)
 * [Changes](#changes)
@@ -170,7 +172,7 @@ All remaining keys are optionals:
 * mappable:    true
 * type:        'string'
 * values:      nil
-* case_sensitive_values: true
+* case_sensitive_values: true # When you define set of 'values'
 * nested:      nil
 * allow_blank: false
 * extra_validator: nil
@@ -184,6 +186,19 @@ A definition should be provided. There are 2 types of definitions:
 * or search for data in a column of rows, where all the rows are the same: `x` (column index)
 
 ## Samples
+
+### Autodiscover generale setting
+
+You can define your matching expression as exact match and case sensitive or not.
+
+```
+conf.ignore_case    = true # /Sex/ become /Sex/i
+conf.exact_matching = true # /Sex/ become /\A(Sex)\z/
+```
+
+Both option can be cumulated : /Sex/ can become /\A(Sex)\z/i
+
+For further information please see section [Configuration](#configuration)
 
 ### [MAPPING] Validation of cells with defined precision
 
@@ -259,6 +274,12 @@ became
 cell position: [[0, /Employment/],1], key: 'employment'
 ```
 
+or
+
+```
+cell position: [[0, 'Employment'],1], key: 'employment'
+```
+
 ### [COLLECTION] Validation of a collection (Regular CSV)
 
 Consider the following CSV:
@@ -332,6 +353,11 @@ can be change to
 cell position: /Name/ key: 'name'
 ```
 
+or
+
+```
+cell position: 'Name' key: 'name'
+```
 
 ### Structure validation rules
 
@@ -404,6 +430,34 @@ data or errors are Array, but errors can be formatted on csv format with .to_csv
 ```
 response.errors.to_csv
 ```
+
+## Configuration
+
+You can add a configuration file on your Rails project under this directory
+
+add file `config/initializers/csv2hash.rb`
+
+You can use the Rails generator for this
+
+`rails generate csh2hash:install`
+
+```
+Csv2hash.configure do |conf|
+  # Conversion of values
+  # conf.convert        = false # default: false
+  # conf.true_values    = ['yes','y','t'] # default: ['yes','y','t']
+  # conf.false_values   = ['no','n','f']  # default: ['no','n','f']
+  # conf.nil_values     = ['nil','null']  # default: ['nil','null']
+
+  # Auto discover for (mapping and collection)
+  # conf.ignore_case    = false # default: false
+  # conf.exact_matching = false # default: false
+end
+```
+
+For explanation of "Conversion of values" please take a look on [Type conversion](#type-conversion)
+
+For explanation of "Auto discover for (mapping and collection)" please take a look on [Autodiscover generale setting](#autodiscover-generale-setting)
 
 ## Exception or Not !
 
@@ -509,7 +563,7 @@ Csv data
 [ [ 'Foo' ] ]
 ```
 
-# Config file
+# Yaml Config file
 
 You can defined rules into a yaml file
 
@@ -584,30 +638,29 @@ loader.definition
 
 # Type conversion
 
-By default Csv2hash doesn't convert basic value, but you can activate this on configuration, for Rails use :
+By default Csv2hash doesn't convert basic value, but you can activate this option `convert = true`
 
-add file `config/initializers/csv2hash.rb`
-
-```
-Csv2hash.configure do |conf|
-  conf.convert = true
-end
-```
+You can define which String are converted on `true`, `false` or `nil`
 
 ```
-rails generate csh2hash:install
+true_values = ['yes','y','t']
 ```
 
-If you want add your specific conversion
+With this configuration 'Yes' become => true (Basic boolean ruby value)
 
 ```
-Csv2hash.configure do |conf|
-  # conf.convert = false # default: false
-  # conf.true_values  = ['yes','y','t'] # default: ['yes','y','t']
-  # conf.false_values = ['no','n','f']  # default: ['no','n','f']
-  # conf.nil_values   = ['nil','null']  # default: ['nil','null']
-end
+conf.false_values = ['no','n','f']
 ```
+
+With this configuration 'No' become => false (Basic boolean ruby value)
+
+```
+conf.nil_values = ['nil','null']
+```
+
+With this configuration 'Null' become => nil (Basic ruby value)
+
+For further information please see section [Configuration](#configuration)
 
 # Changes
 

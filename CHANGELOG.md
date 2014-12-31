@@ -1,3 +1,14 @@
+### VERSION 0.7.5
+
+Add extra feature on Autodiscover Regex field.
+
+* enhancements
+  * Add case sensitive option on auto discover field
+  * Add exact matching option on auto discover field
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/25)
+* [Author Joel AZEMAR](https://github.com/joel)
+
 ### VERSION 0.7.4
 
 * security updates
