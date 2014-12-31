@@ -21,7 +21,22 @@ module Csv2hash
 
       # Public: Extract String to Regex
       #
+      # /Sex/ => /Sex/
+      # /Sex/ => /Sex/i
+      # /Sex/ => /\A(Sex)\z/
+      # /Sex/ => /\A(Sex)\z/i
+
       # 'Sex' => /Sex/
+      # 'Sex' => /Sex/i
+      # 'Sex' => /\A(Sex)\z/
+      # 'Sex' => /\A(Sex)\z/i
+      #
+      # Examples
+      #
+      #   deserialize_regex!
+      #   # => position: [0 ,0]
+      #   # => position: /Sex/
+      #   # => position: [[0 ,/Sex/], 0]
       #
       # Returns Regex (See private method YamlCoercer#regexp)
       def deserialize_regex!
