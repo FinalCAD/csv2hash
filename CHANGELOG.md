@@ -1,3 +1,11 @@
+### VERSION 0.7.6
+
+* bug fix
+  * avoid verification of field blabk and allow to do with Extra Validator
+
+* [fullchanges](https://github.com/FinalCAD/csv2hash/pull/26)
+* [Author Joel AZEMAR](https://github.com/joel)
+
 ### VERSION 0.7.5
 
 Add extra feature on Autodiscover Regex field.

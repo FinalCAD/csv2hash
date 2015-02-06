@@ -54,9 +54,10 @@ module Csv2hash
     end
 
     def verify_extra_validator! cell, value
+      return :no_extra_validation_with_empty_value unless value.present?
       raise unless cell.rules.fetch(:extra_validator).valid? cell.rules, value
     end
-
+    
     def verify_blank! cell, value
       raise unless value.present? || cell.rules.fetch(:allow_blank)
     end
@@ -77,7 +78,7 @@ module Csv2hash
 
     def valid_values_include? values, value, case_sensitive
       case_sensitive ? values.include?(value) : values.any?{ |v| v.casecmp(value)==0 }
-    end 
+    end
 
     def find_or_remove_dynamic_fields_on_mapping!
       cells = definition.cells.dup
