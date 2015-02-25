@@ -14,6 +14,8 @@ module Csv2hash
 
       def source
         CSV.read self.file_path
+      rescue ::ArgumentError
+        raise ::Csv2hash::InvalidFile
       end
 
     end
