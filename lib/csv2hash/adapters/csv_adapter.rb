@@ -13,9 +13,14 @@ module Csv2hash
       end
 
       def source
+        check_file!
         CSV.read self.file_path
-      rescue ::ArgumentError
-        raise ::Csv2hash::InvalidFile
+      end
+
+      private
+
+      def check_file!
+        raise ::Csv2hash::InvalidFile unless File.extname(self.file_path) =~ /csv/i
       end
 
     end
