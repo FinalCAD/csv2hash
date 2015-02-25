@@ -19,6 +19,7 @@ require_relative 'csv2hash/extra_validator'
 require_relative 'csv2hash/adapters/base'
 require_relative 'csv2hash/yaml_loader'
 require_relative 'csv2hash/coercers/type_coercer'
+require_relative 'csv2hash/errors'
 
 require 'csv2hash/railtie' if defined?(Rails)
 

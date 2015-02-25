@@ -1,3 +1,8 @@
+### VERSION 0.7.7
+
+* enhancements
+  * prevent to pass wrong file to CSV adapter
+
 ### VERSION 0.7.6
 
 * bug fix
